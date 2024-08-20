@@ -27,9 +27,9 @@
     right: 0;
 }
 
-@import url(https://fonts.googleapis.com/css?family=Poiret+One);
+/* @import url(https://fonts.googleapis.com/css?family=Poiret+One); */
 .social {
-    margin: 0 auto;
+    margin-top: 20px;
     width: auto;
     text-align: inherit;
     /* padding: 10px; */
@@ -80,18 +80,23 @@
 
 /* Buttons - Read Me, Contact Us */
 
-.readme {
+.btn-common {
     position: relative;
     padding: 11px 35px;
-    background: #fff;
-    color: #00796b;
-    border: 2px solid #fff;
+    margin-top: 2em;
     font-weight: 600;
     font-size: 15px;
     letter-spacing: 1px;
     display: inline-block;
     border-radius: 5px;
     -webkit-border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.readme {
+    background: #fff;
+    color: #00796b;
+    border: 2px solid #fff;
 }
 
 .readme:hover {
@@ -100,24 +105,16 @@
 }
 
 .contactme {
-    position: relative;
-    padding: 11px 35px;
     background: none;
     color: #fff;
     border: 2px solid #fff;
-    font-weight: 600;
-    font-size: 15px;
-    letter-spacing: 1px;
-    display: inline-block;
-    margin-top: 2em;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
 }
 
 .contactme:hover {
     color: #fff;
     background-color: #00796b;
 }
+
 /* main body */
 
 /* body-color */
@@ -658,17 +655,29 @@ small {
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     h2 {
-        font-size: 22px;
+        font-size: 24px;
         line-height: 200%;
-        margin: 30px 0 0;
+        margin: 20px 0 0;
+    }
+    h3 {
+        font-size: 22px;
+    }
+    h4 {
+        font-size: 20px;
     }
     h5 {
         font-size: 18px;
         line-height: 100%;
         margin: 30px 0 0;
     }
+    .btn-common {
+        padding: 11px 30px !important;
+        margin-top: 1em;
+        font-size: 15px;
+    }
+
     #intro.section .container *:not(span) {
         padding: 0;
     }
