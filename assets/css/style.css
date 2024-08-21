@@ -78,7 +78,7 @@
     background-color: black;
 }
 
-/* Buttons - Read Me, Contact Us */
+/* Buttons - Read Me, Contact Us, learn more */
 
 .btn-common {
     position: relative;
@@ -113,6 +113,20 @@
 .contactme:hover {
     color: #fff;
     background-color: #00796b;
+}
+
+.learnmore {
+    background: #00796b;
+    color: #fff !important;
+    margin-top: 10px;
+    padding: 8px 15px;
+    font-size: 12px;
+}
+
+.learnmore:hover {
+    color: white;
+    background-color: #00796b85;
+    transition: 0.5s;
 }
 
 /* main body */
@@ -697,6 +711,7 @@ small {
         bottom: 15px;
     }
     #contact a:not(.btn-floating) {
+        margin: 10px;
         text-align: center;
         display: block;
         left: initial;
@@ -706,6 +721,9 @@ small {
         display: block;
         text-align: center;
         margin: 0 auto;
+    }
+    #contact a:last-of-type {
+        margin-bottom: -10px; /* Adjust the value as needed */
     }
     #intro.section {
         background-position-x: 30%;
