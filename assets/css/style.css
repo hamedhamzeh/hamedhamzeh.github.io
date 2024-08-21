@@ -691,6 +691,11 @@ small {
         margin-top: 1em;
         font-size: 15px;
     }
+    .learnmore {
+        padding: 10px 15px !important;
+        margin-top: 1em;
+        font-size: 10px;
+    }
 
     #intro.section .container *:not(span) {
         padding: 0;
