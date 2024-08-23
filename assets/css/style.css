@@ -93,6 +93,12 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
+.center-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .readme {
     background: #fff;
     color: #00796b;
@@ -399,6 +405,21 @@ h3 {
     color: #333;
     border-bottom: 2px solid #ffab40;
 }
+.card li {
+    line-height: 1.7 !important;
+}
+
+.card .refrence {
+    color: inherit;
+    text-transform: none;
+}
+
+.card .refrence:hover {
+    margin-right: 0;
+    color: inherit;
+    color: #004d40;
+    font-weight: bold;
+}
 
 .card li a:hover {
     color: #333;
@@ -703,6 +724,9 @@ small {
     .card .card-content .card-title {
         font-size: 20px;
         line-height: 24px;
+    }
+    .card a {
+        margin-right: 0px;
     }
     #experience span.card-title {
         text-align: center;
