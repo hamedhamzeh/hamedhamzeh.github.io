@@ -94,6 +94,7 @@
 }
 
 .center-button {
+    margin-top: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -457,7 +458,15 @@ h3 {
 }
 
 #experience .card .col.s12.m2 a img {
-    max-height: 60px;
+    max-height: 80px;
+}
+
+.center-iamge {
+    margin-left: 25px;
+}
+
+.Avita-logo {
+    padding-top: 10px;
 }
 
 .card-action span {
@@ -482,6 +491,7 @@ h3 {
 
 .card .card-title {
     font-size: 24px;
+    padding-top: 20px;
 }
 
 .card .card-content .card-title {
@@ -728,12 +738,19 @@ small {
     .card a {
         margin-right: 0px;
     }
+    .card p {
+        font-size: 16px;
+    }
     #experience span.card-title {
         text-align: center;
         display: block;
+        padding-top: 0px;
     }
     #experience span.card-title a {
         margin: 0;
+    }
+    .center-iamge {
+        margin-left: 0px;
     }
     i.mdi-navigation-close.right {
         position: relative;
