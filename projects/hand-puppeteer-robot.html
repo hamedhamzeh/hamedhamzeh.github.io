@@ -172,7 +172,7 @@
 
     <!-- First Section: intro -->
     <section id="about" class="section scrollspy ">
-      <h3 class="page-title projects-title white-text teal">Introduction</h3>
+      <h3 class="page-title projects-title white-text teal">Hand Puppeteer robot</h3>
       <div class="container projects-container flow-text">      
         <p>
           The Hand Puppeteer Robot project was initially conceived as a tool for studying and assisting children with autism.
@@ -192,7 +192,23 @@
     <section id="design" class="section scrollspy ">
       <h3 class="page-title projects-title white-text teal">System Design</h3>
       <div class="container projects-container flow-text">      
-        <p></p>
+        <p>
+          The robot consists of three arms, each equipped with a servo motor to control its movements.
+          Another servo motor is dedicated to rotating the entire body, providing the robot with two degrees of freedom.
+          The robot's mobility is further enhanced by a detachable two-motor, three-wheel mechanism, which allows it to move on surface when required.
+          This modular design ensures that the robot can be easily adapted for different use cases, such as stationary manipulation or mobile interaction.
+          The device is controlled via a NodeMCU board, which facilitates wireless communication through Wi-Fi, enabling remote operation.
+          </p>
+          <div class="projects-image waves-effect waves-block waves-light">
+            <img alt="Hand-Pupeet-Robot-solid" src="/assets/img/HandPupeetRobot.png"
+              class="activator" />
+          </div>
+          <p>
+            Originally, the robot was intended to be controlled by a specially designed glove, with an MPU6050 Gyro module allowing for gesture-based commands.
+            Although the glove project was discontinued, the robot's design was adjusted to incorporate machine vision-based control.
+            Collaboratively, I and my colleague developed a YOLO v8 pose detection model to track puppet movements.
+            This model was synchronized with the robot, allowing remote control based on hand gestures and enhancing the robot's interactive capabilities.
+          </p>
       </div>  
     </section>
 

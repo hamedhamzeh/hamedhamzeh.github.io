@@ -322,6 +322,15 @@ li.logo span {
     width: 85%;
 }
 
+.projects-image {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+.projects-image img {
+    width: 50%;
+}
+
 h3 {
     font-weight: 400;
     margin-bottom: 60px;
@@ -663,11 +672,15 @@ small {
         padding: 20px 30px;
         margin-bottom: 40px;
     }
-    .projects-title {
-        margin-top: -90px;
+    #about {
+        margin-top: -65px;
     }
     .container {
         margin: 0 auto;
+    }
+
+    .projects-image img {
+        width: 70%;
     }
     nav.hide-on-large.only.trigger {
         display: block;
@@ -739,9 +752,9 @@ small {
         font-size: 10px;
     }
 
-    .projects-title {
+    /* .projects-title {
         margin-top: -90px;
-    }
+    } */
 
     #intro.section .container *:not(span) {
         padding: 0;
