@@ -310,8 +310,16 @@ li.logo span {
     font-weight: inherit;
 }
 
+.projects-title {
+    margin-top: 0px;
+}
+
 .container {
     width: 95%;
+}
+
+.projects-container {
+    width: 85%;
 }
 
 h3 {
@@ -655,6 +663,9 @@ small {
         padding: 20px 30px;
         margin-bottom: 40px;
     }
+    .projects-title {
+        margin-top: -90px;
+    }
     .container {
         margin: 0 auto;
     }
@@ -728,6 +739,10 @@ small {
         font-size: 10px;
     }
 
+    .projects-title {
+        margin-top: -90px;
+    }
+
     #intro.section .container *:not(span) {
         padding: 0;
     }
@@ -752,10 +767,10 @@ small {
     .center-iamge {
         margin-left: 0px;
     }
-    i.mdi-navigation-close.right {
+    /* i.mdi-navigation-close.right {
         position: relative;
         bottom: 15px;
-    }
+    } */
     #contact a:not(.btn-floating) {
         margin: 10px;
         text-align: center;
