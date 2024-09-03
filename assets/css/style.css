@@ -830,8 +830,8 @@ small {
     }
 
     .video-option {
-        font-size: 20px; /* Slightly smaller buttons for smaller screens */
-        padding: 10px; /* Increase padding for touch devices */
+        font-size: 15px; /* Slightly smaller buttons for smaller screens */
+        padding: 7px; /* Increase padding for touch devices */
     }
 }
     #experience span.card-title {
