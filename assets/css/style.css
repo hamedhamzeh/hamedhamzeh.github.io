@@ -627,6 +627,58 @@ small {
   background-color: #00695c !important;
 } */
 
+#videos{
+    padding-bottom: 0px ;
+}
+
+.video-container {
+    margin-bottom: 0px;
+    text-align: center;
+    align-items: center;
+    height: 80vh;
+    max-width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#mainVideo {
+    border-radius: 30px; /* Round the corners of the video */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Add a subtle shadow for depth */
+    max-width: 100%;
+    height: auto;
+}
+
+.video-controls {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.video-option {
+    cursor: pointer;
+    font-size: 24px;
+    margin: 0 5px;
+    background: none;
+    border: none;
+    color: #333;
+    transition: transform 0.2s ease-in-out, color 0.3s;
+    outline: none;
+    padding: 5px;
+}
+
+.video-option:hover,
+.video-option.selected {
+    transform: scale(1.3); /* Enlarge the button when hovered or selected */
+    color: #007bff; /* Change color on hover */
+}
+
+.video-option:focus {
+    outline: none;
+    background-color: transparent;
+}
+
 @media (min-width: 1200px) {
     #experience .container {
         width: 860px;
@@ -769,6 +821,19 @@ small {
     .card p {
         font-size: 16px;
     }
+    .video-container{
+        height: 65%;
+    }
+    #mainVideo {
+        width: 100%; /* Make the video take full width on smaller screens */
+        height: auto;
+    }
+
+    .video-option {
+        font-size: 20px; /* Slightly smaller buttons for smaller screens */
+        padding: 10px; /* Increase padding for touch devices */
+    }
+}
     #experience span.card-title {
         text-align: center;
         display: block;
