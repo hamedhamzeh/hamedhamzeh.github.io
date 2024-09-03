@@ -286,7 +286,56 @@
             <section id="model" class="section scrollspy">
                 <h3 class="page-title projects-title white-text teal">AI model</h3>
                 <div class="container projects-container flow-text">
-                    <p></p>
+                    <p>
+                        For the Hand Puppeteer Robot, we employed the YOLOv8 Pose model to enhance the robot’s ability
+                        to recognize and mimic puppet poses. This model was selected due to its high accuracy and
+                        real-time processing capabilities, making it ideal for dynamic environments. The model’s
+                        architecture consists of three primary components: the Backbone for feature extraction, the Neck
+                        for feature integration, and the Head for detection and prediction. To train the model, we first
+                        created a custom dataset by capturing videos of the puppet’s movements under various lighting
+                        conditions and angles. The data was then labeled with key points such as the puppet's head,
+                        shoulders, and hands, which were crucial for accurate pose detection.
+                    </p>
+                    <div class="projects-image waves-effect waves-block waves-light">
+                        <img alt="Hand-Pupeet-Robot-solid" src="/assets/img/pupeetDetection.jpg" class="activator" />
+                    </div>
+                    <p>
+                        The model was fine-tuned using data augmentation techniques, including rotation, resizing, and
+                        brightness adjustment, to improve its robustness across different scenarios. The trained model
+                        successfully integrated with the robot, allowing it to respond accurately to the puppet's
+                        movements in real-time. Below you can see model's preformance metrics:
+                    </p>
+                    <h2>Model Evaluation Metrics</h2>
+                    <table>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>Overall Accuracy</td>
+                            <td>91.4%</td>
+                        </tr>
+                        <tr>
+                            <td>False Positive Rate (FPR)</td>
+                            <td>0.08</td>
+                        </tr>
+                        <tr>
+                            <td>False Negative Rate (FNR)</td>
+                            <td>0.12</td>
+                        </tr>
+                        <tr>
+                            <td>Mean Squared Error (MSE)</td>
+                            <td>0.015</td>
+                        </tr>
+                        <tr>
+                            <td>Mean Average Precision (mAP)</td>
+                            <td>0.91</td>
+                        </tr>
+                        <tr>
+                            <td>Training Loss</td>
+                            <td>0.082</td>
+                        </tr>
+                    </table>
                 </div>
             </section>
 
@@ -317,7 +366,19 @@
             <section id="discussion" class="section scrollspy">
                 <h3 class="page-title projects-title white-text teal">Discussion</h3>
                 <div class="container projects-container flow-text">
-                    <p></p>
+                    <p>
+                        While the current implementation of the Hand Puppeteer Robot demonstrates effective pose
+                        detection and real-time response, several areas for improvement remain. One key challenge is
+                        enhancing the model’s accuracy in low-light conditions or when the puppet's movements are
+                        partially obscured. Future work could involve expanding the dataset with more varied
+                        environmental conditions to increase the model’s robustness. Additionally, integrating advanced
+                        noise reduction techniques or adaptive filtering could reduce the impact of environmental noise
+                        on pose detection accuracy. Another potential enhancement is the exploration of more lightweight
+                        architectures to improve processing speed further, which is crucial for real-time applications
+                        in resource-constrained environments. Moreover, extending the model's capabilities to recognize
+                        more complex puppet actions or gestures could broaden the robot's application scope, making it
+                        more versatile for educational or therapeutic settings .
+                    </p>
                 </div>
             </section>
         </main>
