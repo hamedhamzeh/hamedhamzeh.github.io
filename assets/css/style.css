@@ -631,7 +631,8 @@ table {
     border-collapse: collapse;
     margin-bottom: 20px;
 }
-th, td {
+th,
+td {
     padding: 12px;
     text-align: center;
     border-bottom: 1px solid #ddd;
@@ -640,10 +641,12 @@ th {
     background-color: #00796b;
     color: white;
 }
-tr:hover {background-color: #f5f5f5;}
+tr:hover {
+    background-color: #f5f5f5;
+}
 
-#videos{
-    padding-bottom: 0px ;
+#videos {
+    padding-bottom: 0px;
 }
 
 .video-container {
@@ -819,10 +822,6 @@ tr:hover {background-color: #f5f5f5;}
         font-size: 10px;
     }
 
-    /* .projects-title {
-        margin-top: -90px;
-    } */
-
     #intro.section .container *:not(span) {
         padding: 0;
     }
@@ -836,19 +835,14 @@ tr:hover {background-color: #f5f5f5;}
     .card p {
         font-size: 16px;
     }
-    .video-container{
-        height: 65%;
-    }
-    #mainVideo {
-        width: 100%; /* Make the video take full width on smaller screens */
-        height: auto;
+    .video-container {
+        height: 60vh;
     }
 
     .video-option {
         font-size: 15px; /* Slightly smaller buttons for smaller screens */
         padding: 7px; /* Increase padding for touch devices */
     }
-}
     #experience span.card-title {
         text-align: center;
         display: block;
@@ -860,10 +854,6 @@ tr:hover {background-color: #f5f5f5;}
     .center-iamge {
         margin-left: 0px;
     }
-    /* i.mdi-navigation-close.right {
-        position: relative;
-        bottom: 15px;
-    } */
     #contact a:not(.btn-floating) {
         margin: 10px;
         text-align: center;
@@ -881,5 +871,11 @@ tr:hover {background-color: #f5f5f5;}
     }
     #intro.section {
         background-position-x: 30%;
+    }
+}
+
+@media (max-width: 400px) {
+    .video-container {
+        height: 40vh;
     }
 }

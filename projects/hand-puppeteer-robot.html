@@ -124,15 +124,6 @@
 
                 <li class="bold">
                     <a
-                        aria-label="Navigate to the Education section"
-                        href="#videos"
-                        class="waves-effect waves-dark teal-text"
-                        ><i class="mdi-av-videocam small"></i><span>Videos</span></a
-                    >
-                </li>
-
-                <li class="bold">
-                    <a
                         aria-label="Navigate to the Contact section"
                         href="#discussion"
                         class="waves-effect waves-dark teal-text"
@@ -203,15 +194,6 @@
 
                 <li class="bold">
                     <a
-                        aria-label="Navigate to the Education section"
-                        href="#videos"
-                        class="waves-effect waves-dark teal-text"
-                        ><i class="mdi-av-videocam small"></i><span>Videos</span></a
-                    >
-                </li>
-
-                <li class="bold">
-                    <a
                         aria-label="Navigate to the Contact section"
                         href="#discussion"
                         class="waves-effect waves-dark teal-text"
@@ -237,6 +219,23 @@
             <section id="about" class="section scrollspy">
                 <h3 class="page-title projects-title white-text teal">Hand Puppeteer robot</h3>
                 <div class="container projects-container flow-text">
+                    <div class="video-container">
+                        <video id="mainVideo" width="700" height="360" controls>
+                            <source id="videoSource" src="/assets/Videos/Pupeet_Video1.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-controls">
+                            <button class="video-option" onclick="changeVideo('/assets/Videos/Pupeet_Video1.mp4')">
+                                ●
+                            </button>
+                            <button class="video-option" onclick="changeVideo('/assets/Videos/Pupeet_Video2.mp4')">
+                                ●
+                            </button>
+                            <button class="video-option" onclick="changeVideo('/assets/Videos/Pupeet_Video3.mp4')">
+                                ●
+                            </button>
+                        </div>
+                    </div>
                     <p>
                         The Hand Puppeteer Robot project was initially conceived as a tool for studying and assisting
                         children with autism. The broader aim of the project evolved to explore the potential of
@@ -336,30 +335,6 @@
                             <td>0.082</td>
                         </tr>
                     </table>
-                </div>
-            </section>
-
-            <!-- Forht Section: AI model -->
-            <section id="videos" class="section scrollspy">
-                <h3 class="page-title projects-title white-text teal">Videos</h3>
-                <div class="container projects-container flow-text">
-                    <div class="video-container">
-                        <video id="mainVideo" width="640" height="360" controls>
-                            <source id="videoSource" src="/assets/Videos/Pupeet_Video1.mp4" type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
-                        <div class="video-controls">
-                            <button class="video-option" onclick="changeVideo('/assets/Videos/Pupeet_Video1.mp4')">
-                                ●
-                            </button>
-                            <button class="video-option" onclick="changeVideo('/assets/Videos/Pupeet_Video2.mp4')">
-                                ●
-                            </button>
-                            <button class="video-option" onclick="changeVideo('/assets/Videos/Pupeet_Video3.mp4')">
-                                ●
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </section>
 
