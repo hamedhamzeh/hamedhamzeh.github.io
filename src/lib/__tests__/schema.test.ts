@@ -91,8 +91,10 @@ describe('personNode', () => {
   it('uses author name and split given/family names', () => {
     const node = personNode();
     expect(node.name).toBe(AUTHOR_NAME);
-    expect(node.givenName).toBe('Michael');
-    expect(node.familyName).toBe("D'Angelo");
+    const [givenName, ...familyParts] = AUTHOR_NAME.split(' ');
+    const familyName = familyParts.join(' ');
+    expect(node.givenName).toBe(givenName);
+    expect(node.familyName).toBe(familyName);
   });
 
   it('exposes an ImageObject and social sameAs links', () => {

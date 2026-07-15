@@ -3,9 +3,9 @@
  */
 
 // Site configuration
-export const SITE_URL = 'https://mldangelo.com';
-export const AUTHOR_NAME = "Michael D'Angelo";
-export const TWITTER_HANDLE = '@dangelosaurus';
+export const SITE_URL = 'https://hamedhamzeh.github.io';
+export const AUTHOR_NAME = 'Hamed Hamzeh';
+export const TWITTER_HANDLE = '@hamedhamzeh';
 export const SITE_IMAGE_PATH = '/images/me.jpg';
 export const SITE_IMAGE_DIMENSIONS = {
   width: 1024,
@@ -14,8 +14,7 @@ export const SITE_IMAGE_DIMENSIONS = {
 
 // Canonical one-line bio, shared across page metadata, OpenGraph, and JSON-LD.
 export const SITE_DESCRIPTION =
-  'Member of the Technical Staff at OpenAI, working on Promptfoo and agent security. Previously co-founded Promptfoo, Arthena, and Matroid, and led engineering at Smile ID.';
-
+  'Computer Vision Developer with experience building deep-learning systems for industrial monitoring, sports analytics, robotics, and medical imaging, with a growing focus on MLOps and reliable AI deployment.';
 // Image dimension constants
 export const AVATAR_SIZE = {
   hero: 120,

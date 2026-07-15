@@ -1,11 +1,11 @@
 {
-  "name": "personal-site",
+  "name": "hamedhamzeh-portfolio",
   "version": "4.1.0",
-  "homepage": "https://mldangelo.com/",
+  "homepage": "https://hamedhamzeh.github.io/",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mldangelo/personal-site.git"
+    "url": "https://github.com/hamedhamzeh/hamedhamzeh.github.io.git"
   },
   "engines": {
     "node": "^20.19.0 || ^22.13.0 || >=24.0.0"
@@ -66,5 +66,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "allowScripts": {}
 }
