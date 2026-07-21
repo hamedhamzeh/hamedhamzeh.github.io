@@ -42,13 +42,13 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   keywords: [
     AUTHOR_NAME,
-    'OpenAI',
-    'Promptfoo',
-    'agent security',
-    'LLM security',
+    'computer vision',
+    'robotics',
+    'deep learning',
     'machine learning',
-    'startup founder',
-    'YC',
+    'mlops',
+    'sports analytics',
+    'industrial monitoring',
   ],
   authors: [{ name: AUTHOR_NAME }],
   creator: AUTHOR_NAME,
@@ -69,14 +69,14 @@ export const metadata: Metadata = {
       },
     ],
   },
-  twitter: {
-    card: 'summary_large_image',
-    site: TWITTER_HANDLE,
-    creator: TWITTER_HANDLE,
-    title: AUTHOR_NAME,
-    description: SITE_DESCRIPTION,
-    images: [SITE_IMAGE_PATH],
-  },
+  // twitter: {
+  //   card: 'summary_large_image',
+  //   site: TWITTER_HANDLE,
+  //   creator: TWITTER_HANDLE,
+  //   title: AUTHOR_NAME,
+  //   description: SITE_DESCRIPTION,
+  //   images: [SITE_IMAGE_PATH],
+  // },
   robots: {
     index: true,
     follow: true,
@@ -90,11 +90,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"

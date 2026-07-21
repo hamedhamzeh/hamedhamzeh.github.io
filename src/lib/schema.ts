@@ -31,8 +31,7 @@ export const SITE_IMAGE = `${SITE_URL}${SITE_IMAGE_PATH}`;
 export const HOME_URL = `${SITE_URL}/`;
 
 // Shared so the /writing metadata and the Blog node stay in sync.
-export const WRITING_DESCRIPTION =
-  'Articles on AI security, LLM red teaming, and trust & safety.';
+export const WRITING_DESCRIPTION = 'Diary of a Wisdom Seeker';
 
 type SchemaNode = Record<string, unknown>;
 
@@ -110,7 +109,7 @@ export function websiteNode(): SchemaNode {
     '@id': WEBSITE_ID,
     url: HOME_URL,
     name: AUTHOR_NAME,
-    alternateName: ['mldangelo.com', 'mldangelo'],
+    alternateName: ['hamedhamzeh.github.io', 'hamedo'],
     description: SITE_DESCRIPTION,
     inLanguage: SITE_LANGUAGE,
     publisher: personRef(),

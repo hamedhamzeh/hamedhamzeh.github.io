@@ -13,8 +13,8 @@ export interface Position {
 
 const work: Position[] = [
   {
-    name: 'OpenAI',
-    position: 'Member of the Technical Staff',
+    name: 'AISoccerCoach',
+    position: 'Computer Vision Developer ',
     url: 'https://openai.com',
     startDate: '2026-03-09',
     summary: `Building evaluation, red-teaming, and hardening infrastructure for AI systems

@@ -16,7 +16,7 @@ export default function Footer() {
             <ThemePortrait width={80} height={80} />
           </Link>
           <div className="footer-info">
-            <h3>Michael D&apos;Angelo</h3>
+            <h3>Hamed Hamzeh</h3>
             <p className="footer-role">{currentRole}</p>
             <p className="footer-copyright">
               &copy; {new Date().getFullYear()} ·{' '}
@@ -44,10 +44,7 @@ export default function Footer() {
             </div>
           </nav>
 
-          <div
-            className="footer-social"
-            aria-labelledby="footer-social-heading"
-          >
+          <div className="footer-social" aria-labelledby="footer-social-heading">
             <h4 id="footer-social-heading" className="footer-social-label">
               Connect
             </h4>
