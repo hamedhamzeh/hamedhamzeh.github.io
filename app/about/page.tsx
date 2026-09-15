@@ -5,17 +5,11 @@ import { SchemaGraph } from '@/components/Schema';
 import PageWrapper from '@/components/Template/PageWrapper';
 import { aboutMarkdown } from '@/data/about';
 import { createPageMetadata } from '@/lib/metadata';
-import {
-  breadcrumbNode,
-  HOME_URL,
-  profilePageNode,
-  SITE_URL,
-} from '@/lib/schema';
+import { breadcrumbNode, HOME_URL, profilePageNode, SITE_URL } from '@/lib/schema';
 
 const ABOUT_URL = `${SITE_URL}/about/`;
 
-const ABOUT_DESCRIPTION =
-  "Learn about Michael D'Angelo - Member of the Technical Staff at OpenAI and builder across AI, security, and infrastructure.";
+const ABOUT_DESCRIPTION = 'Learn about Hamed Hamzeh - Computer Vision Developer at AISoccerCoach.';
 
 export const metadata: Metadata = createPageMetadata({
   title: 'About',
@@ -25,7 +19,7 @@ export const metadata: Metadata = createPageMetadata({
 
 export default function AboutPage() {
   return (
-    <PageWrapper mainClassName="page-main--wide">
+    <PageWrapper>
       <SchemaGraph
         nodes={[
           profilePageNode({
