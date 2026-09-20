@@ -26,21 +26,17 @@ describe('ResumeNav', () => {
       'href',
       '#skills',
     );
-    expect(screen.getByRole('link', { name: /courses/i })).toHaveAttribute(
-      'href',
-      '#courses',
-    );
     expect(screen.getByRole('link', { name: /references/i })).toHaveAttribute(
       'href',
       '#references',
     );
   });
 
-  it('renders 5 navigation links', () => {
+  it('renders 4 navigation links', () => {
     render(<ResumeNav />);
 
     const links = screen.getAllByRole('link');
-    expect(links.length).toBe(5);
+    expect(links.length).toBe(4);
   });
 
   it('has correct CSS class', () => {
