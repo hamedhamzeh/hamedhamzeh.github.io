@@ -39,6 +39,15 @@ describe('skills data', () => {
       expect(skill.category.length).toBe(1);
     }
   });
+
+  it('provides both IELTS report variants to exercise gallery navigation', () => {
+    const ieltsSkill = skills.find((skill) => skill.title.includes('IELTS'));
+
+    expect(ieltsSkill?.gallery?.images).toHaveLength(2);
+    expect(ieltsSkill?.gallery?.images.map(({ width }) => width)).toEqual([
+      1425, 713,
+    ]);
+  });
 });
 
 describe('categories data', () => {

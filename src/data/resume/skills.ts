@@ -1,6 +1,9 @@
+import type { LightboxGalleryData } from '@/types/media';
+
 export interface Skill {
   title: string;
   category: string[];
+  gallery?: LightboxGalleryData;
 }
 
 export interface Category {
@@ -88,7 +91,23 @@ const skills: Skill[] = [
 
   // Languages
   { title: 'Persian — Native', category: ['Languages'] },
-  { title: 'English — IELTS Academic 7.0', category: ['Languages'] },
+  {
+    title: 'English — IELTS Academic 7.0',
+    category: ['Languages'],
+    gallery: {
+      triggerLabel: 'View score report',
+      dialogLabel: 'IELTS score report',
+      images: [
+        {
+          src: '/images/assets/Ielts_Report_Redacted.webp',
+          alt: 'Redacted IELTS Academic Test Report Form showing an overall band score of 7.0',
+          width: 1425,
+          height: 2000,
+          title: 'IELTS score report',
+        },
+      ],
+    },
+  },
   { title: 'German — A1', category: ['Languages'] },
 ];
 

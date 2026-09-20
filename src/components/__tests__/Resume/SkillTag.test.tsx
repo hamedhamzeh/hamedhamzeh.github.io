@@ -48,4 +48,29 @@ describe('SkillTag', () => {
     // Should use Languages color since it's first in categories list
     expect(tag.style.getPropertyValue('--tag-color')).toBe('#6968b3');
   });
+
+  it('renders a gallery trigger when media evidence is provided', () => {
+    const skill = {
+      title: 'English — IELTS Academic 7.0',
+      category: ['Languages'],
+      gallery: {
+        triggerLabel: 'View score report',
+        dialogLabel: 'IELTS score report',
+        images: [
+          {
+            src: '/images/report.webp',
+            alt: 'Redacted IELTS report',
+            width: 1200,
+            height: 1600,
+          },
+        ],
+      },
+    };
+
+    render(<SkillTag data={skill} categories={mockCategories} />);
+
+    expect(
+      screen.getByRole('button', { name: 'View score report' }),
+    ).toBeInTheDocument();
+  });
 });

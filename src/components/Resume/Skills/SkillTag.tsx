@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 
+import LightboxGallery from '@/components/Media/LightboxGallery';
 import type { Category, Skill } from '@/data/resume/skills';
 
 interface SkillTagProps {
@@ -8,7 +9,7 @@ interface SkillTagProps {
 }
 
 export default function SkillTag({ data, categories }: SkillTagProps) {
-  const { category, title } = data;
+  const { category, gallery, title } = data;
 
   // Get the primary category color
   const categoryColor = categories.find((cat) =>
@@ -25,6 +26,13 @@ export default function SkillTag({ data, categories }: SkillTagProps) {
       }
     >
       <span className="skill-tag-name">{title}</span>
+      {gallery && (
+        <LightboxGallery
+          images={gallery.images}
+          triggerLabel={gallery.triggerLabel}
+          dialogLabel={gallery.dialogLabel}
+        />
+      )}
     </span>
   );
 }
