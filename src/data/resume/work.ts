@@ -1,149 +1,126 @@
+export interface EvidenceLink {
+  label: string;
+  url: string;
+}
+
+export interface PositionSection {
+  title: string;
+  startDate?: string;
+  endDate?: string;
+  highlights: string[];
+  links?: EvidenceLink[];
+}
+
 /**
- * Conforms to https://jsonresume.org/schema/
+ * Based on the JSON Resume work shape, with optional subsections for projects
+ * or consecutive roles held at the same organization.
  */
 export interface Position {
   name: string;
   position: string;
-  url: string;
+  url?: string;
   startDate: string;
   endDate?: string;
   summary?: string;
   highlights?: string[];
+  subsections?: PositionSection[];
+  links?: EvidenceLink[];
 }
 
 const work: Position[] = [
   {
-    name: 'AISoccerCoach',
-    position: 'Computer Vision Developer ',
-    url: 'https://openai.com',
-    startDate: '2026-03-09',
-    summary: `Building evaluation, red-teaming, and hardening infrastructure for AI systems
-    at OpenAI, with a focus on Promptfoo and agent security.`,
-  },
-  {
-    name: 'Promptfoo',
-    position: 'Co-founder & CTO',
-    url: 'https://promptfoo.dev',
-    startDate: '2024-07-01',
-    endDate: '2026-03-09',
-    summary: `Promptfoo started as a developer-first eval tool and grew into a platform
-    for AI security, red-teaming, and compliance. We scaled it to more than 350,000 developers, 130,000
-    monthly active users, and teams at more than 25% of the Fortune 500 before selling the company to OpenAI.`,
+    name: 'AISoccer Coach',
+    position: 'Computer Vision Developer',
+    startDate: '2025-08-01',
     highlights: [
-      'Owned company-wide technical strategy and product roadmap across open-source adoption, commercial product, and research investments.',
-      'Co-led the company through its sale to OpenAI in March 2026.',
-      'Helped turn Promptfoo from an open-source eval tool into an enterprise AI security product used by large companies and frontier labs.',
-      'Built and scaled the company from founding to 23 people across engineering, GTM, and operations.',
-      'Led technical due diligence and fundraising through $23.4M in venture financing from Insight Partners and Andreessen Horowitz.',
-      'Led development of core evaluation framework, vulnerability scanning, static analysis, and automated red-teaming capabilities.',
+      'Develop computer-vision systems for soccer player identification and action recognition.',
+      'Build triplet-loss feature-extraction pipelines using ResNet and MobileNet architectures.',
+      'Integrated YOLOv8 player detection with a team-classification pipeline that assigned detected players to the correct team with 98% accuracy.',
+      'Fine-tune Vision Transformer models for soccer-player action recognition and use Grad-CAM to interpret their predictions.',
+    ],
+    links: [
+      {
+        label: 'View AISoccerCoach on the App Store',
+        url: 'https://apps.apple.com/us/app/aisoccercoach/id6744994129',
+      },
     ],
   },
   {
-    name: 'Smile ID',
-    position: 'VP Engineering & Head of AI',
-    url: 'https://usesmileid.com',
-    startDate: '2022-01-01',
-    endDate: '2024-07-01',
-    summary: `Smile Identity provides ML-powered identity verification APIs used by banks, fintechs, and
-    telcos across Africa. Promoted from Director to VP Engineering to VP Engineering & Head of AI within one year,
-    leading teams building APIs that now process hundreds of millions of identity checks.`,
+    name: 'PART AI',
+    position: 'Computer Vision Developer',
+    startDate: '2026-01-01',
+    endDate: '2026-06-01',
     highlights: [
-      'Owned engineering org design, headcount planning, and hiring across backend and ML teams, growing to 20+ engineers.',
-      'Transformed engineering velocity from weekly releases to continuous deployment, migrating to TypeScript, adding tests in CI, and leading ceremonies.',
-      'Re-architected inference APIs on AWS Lambda, scaling from 1,000 to 1M+ users per day and cutting job time from 30+ seconds to 7 seconds.',
-      'Built computer vision pipelines for liveness detection certification.',
-      'Pitched, designed, and shipped a fraud detection product using 1-N facial recognition with embeddings and vector search.',
+      'Built a prototype computer-vision pipeline for truck detection, tracking, and activity monitoring.',
+      'Trained YOLO models to identify phone use and smoking as workplace-safety events.',
+      'Prototyped a machine-vision method for monitoring the motion of three-piston industrial pumps.',
     ],
   },
   {
-    name: 'Skeptical Investments',
-    position: 'Co-founder',
-    url: 'http://skepticalinvestments.biz',
-    startDate: '2017-04-01',
-    summary: `Skeptical Investments is a micro-VC fund focused on early-stage technical founders,
-    with investments in ML, infrastructure, and space startups.`,
-    highlights: [
-      'Created InstaSafe, a tool that automates YC-standard investment documents.',
-      'Advise portfolio founders on ML, infrastructure, hiring, and fundraising strategy.',
-    ],
-  },
-  {
-    name: 'Arthena',
-    position: 'Co-founder & CTO',
-    url: 'https://arthena.com',
-    startDate: '2014-01-01',
-    endDate: '2022-01-01',
-    summary: `Arthena was a quantitative art investment platform backed by <a href='https://www.anthemis.com/'>Anthemis</a>,
-    <a href='https://foundationcapital.com'>Foundation Capital</a>, and <a href='https://ycombinator.com'>Y Combinator</a>.
-    Built Arthena from idea to acquisition by Masterworks in 2023.`,
-    highlights: [
-      'Co-founded Arthena and led technical strategy; sat on board and led fundraising, including debt financing for a 9-figure investment vehicle in the auction guarantee market.',
-      'Built and managed a cross-functional team of 20 engineers, data scientists, and analysts.',
-      'Built data pipelines, quantitative research tools, and visualization systems to scale investment research and augment analyst decision-making.',
-      'Developed valuation models on irregularly-sampled time series using graph embeddings, probabilistic forecasting with calibrated prediction intervals, and online learning with walk-forward validation.',
-      'Designed micro-service architecture for data collection, feature engineering, backtesting, and reporting.',
-    ],
-  },
-  {
-    name: 'Matroid',
-    position: 'Co-founder',
-    url: 'https://matroid.com',
-    startDate: '2015-09-01',
-    endDate: '2016-06-01',
-    summary: `Matroid is a computer vision platform for creating and deploying detectors, now funded by
-    <a href='https://www.nea.com'>NEA</a> and <a href='https://www.accel.com'>Accel</a>. I co-founded
-    the company and built the initial product through our first fundraise.`,
-    highlights: [
-      'Defined company vision and product strategy.',
-      'Architected and built the initial detector platform for identifying objects, events, and patterns in video.',
-      'Led technical fundraising efforts for seed round.',
-    ],
-  },
-  {
-    name: 'Planet',
-    position: 'Avionics Intern',
-    url: 'https://planet.com',
-    startDate: '2014-06-01',
-    endDate: '2015-01-01',
-    highlights: [
-      'Built models for cloud detection and optimal exposure using Earth albedo, incorporating sensor physics, astronomy, and optics.',
-      'Worked with optics and camera hardware; developed satellite software in C++ and Python (OpenCV, NumPy, SciPy).',
-    ],
-  },
-  {
-    name: 'Planetary Resources',
-    position: 'Avionics Intern',
-    url: 'https://www.planetaryresources.com',
-    startDate: '2014-01-01',
-    endDate: '2014-05-01',
-    highlights: [
-      'Developed simulations for Attitude Determination and Control Subsystem.',
-      'Built flight hardware for Electrical Power Subsystem in clean room; performed thermal vacuum chamber testing.',
-    ],
-  },
-  {
-    name: 'Facebook',
-    position: 'Software Engineering Intern',
-    url: 'https://facebook.com',
-    startDate: '2013-06-01',
-    endDate: '2013-09-01',
-    highlights: [
-      "Worked on Facebook's first GPU compute team, benchmarking NVIDIA GPUs for initial data center deployment.",
-      'Built log collection software and performed statistical analysis in Python, Hack, R, and HQL.',
-    ],
-  },
-  {
-    name: 'UB Nanosatellite Program',
-    position: 'Program Manager',
-    url: 'https://ubnl.space/',
-    startDate: '2011-06-01',
-    endDate: '2012-05-01',
+    name: 'ARIS Lab, University of Tehran',
+    position: 'Research Assistant',
+    url: 'https://aris.ut.ac.ir/en',
+    startDate: '2023-09-01',
+    endDate: '2025-05-01',
     summary:
-      'Led a 60-person student team through the satellite development lifecycle for the AFRL University Nanosatellite Program.',
-    highlights: [
-      'Co-authored grant proposal to design and build a multi-spectral imaging satellite.',
-      'Established budget and schedule from initial concept through design reviews.',
-      'Designed ADCS and worked on sensor integration.',
+      'Conducted applied research in robotics, computer vision, and embedded control under the supervision of Prof. Manouchehr Moradisabzevar.',
+    subsections: [
+      {
+        title: 'Hand Puppeteer Robot',
+        highlights: [
+          'Designed and fabricated a 3D-printed robotic puppet integrating mechanical design, embedded control, and vision-based interaction.',
+          'Programmed a NodeMCU-based control system to process gyroscope measurements and translate gestures into robot movement.',
+          'Created and annotated a dataset of 2,000 images containing pose keypoints and bounding boxes.',
+          'Trained a YOLOv8 pose-estimation model and integrated its predictions with the robot for vision-based movement control.',
+        ],
+        links: [
+          { label: 'Read paper', url: '/about' },
+          { label: 'Watch demo', url: '/about' },
+          // { label: 'View project', url: '/about' },
+        ],
+      },
+      {
+        title: 'Silkworm Robot',
+        highlights: [
+          'Contributed to the design and experimental evaluation of a modular, bio-inspired robot using passive magnetic adhesion for movement on ferromagnetic surfaces.',
+          'Designed and fabricated robot components using PLA, TPU, and Plexiglas, and developed an ESP32-based interface for remote operation.',
+          'Conducted locomotion experiments across different module speeds and frequencies to evaluate maneuverability and energy efficiency.',
+          'Contributed to the resulting research manuscript and experimental analysis.',
+        ],
+        links: [
+          { label: 'Read paper', url: '/about' },
+          { label: 'Watch demo', url: '/about' },
+          // { label: 'View project', url: '/about' },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Ganje',
+    position: 'Mechanical Engineer and Junior Front-End Developer',
+    url: 'https://ganje.net/en/',
+    startDate: '2022-07-01',
+    endDate: '2023-06-01',
+    subsections: [
+      {
+        title: 'Junior Front-End Developer',
+        startDate: '2023-01-01',
+        endDate: '2023-06-01',
+        highlights: [
+          'Developed a React and TypeScript interface that enabled repair technicians to access and manage smart parcel lockers.',
+          'Collaborated with front-end and back-end developers through Git-based workflows and code reviews to integrate locker-management features.',
+        ],
+      },
+      {
+        title: 'Mechanical Engineer',
+        startDate: '2022-07-01',
+        endDate: '2023-01-01',
+        highlights: [
+          'Designed sheet-metal smart lockers and produced CAD models and engineering drawings using SolidWorks and Onshape.',
+          'Used COMSOL simulations to evaluate locker components against environmental loads and vandalism risks.',
+          'Coordinated designs with manufacturing requirements to support fabrication and assembly.',
+        ],
+      },
     ],
   },
 ];

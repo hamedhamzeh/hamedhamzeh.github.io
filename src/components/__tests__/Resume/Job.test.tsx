@@ -21,6 +21,19 @@ describe('Job', () => {
     expect(link).toHaveAttribute('href', 'https://acme.com');
   });
 
+  it('renders company name without a link when no URL is provided', () => {
+    render(<Job data={{ ...mockJob, url: undefined }} />);
+
+    expect(
+      screen.getByRole('heading', {
+        name: /acme corp - senior engineer/i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('link', { name: /acme corp/i }),
+    ).not.toBeInTheDocument();
+  });
+
   it('renders position title', () => {
     render(<Job data={mockJob} />);
 
@@ -89,6 +102,58 @@ describe('Job', () => {
 
     const list = document.querySelector('.points');
     expect(list).not.toBeInTheDocument();
+  });
+
+  it('renders project or role subsections with their own dates', () => {
+    render(
+      <Job
+        data={{
+          ...mockJob,
+          highlights: undefined,
+          subsections: [
+            {
+              title: 'Research Project',
+              startDate: '2021-02-01',
+              endDate: '2021-08-01',
+              highlights: ['Validated the prototype'],
+            },
+          ],
+        }}
+      />,
+    );
+
+    expect(
+      screen.getByRole('heading', { name: 'Research Project' }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Validated the prototype')).toBeInTheDocument();
+    expect(screen.getByText(/february 2021/i)).toBeInTheDocument();
+    expect(screen.getByText(/august 2021/i)).toBeInTheDocument();
+  });
+
+  it('renders safe external and internal evidence links', () => {
+    render(
+      <Job
+        data={{
+          ...mockJob,
+          links: [
+            { label: 'View app', url: 'https://example.com/app' },
+            { label: 'View project', url: '/projects/example' },
+          ],
+        }}
+      />,
+    );
+
+    expect(screen.getByRole('link', { name: /view app/i })).toHaveAttribute(
+      'target',
+      '_blank',
+    );
+    expect(screen.getByRole('link', { name: /view app/i })).toHaveAttribute(
+      'rel',
+      'noopener noreferrer',
+    );
+    expect(
+      screen.getByRole('link', { name: 'View project' }),
+    ).not.toHaveAttribute('target');
   });
 
   it('renders as article element', () => {

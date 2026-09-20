@@ -12,12 +12,10 @@ describe('work data', () => {
     for (const job of work) {
       expect(job).toHaveProperty('name');
       expect(job).toHaveProperty('position');
-      expect(job).toHaveProperty('url');
       expect(job).toHaveProperty('startDate');
 
       expect(typeof job.name).toBe('string');
       expect(typeof job.position).toBe('string');
-      expect(typeof job.url).toBe('string');
       expect(typeof job.startDate).toBe('string');
     }
   });
@@ -48,11 +46,13 @@ describe('work data', () => {
     }
   });
 
-  it('urls are valid', () => {
+  it('urls are valid when present', () => {
     const urlRegex = /^https?:\/\/.+/;
 
     for (const job of work) {
-      expect(job.url).toMatch(urlRegex);
+      if (job.url) {
+        expect(job.url).toMatch(urlRegex);
+      }
     }
   });
 
@@ -67,6 +67,39 @@ describe('work data', () => {
       if (job.highlights) {
         expect(Array.isArray(job.highlights)).toBe(true);
         expect(job.highlights.length).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it('subsections contain titled highlight groups when present', () => {
+    for (const job of work) {
+      for (const subsection of job.subsections ?? []) {
+        expect(subsection.title.trim().length).toBeGreaterThan(0);
+        expect(subsection.highlights.length).toBeGreaterThan(0);
+
+        if (subsection.startDate && subsection.endDate) {
+          expect(new Date(subsection.endDate).getTime()).toBeGreaterThan(
+            new Date(subsection.startDate).getTime(),
+          );
+        }
+      }
+    }
+  });
+
+  it('evidence links have labels and valid internal or external URLs', () => {
+    const validateLinks = (
+      links: Array<{ label: string; url: string }> | undefined,
+    ) => {
+      for (const link of links ?? []) {
+        expect(link.label.trim().length).toBeGreaterThan(0);
+        expect(link.url).toMatch(/^(https?:\/\/|\/)/);
+      }
+    };
+
+    for (const job of work) {
+      validateLinks(job.links);
+      for (const subsection of job.subsections ?? []) {
+        validateLinks(subsection.links);
       }
     }
   });

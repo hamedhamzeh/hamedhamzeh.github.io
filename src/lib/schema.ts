@@ -89,7 +89,7 @@ export function personNode(): SchemaNode {
     worksFor: {
       '@type': 'Organization',
       name: currentJob.name,
-      url: currentJob.url,
+      ...(currentJob.url ? { url: currentJob.url } : {}),
     },
     alumniOf: degrees.map((degree) => ({
       '@type': 'CollegeOrUniversity',
