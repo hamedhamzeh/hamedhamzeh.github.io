@@ -360,6 +360,25 @@
   text-transform: none;
 }
 
+.degree-detail {
+  color: var(--color-fg-light);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  margin: 0.35rem 0 0;
+}
+
+.degree-detail strong {
+  color: var(--color-fg);
+}
+
+.degree-detail cite {
+  font-style: italic;
+}
+
+.degree-thesis {
+  margin-top: var(--spacing-3);
+}
+
 /* ========================================
    COURSE CARDS
    ======================================== */

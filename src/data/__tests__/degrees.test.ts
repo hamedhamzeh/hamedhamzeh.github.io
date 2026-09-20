@@ -13,12 +13,14 @@ describe('degrees data', () => {
       expect(degree).toHaveProperty('school');
       expect(degree).toHaveProperty('degree');
       expect(degree).toHaveProperty('link');
-      expect(degree).toHaveProperty('year');
+      expect(degree).toHaveProperty('startYear');
+      expect(degree).toHaveProperty('endYear');
 
       expect(typeof degree.school).toBe('string');
       expect(typeof degree.degree).toBe('string');
       expect(typeof degree.link).toBe('string');
-      expect(typeof degree.year).toBe('number');
+      expect(typeof degree.startYear).toBe('number');
+      expect(typeof degree.endYear).toBe('number');
     }
   });
 
@@ -26,8 +28,9 @@ describe('degrees data', () => {
     const currentYear = new Date().getFullYear();
 
     for (const degree of degrees) {
-      expect(degree.year).toBeGreaterThanOrEqual(1950);
-      expect(degree.year).toBeLessThanOrEqual(currentYear + 10);
+      expect(degree.startYear).toBeGreaterThanOrEqual(1950);
+      expect(degree.endYear).toBeLessThanOrEqual(currentYear + 10);
+      expect(degree.endYear).toBeGreaterThanOrEqual(degree.startYear);
     }
   });
 
@@ -41,7 +44,7 @@ describe('degrees data', () => {
 
   it('degrees are ordered by year (most recent first)', () => {
     for (let i = 0; i < degrees.length - 1; i++) {
-      expect(degrees[i].year).toBeGreaterThanOrEqual(degrees[i + 1].year);
+      expect(degrees[i].endYear).toBeGreaterThanOrEqual(degrees[i + 1].endYear);
     }
   });
 
@@ -55,6 +58,16 @@ describe('degrees data', () => {
   it('each degree has a non-empty degree name', () => {
     for (const degree of degrees) {
       expect(degree.degree.trim().length).toBeGreaterThan(0);
+    }
+  });
+
+  it('thesis details are complete when present', () => {
+    for (const degree of degrees) {
+      if (degree.thesis) {
+        expect(degree.thesis.title.trim().length).toBeGreaterThan(0);
+        expect(degree.thesis.grade).toMatch(/^\d+(\.\d+)?\/\d+$/);
+        expect(degree.thesis.supervisor.trim().length).toBeGreaterThan(0);
+      }
     }
   });
 });

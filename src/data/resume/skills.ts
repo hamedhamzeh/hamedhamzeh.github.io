@@ -1,6 +1,5 @@
 export interface Skill {
   title: string;
-  competency: number;
   category: string[];
 }
 
@@ -9,133 +8,93 @@ export interface Category {
   color: string;
 }
 
+const categoryNames = [
+  'Vision',
+  'ML & DL',
+  'MLOps',
+  'Optimization',
+  'Programming',
+  'Front-end',
+  'Robotics',
+  'Mechanical Eng',
+  'Tools',
+  'Languages',
+] as const;
+
 const skills: Skill[] = [
-  // Languages
-  {
-    title: 'Python',
-    competency: 5,
-    category: ['Languages', 'ML Engineering'],
-  },
-  {
-    title: 'TypeScript',
-    competency: 5,
-    category: ['Languages', 'Web Development'],
-  },
-  {
-    title: 'SQL',
-    competency: 4,
-    category: ['Languages', 'Databases'],
-  },
-  // AI & LLM
-  {
-    title: 'AI Agents',
-    competency: 5,
-    category: ['ML Engineering'],
-  },
-  {
-    title: 'LLM Evaluation',
-    competency: 5,
-    category: ['ML Engineering'],
-  },
-  {
-    title: 'AI Red-teaming',
-    competency: 5,
-    category: ['ML Engineering'],
-  },
-  {
-    title: 'LLM APIs',
-    competency: 5,
-    category: ['ML Engineering'],
-  },
-  {
-    title: 'RAG',
-    competency: 4,
-    category: ['ML Engineering'],
-  },
-  {
-    title: 'Prompt Engineering',
-    competency: 4,
-    category: ['ML Engineering'],
-  },
-  {
-    title: 'Vector Databases',
-    competency: 4,
-    category: ['ML Engineering', 'Databases'],
-  },
-  {
-    title: 'PyTorch',
-    competency: 4,
-    category: ['ML Engineering'],
-  },
-  {
-    title: 'Pandas',
-    competency: 5,
-    category: ['ML Engineering', 'Data Engineering'],
-  },
+  // Computer Vision
+  { title: 'Object Detection', category: ['Vision'] },
+  { title: 'Multi-Object Tracking', category: ['Vision'] },
+  { title: 'Pose Estimation', category: ['Vision'] },
+  { title: 'Action Recognition', category: ['Vision'] },
+  { title: 'Feature Extraction', category: ['Vision'] },
+  { title: 'Model Interpretability', category: ['Vision'] },
+
+  // ML & Deep Learning
+  { title: 'PyTorch', category: ['ML & DL'] },
+  { title: 'scikit-learn', category: ['ML & DL'] },
+  { title: 'CNNs', category: ['ML & DL'] },
+  { title: 'Vision Transformers', category: ['ML & DL'] },
+  { title: 'LSTMs', category: ['ML & DL'] },
+  { title: 'TensorFlow / Keras', category: ['ML & DL'] },
+
+  // MLOps
+  { title: 'MLflow', category: ['MLOps'] },
+  { title: 'Prefect', category: ['MLOps'] },
+  { title: 'DVC', category: ['MLOps'] },
+  { title: 'Docker', category: ['MLOps'] },
+  { title: 'FastAPI', category: ['MLOps'] },
+  { title: 'Weights & Biases', category: ['MLOps'] },
+  { title: 'Experiment Tracking', category: ['MLOps'] },
+  { title: 'Workflow Orchestration', category: ['MLOps'] },
+
+  // Model Optimization & Inference
+  { title: 'ONNX', category: ['Optimization'] },
+  { title: 'TensorRT', category: ['Optimization'] },
+  { title: 'Model Conversion', category: ['Optimization'] },
+
+  // Programming & Data
+  { title: 'Python', category: ['Programming'] },
+  { title: 'C++', category: ['Programming'] },
+  { title: 'MATLAB', category: ['Programming'] },
+  { title: 'SQL', category: ['Programming'] },
+  { title: 'NumPy', category: ['Programming'] },
+  { title: 'Pandas', category: ['Programming'] },
+
   // Web Development
-  {
-    title: 'Node.js',
-    competency: 5,
-    category: ['Web Development'],
-  },
-  {
-    title: 'FastAPI',
-    competency: 4,
-    category: ['Web Development'],
-  },
-  {
-    title: 'Next.js',
-    competency: 3,
-    category: ['Web Development'],
-  },
-  // Databases
-  {
-    title: 'PostgreSQL',
-    competency: 4,
-    category: ['Databases'],
-  },
-  {
-    title: 'Redis',
-    competency: 3,
-    category: ['Databases'],
-  },
-  // Infrastructure
-  {
-    title: 'AWS',
-    competency: 4,
-    category: ['Infrastructure'],
-  },
-  {
-    title: 'Docker',
-    competency: 4,
-    category: ['Infrastructure'],
-  },
-  {
-    title: 'Kubernetes',
-    competency: 3,
-    category: ['Infrastructure'],
-  },
-  {
-    title: 'Observability',
-    competency: 4,
-    category: ['Infrastructure', 'ML Engineering'],
-  },
-].map((skill) => ({ ...skill, category: skill.category.sort() }));
+  { title: 'React', category: ['Front-end'] },
+  { title: 'Next.js', category: ['Front-end'] },
+  { title: 'TypeScript', category: ['Front-end'] },
+  { title: 'JavaScript', category: ['Front-end'] },
+  { title: 'REST APIs', category: ['Front-end'] },
 
-/**
- * Build categories from skills, all using the accent color token.
- */
-function buildCategories(skillsList: Skill[]): Category[] {
-  const uniqueCategories = Array.from(
-    new Set(skillsList.flatMap(({ category }) => category)),
-  ).sort();
+  // Robotics & Embedded Systems
+  { title: 'ESP32 / NodeMCU', category: ['Robotics'] },
+  { title: 'Arduino', category: ['Robotics'] },
+  { title: 'Sensor Integration', category: ['Robotics'] },
+  { title: 'Robot Control', category: ['Robotics'] },
+  { title: '3D Printing', category: ['Robotics'] },
 
-  return uniqueCategories.map((category) => ({
-    name: category,
-    color: 'var(--color-accent)',
-  }));
-}
+  // Mechanical Engineering
+  { title: 'SolidWorks / Onshape', category: ['Mechanical Eng'] },
+  { title: 'Siemens NX', category: ['Mechanical Eng'] },
+  { title: 'COMSOL Multiphysics', category: ['Mechanical Eng'] },
+  { title: 'CAD / CAE', category: ['Mechanical Eng'] },
+  { title: 'Design for Manufacturing', category: ['Mechanical Eng'] },
 
-const categories: Category[] = buildCategories(skills);
+  // Development Tools
+  { title: 'Git', category: ['Tools'] },
+  { title: 'Linux', category: ['Tools'] },
+
+  // Languages
+  { title: 'Persian — Native', category: ['Languages'] },
+  { title: 'English — IELTS Academic 7.0', category: ['Languages'] },
+  { title: 'German — A1', category: ['Languages'] },
+];
+
+const categories: Category[] = categoryNames.map((name) => ({
+  name,
+  color: 'var(--color-accent)',
+}));
 
 export { categories, skills };

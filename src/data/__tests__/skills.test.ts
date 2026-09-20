@@ -11,19 +11,10 @@ describe('skills data', () => {
   it('each skill has required properties', () => {
     for (const skill of skills) {
       expect(skill).toHaveProperty('title');
-      expect(skill).toHaveProperty('competency');
       expect(skill).toHaveProperty('category');
 
       expect(typeof skill.title).toBe('string');
-      expect(typeof skill.competency).toBe('number');
       expect(Array.isArray(skill.category)).toBe(true);
-    }
-  });
-
-  it('competency values are between 1 and 5', () => {
-    for (const skill of skills) {
-      expect(skill.competency).toBeGreaterThanOrEqual(1);
-      expect(skill.competency).toBeLessThanOrEqual(5);
     }
   });
 
@@ -43,11 +34,9 @@ describe('skills data', () => {
     }
   });
 
-  // Data quality: categories should be sorted for consistent UI display
-  it('skill categories are sorted alphabetically for UI consistency', () => {
+  it('skill categories remain stable for consistent UI display', () => {
     for (const skill of skills) {
-      const sorted = [...skill.category].sort();
-      expect(skill.category).toEqual(sorted);
+      expect(skill.category.length).toBe(1);
     }
   });
 });
@@ -79,12 +68,21 @@ describe('categories data', () => {
     }
   });
 
-  // Data quality: categories should be sorted for filter button display order
-  it('categories are sorted alphabetically by name', () => {
+  it('categories follow the intended resume display order', () => {
     const names = categories.map((c) => c.name);
-    const sorted = [...names].sort();
 
-    expect(names).toEqual(sorted);
+    expect(names).toEqual([
+      'Vision',
+      'ML & DL',
+      'MLOps',
+      'Optimization',
+      'Programming',
+      'Front-end',
+      'Robotics',
+      'Mechanical Eng',
+      'Tools',
+      'Languages',
+    ]);
   });
 
   it('all skill categories are represented', () => {

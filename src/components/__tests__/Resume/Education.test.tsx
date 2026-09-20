@@ -9,13 +9,15 @@ const mockDegrees = [
     school: 'Stanford University',
     degree: 'M.S. Computer Science',
     link: 'https://stanford.edu',
-    year: 2020,
+    startYear: 2018,
+    endYear: 2020,
   },
   {
     school: 'MIT',
     degree: 'B.S. Computer Science',
     link: 'https://mit.edu',
-    year: 2016,
+    startYear: 2012,
+    endYear: 2016,
   },
 ];
 
@@ -58,7 +60,15 @@ describe('Degree', () => {
     school: 'Stanford University',
     degree: 'M.S. Computer Science',
     link: 'https://stanford.edu',
-    year: 2020,
+    startYear: 2018,
+    endYear: 2020,
+    location: 'Stanford, CA',
+    gpa: 'Last two years: 4.0/4',
+    thesis: {
+      title: 'A Study of Reliable Systems',
+      grade: '19/20',
+      supervisor: 'Dr. Ada Lovelace',
+    },
   };
 
   it('renders degree title', () => {
@@ -76,10 +86,21 @@ describe('Degree', () => {
     expect(link).toHaveAttribute('href', 'https://stanford.edu');
   });
 
-  it('displays year', () => {
+  it('displays date range and location', () => {
     render(<Degree data={mockDegree} />);
 
-    expect(screen.getByText(/2020/)).toBeInTheDocument();
+    expect(document.querySelector('.school')).toHaveTextContent(
+      'Stanford University, 2018–2020 · Stanford, CA',
+    );
+  });
+
+  it('renders GPA and thesis details', () => {
+    render(<Degree data={mockDegree} />);
+
+    expect(screen.getByText(/Last two years: 4.0\/4/)).toBeInTheDocument();
+    expect(screen.getByText('A Study of Reliable Systems')).toBeInTheDocument();
+    expect(screen.getByText(/19\/20/)).toBeInTheDocument();
+    expect(screen.getByText(/Dr. Ada Lovelace/)).toBeInTheDocument();
   });
 
   it('renders as article element', () => {
