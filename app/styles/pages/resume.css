@@ -19,6 +19,7 @@
 
 .resume-page .education .title,
 .resume-page .experience .title,
+.resume-page .honors .title,
 .resume-page .publications .title,
 .resume-page .skills .title,
 .resume-page .references .title {
@@ -28,6 +29,7 @@
 
 .resume-page .education .title h3,
 .resume-page .experience .title h3,
+.resume-page .honors .title h3,
 .resume-page .publications .title h3,
 .resume-page .skills .title h3,
 .resume-page .references .title h3 {

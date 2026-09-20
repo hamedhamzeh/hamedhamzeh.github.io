@@ -2,12 +2,14 @@ import type { Metadata } from 'next';
 
 import Education from '@/components/Resume/Education';
 import Experience from '@/components/Resume/Experience';
+import Honors from '@/components/Resume/Honors';
 import Publications from '@/components/Resume/Publications';
 import References from '@/components/Resume/References';
 import ResumeNav from '@/components/Resume/ResumeNav';
 import Skills from '@/components/Resume/Skills';
 import PageWrapper from '@/components/Template/PageWrapper';
 import degrees from '@/data/resume/degrees';
+import honors from '@/data/resume/honors';
 import publications from '@/data/resume/publications';
 import { categories, skills } from '@/data/resume/skills';
 import work from '@/data/resume/work';
@@ -55,6 +57,10 @@ export default function ResumePage() {
 
           <section id="skills" className="resume-section">
             <Skills skills={skills} categories={categories} />
+          </section>
+
+          <section id="honors" className="resume-section">
+            <Honors data={honors} />
           </section>
 
           <section id="references" className="resume-section">

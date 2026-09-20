@@ -494,3 +494,85 @@
     padding: var(--spacing-5);
   }
 }
+
+/* ========================================
+   HONOR AND AWARD CARDS
+   ======================================== */
+
+.honors-list {
+  display: grid;
+  gap: var(--spacing-4);
+}
+
+.honor-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  position: relative;
+}
+
+.honor-card::before {
+  background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-accent-secondary) 100%);
+  border-radius: 2px;
+  bottom: var(--spacing-5);
+  content: '';
+  left: 0;
+  position: absolute;
+  top: var(--spacing-5);
+  width: 3px;
+}
+
+.honor-card-header {
+  align-items: flex-start;
+  display: flex;
+  gap: var(--spacing-4);
+  justify-content: space-between;
+  margin-bottom: var(--spacing-3);
+}
+
+.honor-card h4 {
+  color: var(--color-fg-bold);
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.honor-card time {
+  color: var(--color-fg-light);
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.honor-issuer {
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  margin: var(--spacing-1) 0 0;
+}
+
+.honor-description,
+.honor-note {
+  color: var(--color-fg-light);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.honor-note {
+  font-size: var(--text-sm);
+  font-style: italic;
+  margin-top: var(--spacing-2);
+}
+
+@media (max-width: 736px) {
+  .honor-card {
+    padding: var(--spacing-5);
+  }
+
+  .honor-card-header {
+    align-items: flex-start;
+  }
+}
