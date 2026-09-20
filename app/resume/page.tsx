@@ -2,11 +2,13 @@ import type { Metadata } from 'next';
 
 import Education from '@/components/Resume/Education';
 import Experience from '@/components/Resume/Experience';
+import Publications from '@/components/Resume/Publications';
 import References from '@/components/Resume/References';
 import ResumeNav from '@/components/Resume/ResumeNav';
 import Skills from '@/components/Resume/Skills';
 import PageWrapper from '@/components/Template/PageWrapper';
 import degrees from '@/data/resume/degrees';
+import publications from '@/data/resume/publications';
 import { categories, skills } from '@/data/resume/skills';
 import work from '@/data/resume/work';
 import { createPageMetadata } from '@/lib/metadata';
@@ -45,6 +47,10 @@ export default function ResumePage() {
 
           <section id="education" className="resume-section">
             <Education data={degrees} />
+          </section>
+
+          <section id="publications" className="resume-section">
+            <Publications data={publications} />
           </section>
 
           <section id="skills" className="resume-section">

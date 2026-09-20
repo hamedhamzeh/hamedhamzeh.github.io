@@ -74,7 +74,10 @@ const work: Position[] = [
           'Trained a YOLOv8 pose-estimation model and integrated its predictions with the robot for vision-based movement control.',
         ],
         links: [
-          { label: 'Read paper', url: '/about' },
+          {
+            label: 'Read paper',
+            url: 'https://ieeexplore.ieee.org/document/10903519',
+          },
           { label: 'Watch demo', url: '/about' },
           // { label: 'View project', url: '/about' },
         ],
@@ -88,7 +91,10 @@ const work: Position[] = [
           'Contributed to the resulting research manuscript and experimental analysis.',
         ],
         links: [
-          { label: 'Read paper', url: '/about' },
+          {
+            label: 'Read paper',
+            url: 'https://ieeexplore.ieee.org/document/11551324',
+          },
           { label: 'Watch demo', url: '/about' },
           // { label: 'View project', url: '/about' },
         ],
@@ -97,7 +103,7 @@ const work: Position[] = [
   },
   {
     name: 'Ganje',
-    position: 'Mechanical Engineer and Junior Front-End Developer',
+    position: '',
     url: 'https://ganje.net/en/',
     startDate: '2022-07-01',
     endDate: '2023-06-01',
