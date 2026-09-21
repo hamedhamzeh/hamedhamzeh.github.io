@@ -1,3 +1,4 @@
+import LightboxGallery from '@/components/Media/LightboxGallery';
 import type { Publication as PublicationType } from '@/data/resume/publications';
 
 interface PublicationProps {
@@ -26,9 +27,14 @@ export default function Publication({ data }: PublicationProps) {
   return (
     <article className="publication-card">
       <header className="publication-card-header">
-        <span className="publication-type">
-          {data.status === 'Under Review' ? data.status : data.type}
-        </span>
+        <div className="publication-types">
+          <span className="publication-type">
+            {data.status === 'Under Review' ? data.status : data.type}
+          </span>
+          {data.presentation ? (
+            <span className="publication-type">{data.presentation.label}</span>
+          ) : null}
+        </div>
         {data.year ? (
           <time dateTime={String(data.year)}>{data.year}</time>
         ) : null}
@@ -55,13 +61,26 @@ export default function Publication({ data }: PublicationProps) {
 
       {data.venue ? <p className="publication-venue">{data.venue}</p> : null}
 
-      {data.url || data.doi ? (
+      {data.presentation ? (
+        <p className="publication-presentation-note">
+          {data.presentation.note}
+        </p>
+      ) : null}
+
+      {data.url || data.doi || data.presentation ? (
         <div className="publication-links">
           {data.url && data.linkLabel ? (
             <a href={data.url} target="_blank" rel="noopener noreferrer">
               {data.linkLabel}
               <span aria-hidden="true"> ↗</span>
             </a>
+          ) : null}
+          {data.presentation ? (
+            <LightboxGallery
+              images={data.presentation.gallery.images}
+              triggerLabel={data.presentation.gallery.triggerLabel}
+              dialogLabel={data.presentation.gallery.dialogLabel}
+            />
           ) : null}
           {data.doi ? (
             <span className="publication-doi">DOI: {data.doi}</span>

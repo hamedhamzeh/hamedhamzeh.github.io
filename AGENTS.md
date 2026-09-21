@@ -64,7 +64,8 @@ docs/                 → Documentation
 
 ## Git Workflow
 
-- Create a topic branch for every task; never commit or push directly to `main`
+- Work on the currently checked-out branch. Do not create, switch, rename, or delete branches without the user's explicit permission.
+- Never commit or push directly to `main`.
 - Make small, frequent conventional commits as you go (e.g., `feat:`, `fix:`, `refactor:`)
 - Push to your remote branch after every commit to keep it in sync
 - Land changes on `main` by merging GitHub PRs with conventional-commit titles (deploys trigger automatically from these merges)

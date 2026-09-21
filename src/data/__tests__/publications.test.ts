@@ -23,7 +23,14 @@ describe('publications data', () => {
       doi: '10.1109/ICRoM64545.2024.10903519',
       url: 'https://ieeexplore.ieee.org/document/10903519',
       linkLabel: 'View on IEEE Xplore',
+      presentation: {
+        label: 'Oral presentation',
+        note: 'Selected for oral presentation at ICRoM 2024.',
+      },
     });
+    expect(puppetPaper?.presentation?.gallery.images[0]?.src).toBe(
+      '/images/assets/ICROM 2024.webp',
+    );
     expect(silkwormPaper).toMatchObject({
       year: 2026,
       type: 'Journal article',

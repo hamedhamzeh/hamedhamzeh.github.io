@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import Publications from '../../Resume/Publications';
@@ -21,6 +21,22 @@ const mockPublication = {
   url: 'https://example.com/paper',
   linkLabel: 'View publication',
   doi: '10.1000/example',
+  presentation: {
+    label: 'Oral presentation',
+    note: 'Selected for oral presentation at ICRoM 2024.',
+    gallery: {
+      triggerLabel: 'View presentation certificate',
+      dialogLabel: 'ICRoM 2024 presentation certificate',
+      images: [
+        {
+          src: '/images/assets/ICROM 2024.webp',
+          alt: 'ICRoM 2024 presentation certificate',
+          width: 1636,
+          height: 1181,
+        },
+      ],
+    },
+  },
 };
 
 describe('Publications', () => {
@@ -79,6 +95,7 @@ describe('Publication', () => {
           url: undefined,
           linkLabel: undefined,
           doi: undefined,
+          presentation: undefined,
         }}
       />,
     );
@@ -95,5 +112,24 @@ describe('Publication', () => {
     expect(link).toHaveAttribute('href', mockPublication.url);
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  });
+
+  it('renders oral-presentation evidence in the shared lightbox', () => {
+    render(<Publication data={mockPublication} />);
+
+    expect(screen.getByText('Oral presentation')).toBeInTheDocument();
+    expect(
+      screen.getByText('Selected for oral presentation at ICRoM 2024.'),
+    ).toBeInTheDocument();
+
+    fireEvent.click(
+      screen.getByRole('button', { name: 'View presentation certificate' }),
+    );
+
+    expect(
+      screen.getByRole('dialog', {
+        name: 'ICRoM 2024 presentation certificate',
+      }),
+    ).toBeInTheDocument();
   });
 });
