@@ -19,14 +19,7 @@ export default function Footer() {
             <h3>Hamed Hamzeh</h3>
             <p className="footer-role">{currentRole}</p>
             <p className="footer-copyright">
-              &copy; {new Date().getFullYear()} ·{' '}
-              <a
-                href="https://github.com/mldangelo/personal-site"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
+              &copy; {new Date().getFullYear()}
             </p>
           </div>
         </div>

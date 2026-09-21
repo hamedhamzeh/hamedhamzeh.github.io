@@ -18,14 +18,7 @@ const routes: Route[] = [
     label: 'Resume',
     path: '/resume',
   },
-  {
-    label: 'Writing',
-    path: '/writing',
-  },
-  {
-    label: 'Stats',
-    path: '/stats',
-  },
+  // Writing and Stats will return to the navigation when their new content is ready.
   {
     label: 'Contact',
     path: '/contact',

@@ -38,12 +38,16 @@ describe('Navigation', () => {
   it('renders navigation links for all non-index routes', () => {
     render(<Navigation />);
 
-    // Should have links for About, Resume, Writing, Stats, Contact, Archive
+    // Writing and Stats are intentionally hidden until their new content is ready.
     expect(screen.getByRole('link', { name: /about/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /resume/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /archive/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /writing/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /stats/i })).toBeInTheDocument();
+    expect(
+      screen.queryByRole('link', { name: /writing/i }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('link', { name: /stats/i }),
+    ).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: /contact/i })).toBeInTheDocument();
   });
 
