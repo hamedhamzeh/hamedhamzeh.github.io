@@ -32,6 +32,7 @@ export default function Footer() {
             <div className="footer-links-grid">
               <Link href="/about">About</Link>
               <Link href="/resume">Resume</Link>
+              <Link href="/publications">Publications</Link>
               <Link href="/projects">Projects</Link>
               <Link href="/contact">Contact</Link>
             </div>

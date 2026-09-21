@@ -4,8 +4,13 @@ import Image from 'next/image';
 import type { Project } from '@/data/projects';
 import { PROJECT_IMAGE } from '@/lib/utils';
 
+export type ProjectCardData = Omit<Project, 'date' | 'image'> & {
+  date?: string;
+  image?: string;
+};
+
 interface CellProps {
-  data: Project;
+  data: ProjectCardData;
 }
 
 export default function Cell({ data }: CellProps) {
@@ -15,15 +20,24 @@ export default function Cell({ data }: CellProps) {
 
   const cardContent = (
     <>
-      <div className="project-card-image">
-        <Image
-          src={image}
-          alt={title}
-          width={PROJECT_IMAGE.width}
-          height={PROJECT_IMAGE.height}
-          sizes="(max-width: 600px) 100vw, 50vw"
-        />
-      </div>
+      {image ? (
+        <div className="project-card-image">
+          <Image
+            src={image}
+            alt={title}
+            width={PROJECT_IMAGE.width}
+            height={PROJECT_IMAGE.height}
+            sizes="(max-width: 600px) 100vw, 50vw"
+          />
+        </div>
+      ) : (
+        <div
+          className="project-card-image project-card-image--placeholder"
+          aria-hidden="true"
+        >
+          Publication
+        </div>
+      )}
 
       <div className="project-card-content">
         <header className="project-card-header">
@@ -43,9 +57,11 @@ export default function Cell({ data }: CellProps) {
           </div>
         )}
 
-        <time className="project-card-date" dateTime={date}>
-          {dayjs(date).format('YYYY')}
-        </time>
+        {date && (
+          <time className="project-card-date" dateTime={date}>
+            {dayjs(date).format('YYYY')}
+          </time>
+        )}
       </div>
     </>
   );

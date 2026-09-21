@@ -18,14 +18,18 @@ const routes: Route[] = [
     label: 'Resume',
     path: '/resume',
   },
+  {
+    label: 'Publications',
+    path: '/publications',
+  },
   // Writing and Stats will return to the navigation when their new content is ready.
+  {
+    label: 'Projects',
+    path: '/projects',
+  },
   {
     label: 'Contact',
     path: '/contact',
-  },
-  {
-    label: 'Archive',
-    path: '/projects',
   },
 ];
 

@@ -15,10 +15,10 @@ import {
 const PROJECTS_URL = `${SITE_URL}/projects/`;
 
 const PROJECTS_DESCRIPTION =
-  'Early projects and experiments from Hamed Hamzeh.';
+  'Selected projects and experiments by Hamed Hamzeh.';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Archive',
+  title: 'Projects',
   description: PROJECTS_DESCRIPTION,
   path: '/projects/',
 });
@@ -33,22 +33,19 @@ export default function ProjectsPage() {
         nodes={[
           collectionPageNode({
             url: PROJECTS_URL,
-            name: 'Archive',
+            name: 'Projects',
             description: PROJECTS_DESCRIPTION,
             hasBreadcrumb: true,
           }),
           breadcrumbNode(PROJECTS_URL, [
             { name: 'Home', url: HOME_URL },
-            { name: 'Archive', url: PROJECTS_URL },
+            { name: 'Projects', url: PROJECTS_URL },
           ]),
         ]}
       />
       <section className="projects-page">
         <header className="page-header projects-header">
-          <h1 className="page-title">Archive</h1>
-          <p className="page-subtitle">
-            Early projects and experiments from my student years
-          </p>
+          <h1 className="page-title">Projects</h1>
         </header>
 
         {featuredProjects.length > 0 && (

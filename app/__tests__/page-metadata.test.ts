@@ -5,6 +5,7 @@ import { metadata as aboutMetadata } from '../about/page';
 import { metadata as contactMetadata } from '../contact/page';
 import { metadata as notFoundMetadata } from '../not-found';
 import { metadata as projectsMetadata } from '../projects/page';
+import { metadata as publicationsMetadata } from '../publications/page';
 import { metadata as resumeMetadata } from '../resume/page';
 import { metadata as writingMetadata } from '../writing/page';
 
@@ -12,7 +13,8 @@ describe('page metadata', () => {
   it.each([
     ['about', aboutMetadata, `${SITE_URL}/about/`],
     ['contact', contactMetadata, `${SITE_URL}/contact/`],
-    ['archive', projectsMetadata, `${SITE_URL}/projects/`],
+    ['projects', projectsMetadata, `${SITE_URL}/projects/`],
+    ['publications', publicationsMetadata, `${SITE_URL}/publications/`],
     ['resume', resumeMetadata, `${SITE_URL}/resume/`],
     ['writing', writingMetadata, `${SITE_URL}/writing/`],
   ])('sets page-specific open graph metadata for %s', (_, metadata, url) => {
@@ -26,7 +28,8 @@ describe('page metadata', () => {
   it.each([
     ['about', aboutMetadata],
     ['contact', contactMetadata],
-    ['archive', projectsMetadata],
+    ['projects', projectsMetadata],
+    ['publications', publicationsMetadata],
     ['resume', resumeMetadata],
     ['writing', writingMetadata],
   ])('sets page-specific twitter metadata for %s', (_, metadata) => {

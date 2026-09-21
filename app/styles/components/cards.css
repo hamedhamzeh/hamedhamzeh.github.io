@@ -35,9 +35,92 @@
   grid-template-columns: 1fr;
 }
 
+.publications-grid {
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+.publications-page .projects-header {
+  margin-bottom: 2rem;
+}
+
 @media screen and (min-width: 600px) {
   .projects-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .publications-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dedicated publication cards are intentionally denser than project cards.
+   Their longer titles need more horizontal room, while the supporting image
+   should remain secondary to the citation details. */
+.publications-grid .project-card-image {
+  aspect-ratio: 16 / 7;
+}
+
+.publications-grid .project-card-image--placeholder {
+  font-size: 1rem;
+}
+
+.publications-grid .project-card-content {
+  padding: 1rem;
+}
+
+.publications-grid .project-card-header {
+  margin-bottom: 0.375rem;
+}
+
+.publications-grid .project-card-title {
+  font-size: 1.0625rem;
+  line-height: 1.2;
+}
+
+.publications-grid .project-card-subtitle,
+.publications-grid .project-card-desc {
+  font-size: 0.8125rem;
+}
+
+.publications-grid .project-card-desc {
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+.publications-grid .project-card-tech {
+  gap: 0.5rem;
+  margin-bottom: 0;
+}
+
+@media screen and (min-width: 737px) {
+  .publications-grid .project-card-link,
+  .publications-grid .project-card-static {
+    display: grid;
+    grid-template-columns: 10rem minmax(0, 1fr);
+    height: 13.25rem;
+  }
+
+  .publications-grid .project-card-image {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+
+  .publications-grid .project-card-content {
+    align-content: center;
+    column-gap: 0.75rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 1rem 1.25rem;
+  }
+
+  .publications-grid .project-card-header,
+  .publications-grid .project-card-desc {
+    grid-column: 1 / -1;
+  }
+
+  .publications-grid .project-card-date {
+    align-self: center;
   }
 }
 
@@ -112,6 +195,18 @@
   height: 100%;
   object-fit: cover;
   transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.project-card-image--placeholder {
+  align-items: center;
+  background: linear-gradient(135deg, var(--color-accent-subtle), var(--color-surface-subtle));
+  color: var(--color-accent);
+  display: flex;
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+  justify-content: center;
+  letter-spacing: var(--tracking-tight);
 }
 
 .project-card--linked:hover .project-card-image img {

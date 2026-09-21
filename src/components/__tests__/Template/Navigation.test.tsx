@@ -41,7 +41,10 @@ describe('Navigation', () => {
     // Writing and Stats are intentionally hidden until their new content is ready.
     expect(screen.getByRole('link', { name: /about/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /resume/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /archive/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: /publications/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /projects/i })).toBeInTheDocument();
     expect(
       screen.queryByRole('link', { name: /writing/i }),
     ).not.toBeInTheDocument();

@@ -4,9 +4,10 @@ import { aboutMarkdown } from '@/data/about';
 import { createHeadingId, createUniqueHeadingIds } from '../anchors';
 
 function getAboutSectionTitles(markdown: string): string[] {
-  return Array.from(markdown.matchAll(/^# (.+)$/gm), (match) => match[1]).filter(
-    (title) => title !== 'Intro',
-  );
+  return Array.from(
+    markdown.matchAll(/^# (.+)$/gm),
+    (match) => match[1],
+  ).filter((title) => title !== 'Intro');
 }
 
 describe('createHeadingId', () => {
@@ -14,7 +15,7 @@ describe('createHeadingId', () => {
     ['Some History', 'some-history'],
     ['Travel / Geography', 'travel-geography'],
     ['Research & Development', 'research-and-development'],
-    ["Hamed's Notes", 'Hamed-notes'],
+    ["Hamed's Notes", 'hameds-notes'],
     ['Café Crème', 'cafe-creme'],
   ])('creates stable ids for %s', (title, expected) => {
     expect(createHeadingId(title)).toBe(expected);
@@ -26,7 +27,10 @@ describe('createHeadingId', () => {
 
   it('keeps the real about section ids stable', () => {
     expect(
-      getAboutSectionTitles(aboutMarkdown).map((title) => [title, createHeadingId(title)]),
+      getAboutSectionTitles(aboutMarkdown).map((title) => [
+        title,
+        createHeadingId(title),
+      ]),
     ).toEqual([
       ['Some History', 'some-history'],
       ['I Like', 'i-like'],
@@ -40,8 +44,18 @@ describe('createHeadingId', () => {
 describe('createUniqueHeadingIds', () => {
   it('deduplicates repeated heading ids predictably', () => {
     expect(
-      createUniqueHeadingIds(['Travel / Geography', 'Travel / Geography', '!!!', '!!!']),
-    ).toEqual(['travel-geography', 'travel-geography-2', 'section', 'section-2']);
+      createUniqueHeadingIds([
+        'Travel / Geography',
+        'Travel / Geography',
+        '!!!',
+        '!!!',
+      ]),
+    ).toEqual([
+      'travel-geography',
+      'travel-geography-2',
+      'section',
+      'section-2',
+    ]);
   });
 
   it('produces unique, non-empty ids for the real about headings', () => {

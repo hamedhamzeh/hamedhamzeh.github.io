@@ -9,7 +9,7 @@
 
 .hero {
   position: relative;
-  padding: 1rem 2rem 5rem;
+  padding: 1.5rem 2rem 4rem;
   text-align: center;
 }
 
@@ -22,9 +22,9 @@
 
 /* Portrait */
 .hero-avatar {
-  width: 200px;
-  height: 200px;
-  margin: 0 auto 2rem;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 1.5rem;
   border-radius: 50%;
   position: relative;
   box-shadow:
@@ -72,13 +72,13 @@
 
 /* Name */
 .hero-title {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .hero-name {
   display: block;
   font-family: var(--font-heading);
-  font-size: clamp(1.75rem, 7vw, 4rem);
+  font-size: clamp(1.75rem, 4vw, 3rem);
   font-weight: var(--font-weight-black);
   letter-spacing: -0.03em;
   line-height: 1.05;
@@ -88,11 +88,11 @@
 
 /* Tagline */
 .hero-tagline {
-  font-size: var(--text-lg);
+  font-size: var(--text-md);
   color: var(--color-fg);
   max-width: 40rem;
-  margin: 0 auto 2rem;
-  line-height: 1.65;
+  margin: 0 auto 1.5rem;
+  line-height: 1.6;
   font-weight: var(--font-weight-normal);
 }
 
@@ -125,7 +125,7 @@
   gap: 0.625rem;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 2.25rem;
+  margin-bottom: 1.75rem;
 }
 
 /* Static labels, not controls - deliberately no hover treatment */
@@ -181,7 +181,7 @@
    Tightened so the CTA buttons stay above the fold on short screens. */
 @media (max-width: 736px) {
   .hero {
-    padding: 2rem 1.5rem 2.5rem;
+    padding: 1.5rem 1.5rem 2.5rem;
   }
 
   .hero-title {
@@ -189,13 +189,13 @@
   }
 
   .hero-avatar {
-    width: 130px;
-    height: 130px;
-    margin-bottom: 1.5rem;
+    width: 112px;
+    height: 112px;
+    margin-bottom: 1.25rem;
   }
 
   .hero-tagline {
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.5rem;
   }
 
   .hero-chips {

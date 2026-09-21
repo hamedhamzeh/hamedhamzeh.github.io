@@ -1,0 +1,65 @@
+import type { Metadata } from 'next';
+
+import Cell, { type ProjectCardData } from '@/components/Projects/Cell';
+import { SchemaGraph } from '@/components/Schema';
+import PageWrapper from '@/components/Template/PageWrapper';
+import publications from '@/data/resume/publications';
+import { createPageMetadata } from '@/lib/metadata';
+import {
+  breadcrumbNode,
+  collectionPageNode,
+  HOME_URL,
+  SITE_URL,
+} from '@/lib/schema';
+
+const PUBLICATIONS_URL = `${SITE_URL}/publications/`;
+const PUBLICATIONS_DESCRIPTION =
+  'Research publications and manuscripts by Hamed Hamzeh.';
+
+export const metadata: Metadata = createPageMetadata({
+  title: 'Publications',
+  description: PUBLICATIONS_DESCRIPTION,
+  path: '/publications/',
+});
+
+const publicationCards: ProjectCardData[] = publications.map((publication) => ({
+  title: publication.title,
+  subtitle: publication.venue ?? publication.status,
+  link: publication.url,
+  image: publication.presentation?.gallery.images[0]?.src,
+  date: publication.year ? `${publication.year}-01-01` : undefined,
+  desc: publication.authors.map(({ citationName }) => citationName).join(', '),
+  tech: [publication.type, publication.status],
+}));
+
+export default function PublicationsPage() {
+  return (
+    <PageWrapper>
+      <SchemaGraph
+        nodes={[
+          collectionPageNode({
+            url: PUBLICATIONS_URL,
+            name: 'Publications',
+            description: PUBLICATIONS_DESCRIPTION,
+            hasBreadcrumb: true,
+          }),
+          breadcrumbNode(PUBLICATIONS_URL, [
+            { name: 'Home', url: HOME_URL },
+            { name: 'Publications', url: PUBLICATIONS_URL },
+          ]),
+        ]}
+      />
+      <section className="projects-page publications-page">
+        <header className="page-header projects-header">
+          <h1 className="page-title">Publications</h1>
+        </header>
+
+        <div className="projects-grid publications-grid">
+          {publicationCards.map((publication) => (
+            <Cell data={publication} key={publication.title} />
+          ))}
+        </div>
+      </section>
+    </PageWrapper>
+  );
+}
