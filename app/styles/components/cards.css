@@ -277,14 +277,20 @@
   margin-top: var(--spacing-4);
 }
 
-.experience-links a {
+.experience-links a,
+.experience-links .lightbox-gallery-trigger {
+  appearance: none;
   padding: 0.4rem 0.75rem;
   color: var(--color-accent);
   background: var(--color-accent-subtle);
   border: 1px solid var(--color-accent-border);
+  border-left: 1px solid var(--color-accent-border);
   border-radius: var(--radius-sm);
+  cursor: pointer;
   font-size: var(--text-sm);
   font-weight: var(--font-weight-medium);
+  line-height: inherit;
+  margin: 0;
   text-decoration: none;
   transition:
     color var(--duration-fast) var(--ease-out),
@@ -292,13 +298,15 @@
     border-color var(--duration-fast) var(--ease-out);
 }
 
-.experience-links a:hover {
+.experience-links a:hover,
+.experience-links .lightbox-gallery-trigger:hover {
   color: var(--color-fg-bold);
   background: var(--color-surface-hover);
   border-color: var(--color-accent);
 }
 
-.experience-links a:focus-visible {
+.experience-links a:focus-visible,
+.experience-links .lightbox-gallery-trigger:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
@@ -632,22 +640,11 @@
   padding-left: var(--spacing-5);
 }
 
-.certificate-link {
-  color: var(--color-accent);
+.certificate-achievement {
+  color: var(--color-fg);
   font-size: var(--text-sm);
-  font-weight: var(--font-weight-bold);
-  text-decoration: none;
-}
-
-.certificate-link:hover {
-  color: var(--color-fg-bold);
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-}
-
-.certificate-link:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
+  font-weight: var(--font-weight-medium);
+  margin: 0 0 var(--spacing-3);
 }
 
 @media (max-width: 736px) {

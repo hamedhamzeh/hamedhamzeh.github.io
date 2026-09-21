@@ -15,7 +15,10 @@ export default function Certificates({ data }: CertificatesProps) {
       </div>
       <div className="certificate-list">
         {data.map((certificate) => (
-          <Certificate data={certificate} key={certificate.credentialUrl} />
+          <Certificate
+            data={certificate}
+            key={`${certificate.title}-${certificate.issued}`}
+          />
         ))}
       </div>
     </div>

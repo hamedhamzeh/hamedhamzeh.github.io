@@ -1,3 +1,4 @@
+import LightboxGallery from '@/components/Media/LightboxGallery';
 import type { Certificate as CertificateType } from '@/data/resume/certificates';
 
 interface CertificateProps {
@@ -15,21 +16,51 @@ export default function Certificate({ data }: CertificateProps) {
         <time dateTime={data.issued}>{data.issuedLabel}</time>
       </header>
 
-      <ul className="certificate-courses" aria-label="Included courses">
-        {data.courses.map((course) => (
-          <li key={course}>{course}</li>
-        ))}
-      </ul>
+      {data.achievement && (
+        <p className="certificate-achievement">{data.achievement}</p>
+      )}
 
-      <a
-        className="certificate-link"
-        href={data.credentialUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        View credential
-        <span aria-hidden="true"> ↗</span>
-      </a>
+      {data.courses && (
+        <ul className="certificate-courses" aria-label="Included courses">
+          {data.courses.map((course) => (
+            <li key={course}>{course}</li>
+          ))}
+        </ul>
+      )}
+
+      {data.highlights && (
+        <ul className="certificate-courses" aria-label="Curriculum highlights">
+          {data.highlights.map((highlight) => (
+            <li key={highlight}>{highlight}</li>
+          ))}
+        </ul>
+      )}
+
+      <div className="experience-links" aria-label="Related evidence">
+        {data.gallery && (
+          <LightboxGallery
+            images={data.gallery.images}
+            triggerLabel={data.gallery.triggerLabel}
+            dialogLabel={data.gallery.dialogLabel}
+          />
+        )}
+        {data.credentialUrl && (
+          <a
+            href={data.credentialUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View credential
+            <span aria-hidden="true"> ↗</span>
+          </a>
+        )}
+        {data.projectUrl && (
+          <a href={data.projectUrl} target="_blank" rel="noopener noreferrer">
+            View project on GitHub
+            <span aria-hidden="true"> ↗</span>
+          </a>
+        )}
+      </div>
     </article>
   );
 }
