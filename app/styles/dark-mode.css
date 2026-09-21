@@ -93,13 +93,14 @@
 
 /* Resume nav - dark mode uses same styles, just inherits dark tokens */
 
-/* Job cards in dark mode */
-[data-theme='dark'] .jobs-container {
+/* Resume cards in dark mode */
+[data-theme='dark'] .resume-card {
   background: var(--color-surface-subtle);
   border-color: var(--color-border);
 }
 
-[data-theme='dark'] .jobs-container:hover {
+[data-theme='dark'] .resume-card:hover,
+[data-theme='dark'] .resume-card:focus-within {
   border-color: var(--color-border-alt);
 }
 
@@ -128,6 +129,15 @@
 [data-theme='dark'] .skillbutton:hover,
 [data-theme='dark'] .skill-tag:hover {
   background: var(--color-surface-hover);
+}
+
+/* Keep the selected filter accent-tinted in dark mode instead of falling back
+   to the neutral surface color */
+[data-theme='dark'] .skillbutton-active,
+[data-theme='dark'] .skillbutton-active:hover {
+  background: var(--color-accent-light);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 
 /* Contact page */

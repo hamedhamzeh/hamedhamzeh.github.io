@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 
+import SectionNav from '@/components/Navigation/SectionNav';
 import Certificates from '@/components/Resume/Certificates';
 import Education from '@/components/Resume/Education';
 import Experience from '@/components/Resume/Experience';
 import Honors from '@/components/Resume/Honors';
 import Publications from '@/components/Resume/Publications';
 import References from '@/components/Resume/References';
-import ResumeNav from '@/components/Resume/ResumeNav';
 import Skills from '@/components/Resume/Skills';
 import PageWrapper from '@/components/Template/PageWrapper';
 import certificates from '@/data/resume/certificates';
@@ -24,12 +24,22 @@ export const metadata: Metadata = createPageMetadata({
   path: '/resume/',
 });
 
+const resumeSections = [
+  { name: 'Experience', id: 'experience' },
+  { name: 'Education', id: 'education' },
+  { name: 'Publications', id: 'publications' },
+  { name: 'Skills', id: 'skills' },
+  { name: 'Honors', id: 'honors' },
+  { name: 'Certificates', id: 'certificates' },
+  { name: 'References', id: 'references' },
+] as const;
+
 export default function ResumePage() {
   return (
     <PageWrapper>
       <section className="resume-page">
-        <header className="resume-header">
-          <h1 className="resume-title">Resume</h1>
+        <header className="page-header resume-header">
+          <h1 className="page-title">Resume</h1>
           <p className="resume-summary">
             AI engineer and applied researcher focused on computer vision,
             robotics, and deployable machine-learning systems. Currently a
@@ -42,7 +52,11 @@ export default function ResumePage() {
           </p>
         </header>
 
-        <ResumeNav />
+        <SectionNav
+          items={resumeSections}
+          ariaLabel="Resume sections"
+          initialActiveId="experience"
+        />
 
         <div className="resume-content">
           <section id="experience" className="resume-section">
@@ -58,7 +72,11 @@ export default function ResumePage() {
           </section>
 
           <section id="skills" className="resume-section">
-            <Skills skills={skills} categories={categories} />
+            <Skills
+              skills={skills}
+              categories={categories}
+              defaultCategory="Vision"
+            />
           </section>
 
           <section id="honors" className="resume-section">

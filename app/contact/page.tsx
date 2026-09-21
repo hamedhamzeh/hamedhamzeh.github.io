@@ -16,7 +16,7 @@ export default function ContactPage() {
   return (
     <PageWrapper>
       <section className="contact-page">
-        <header className="contact-header">
+        <header className="page-header contact-header">
           <h1 className="page-title">Get in Touch</h1>
         </header>
 

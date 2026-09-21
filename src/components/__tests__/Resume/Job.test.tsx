@@ -37,7 +37,7 @@ describe('Job', () => {
   it('renders position title', () => {
     render(<Job data={mockJob} />);
 
-    expect(screen.getByRole('heading', { level: 4 })).toHaveTextContent(
+    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
       'Senior Engineer',
     );
   });
@@ -160,6 +160,6 @@ describe('Job', () => {
     render(<Job data={mockJob} />);
 
     const article = document.querySelector('article.jobs-container');
-    expect(article).toBeInTheDocument();
+    expect(article).toHaveClass('resume-card');
   });
 });

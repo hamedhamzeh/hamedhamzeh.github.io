@@ -19,7 +19,9 @@ describe('Honors', () => {
     expect(
       screen.getByRole('heading', { name: 'Honors & Awards' }),
     ).toBeInTheDocument();
-    expect(document.getElementById('honors')).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Honors & Awards', level: 2 }),
+    ).toHaveClass('section-title');
     expect(screen.getByText(mockHonor.title)).toBeInTheDocument();
   });
 });
@@ -32,5 +34,9 @@ describe('Honor', () => {
     expect(screen.getByText('2025')).toHaveAttribute('datetime', '2025');
     expect(screen.getByText(mockHonor.description)).toBeInTheDocument();
     expect(screen.getByText(mockHonor.note)).toBeInTheDocument();
+    expect(screen.getByRole('article')).toHaveClass('resume-card');
+    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+      mockHonor.title,
+    );
   });
 });

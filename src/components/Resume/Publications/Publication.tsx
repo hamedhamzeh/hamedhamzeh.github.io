@@ -25,8 +25,8 @@ export default function Publication({ data }: PublicationProps) {
   const visibleAuthors = getVisibleAuthors(data.authors);
 
   return (
-    <article className="publication-card">
-      <header className="publication-card-header">
+    <article className="resume-card publication-card">
+      <header className="resume-card-header publication-card-header">
         <div className="publication-types">
           <span className="publication-type">
             {data.status === 'Under Review' ? data.status : data.type}
@@ -40,9 +40,9 @@ export default function Publication({ data }: PublicationProps) {
         ) : null}
       </header>
 
-      <h4>
+      <h3 className="resume-card-title">
         <cite>{data.title}</cite>
-      </h4>
+      </h3>
 
       <p className="publication-authors">
         {visibleAuthors.map((author, index) => (
@@ -68,7 +68,7 @@ export default function Publication({ data }: PublicationProps) {
       ) : null}
 
       {data.url || data.doi || data.presentation ? (
-        <div className="publication-links">
+        <div className="resume-actions publication-links">
           {data.url && data.linkLabel ? (
             <a href={data.url} target="_blank" rel="noopener noreferrer">
               {data.linkLabel}

@@ -46,7 +46,9 @@ describe('Publications', () => {
     expect(
       screen.getByRole('heading', { name: 'Publications' }),
     ).toBeInTheDocument();
-    expect(document.getElementById('publications')).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Publications', level: 2 }),
+    ).toHaveClass('section-title');
     expect(screen.getByText(mockPublication.title)).toBeInTheDocument();
   });
 });
@@ -60,6 +62,10 @@ describe('Publication', () => {
     expect(screen.getByText(mockPublication.venue)).toBeInTheDocument();
     expect(screen.getByText('2024')).toHaveAttribute('datetime', '2024');
     expect(screen.getByText('DOI: 10.1000/example')).toBeInTheDocument();
+    expect(screen.getByRole('article')).toHaveClass('resume-card');
+    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+      mockPublication.title,
+    );
   });
 
   it('shows no more than four author names and always retains the last author', () => {

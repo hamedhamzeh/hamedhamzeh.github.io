@@ -21,11 +21,11 @@ describe('References', () => {
     expect(link).toHaveAttribute('href', '/contact');
   });
 
-  it('has an anchor for navigation', () => {
+  it('does not duplicate the page-owned navigation anchor', () => {
     render(<References />);
 
     const anchor = document.getElementById('references');
-    expect(anchor).toBeInTheDocument();
+    expect(anchor).not.toBeInTheDocument();
   });
 
   it('displays as minimal inline text', () => {

@@ -31,12 +31,13 @@
 .skill-group-title {
   font-size: var(--text-lg);
   font-weight: var(--font-weight-black);
-  text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
+  /* Same leading and rule gap as the section headings */
+  line-height: var(--leading-heading);
   /* Use CSS custom property if set, fallback to default */
   color: var(--skill-category-color, var(--color-fg-bold));
   margin-bottom: 1.25rem;
-  padding-bottom: 0.75rem;
+  padding-bottom: var(--heading-rule-gap);
   border-bottom: 3px solid var(--color-accent);
   display: inline-block;
 }

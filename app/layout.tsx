@@ -12,7 +12,6 @@ import {
   SITE_IMAGE_DIMENSIONS,
   SITE_IMAGE_PATH,
   SITE_URL,
-  TWITTER_HANDLE,
 } from '@/lib/utils';
 import './tailwind.css';
 
@@ -90,7 +89,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"

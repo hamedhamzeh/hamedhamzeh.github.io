@@ -9,10 +9,7 @@ interface PublicationsProps {
 export default function Publications({ data }: PublicationsProps) {
   return (
     <div className="publications">
-      <div className="link-to" id="publications" />
-      <div className="title">
-        <h3>Publications</h3>
-      </div>
+      <h2 className="section-title">Publications</h2>
       <div className="publication-list">
         {data.map((publication) => (
           <Publication data={publication} key={publication.title} />

@@ -47,15 +47,21 @@ describe('Skills', () => {
     ).toBeInTheDocument();
   });
 
-  it('shows all skills by default', () => {
-    render(<Skills skills={mockSkills} categories={mockCategories} />);
+  it('shows the configured category by default', () => {
+    render(
+      <Skills
+        skills={mockSkills}
+        categories={mockCategories}
+        defaultCategory="ML Engineering"
+      />,
+    );
 
-    // Skills may appear in multiple groups if they belong to multiple categories
-    expect(screen.getAllByText('Python').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('TypeScript').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('JavaScript').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('PyTorch').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('React').length).toBeGreaterThanOrEqual(1);
+    expect(
+      screen.getByRole('button', { name: 'ML Engineering' }),
+    ).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByText('Python')).toBeInTheDocument();
+    expect(screen.getByText('PyTorch')).toBeInTheDocument();
+    expect(screen.queryByText('React')).not.toBeInTheDocument();
   });
 
   it('filters skills when category button is clicked', () => {
@@ -72,12 +78,12 @@ describe('Skills', () => {
     expect(screen.queryByText('React')).not.toBeInTheDocument();
   });
 
-  it('shows all skills when clicking category again (toggle off)', () => {
+  it('shows all skills only when All is explicitly selected', () => {
     render(<Skills skills={mockSkills} categories={mockCategories} />);
 
     const mlButton = screen.getByRole('button', { name: 'ML Engineering' });
     fireEvent.click(mlButton);
-    fireEvent.click(mlButton);
+    fireEvent.click(screen.getByRole('button', { name: 'All' }));
 
     // All skills should be visible again (may appear in multiple groups)
     expect(screen.getAllByText('Python').length).toBeGreaterThanOrEqual(1);
@@ -92,6 +98,17 @@ describe('Skills', () => {
 
     fireEvent.click(languagesButton);
     expect(languagesButton).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('keeps an active category selected when clicked again', () => {
+    render(<Skills skills={mockSkills} categories={mockCategories} />);
+
+    const languagesButton = screen.getByRole('button', { name: 'Languages' });
+    fireEvent.click(languagesButton);
+    fireEvent.click(languagesButton);
+
+    expect(languagesButton).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.queryByText('PyTorch')).not.toBeInTheDocument();
   });
 
   it('displays skills grouped by category', () => {

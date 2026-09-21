@@ -127,7 +127,7 @@ export default function WritingPage() {
         ]}
       />
       <article className="writing-page">
-        <header className="writing-header">
+        <header className="page-header writing-header">
           <div className="writing-header-row">
             <h1 className="page-title">Writing</h1>
             <a

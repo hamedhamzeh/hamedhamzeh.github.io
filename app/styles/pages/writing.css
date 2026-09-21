@@ -4,9 +4,7 @@
    ======================================== */
 
 .writing-page {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+  width: 100%;
 }
 
 .writing-header {
@@ -41,6 +39,7 @@
 .writing-list {
   display: flex;
   flex-direction: column;
+  max-width: 700px;
 }
 
 .writing-item {

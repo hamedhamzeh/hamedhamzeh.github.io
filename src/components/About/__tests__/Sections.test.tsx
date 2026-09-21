@@ -84,11 +84,12 @@ Lead paragraph.
     ).toHaveAttribute('id', 'travel-geography');
   });
 
-  it('renders section navigation and self-links for the real about markdown', () => {
+  it('renders section navigation and anchors for the real about markdown', () => {
     const sectionTitles = getActualSectionTitles(aboutMarkdown);
-    const { container } = render(<AboutContent markdown={aboutMarkdown} />);
+    render(<AboutContent markdown={aboutMarkdown} />);
     const nav = screen.getByRole('navigation', { name: 'About sections' });
 
+    expect(nav).toHaveClass('section-nav');
     expect(within(nav).getAllByRole('link')).toHaveLength(sectionTitles.length);
 
     for (const title of sectionTitles) {
@@ -96,14 +97,19 @@ Lead paragraph.
       const heading = screen.getByRole('heading', { name: title });
 
       expect(heading).toHaveAttribute('id', headingId);
+      expect(heading).toHaveClass('section-title');
       expect(within(nav).getByRole('link', { name: title })).toHaveAttribute(
         'href',
         `#${headingId}`,
       );
-      expect(
-        container.querySelector(`h2#${headingId} > a[href="#${headingId}"]`),
-      ).toBeTruthy();
+      // Headings stay plain, matching the resume section headings.
+      expect(within(heading).queryByRole('link')).not.toBeInTheDocument();
     }
+
+    expect(within(nav).getAllByRole('link')[0]).toHaveAttribute(
+      'aria-current',
+      'location',
+    );
   });
 
   it('renders matching hash links and heading ids into static markup', () => {
@@ -113,8 +119,8 @@ Lead paragraph.
 
     expect(html).toContain('href="#some-history"');
     expect(html).toContain('id="some-history"');
-    expect(html).toContain('href="#travel-geography"');
-    expect(html).toContain('id="travel-geography"');
+    expect(html).toContain('href="#one-last-thing"');
+    expect(html).toContain('id="one-last-thing"');
   });
 
   it('supports same-page hash navigation from section links', async () => {
@@ -124,30 +130,16 @@ Lead paragraph.
 
     const nav = screen.getByRole('navigation', { name: 'About sections' });
     const navLink = within(nav).getByRole('link', {
-      name: 'Travel / Geography',
+      name: 'One Last Thing',
     });
 
     navLink.click();
 
     await waitFor(() => {
-      expect(window.location.hash).toBe('#travel-geography');
+      expect(window.location.hash).toBe('#one-last-thing');
     });
     expect(document.querySelector(window.location.hash)).toHaveTextContent(
-      'Travel / Geography',
-    );
-
-    const heading = screen.getByRole('heading', { name: 'Fun Facts' });
-    const permalink = within(heading).getByRole('link', {
-      name: 'Fun Facts',
-    });
-
-    permalink.click();
-
-    await waitFor(() => {
-      expect(window.location.hash).toBe('#fun-facts');
-    });
-    expect(document.querySelector(window.location.hash)).toHaveTextContent(
-      'Fun Facts',
+      'One Last Thing',
     );
   });
 });

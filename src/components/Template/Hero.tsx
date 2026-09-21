@@ -15,8 +15,9 @@ export default function Hero() {
         </h1>
 
         <p className="hero-tagline">
-          AI Engineer and applied researcher focused on computer vision, intelligent systems, and
-          MLOps, with experience translating ideas into models, pipelines, and deployable products.
+          AI Engineer and applied researcher focused on computer vision,
+          intelligent systems, and MLOps, with experience translating ideas into
+          models, pipelines, and deployable products.
         </p>
 
         <div className="hero-chips">

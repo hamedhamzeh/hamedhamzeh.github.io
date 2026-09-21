@@ -42,6 +42,7 @@ build/Release/
 # IDE
 .idea/
 .vscode/
+.freebuff/
 *.swp
 *.swo
 

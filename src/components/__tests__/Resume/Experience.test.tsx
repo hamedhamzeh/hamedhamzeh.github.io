@@ -28,8 +28,8 @@ describe('Experience', () => {
     render(<Experience data={mockJobs} />);
 
     expect(
-      screen.getByRole('heading', { name: /experience/i }),
-    ).toBeInTheDocument();
+      screen.getByRole('heading', { name: /experience/i, level: 2 }),
+    ).toHaveClass('section-title');
   });
 
   it('renders all jobs', () => {
@@ -46,11 +46,11 @@ describe('Experience', () => {
     expect(screen.getByText(/Software Engineer/)).toBeInTheDocument();
   });
 
-  it('has anchor link for navigation', () => {
+  it('does not duplicate the page-owned navigation anchor', () => {
     render(<Experience data={mockJobs} />);
 
     const anchor = document.getElementById('experience');
-    expect(anchor).toBeInTheDocument();
+    expect(anchor).not.toBeInTheDocument();
   });
 
   it('renders jobs with company links', () => {
@@ -74,5 +74,13 @@ describe('Experience', () => {
     // No job articles
     const articles = document.querySelectorAll('.jobs-container');
     expect(articles.length).toBe(0);
+  });
+
+  it('uses the shared card anatomy for every job', () => {
+    render(<Experience data={mockJobs} />);
+
+    expect(
+      document.querySelectorAll('.resume-card.jobs-container'),
+    ).toHaveLength(2);
   });
 });

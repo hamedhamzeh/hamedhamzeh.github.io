@@ -5,11 +5,17 @@ import { SchemaGraph } from '@/components/Schema';
 import PageWrapper from '@/components/Template/PageWrapper';
 import { aboutMarkdown } from '@/data/about';
 import { createPageMetadata } from '@/lib/metadata';
-import { breadcrumbNode, HOME_URL, profilePageNode, SITE_URL } from '@/lib/schema';
+import {
+  breadcrumbNode,
+  HOME_URL,
+  profilePageNode,
+  SITE_URL,
+} from '@/lib/schema';
 
 const ABOUT_URL = `${SITE_URL}/about/`;
 
-const ABOUT_DESCRIPTION = 'Learn about Hamed Hamzeh - Computer Vision Developer at AISoccerCoach.';
+const ABOUT_DESCRIPTION =
+  'Learn about Hamed Hamzeh - Computer Vision Developer at AISoccerCoach.';
 
 export const metadata: Metadata = createPageMetadata({
   title: 'About',
@@ -35,7 +41,7 @@ export default function AboutPage() {
         ]}
       />
       <section className="about-page">
-        <header className="about-header">
+        <header className="page-header about-header">
           <h1 className="page-title">About</h1>
         </header>
         <AboutContent markdown={aboutMarkdown} />

@@ -6,10 +6,10 @@ interface HonorProps {
 
 export default function Honor({ data }: HonorProps) {
   return (
-    <article className="honor-card">
-      <header className="honor-card-header">
+    <article className="resume-card honor-card">
+      <header className="resume-card-header honor-card-header">
         <div>
-          <h4>{data.title}</h4>
+          <h3 className="resume-card-title">{data.title}</h3>
           <p className="honor-issuer">{data.issuer}</p>
         </div>
         <time dateTime={String(data.year)}>{data.year}</time>

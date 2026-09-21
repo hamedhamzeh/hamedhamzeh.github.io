@@ -9,10 +9,7 @@ interface CertificatesProps {
 export default function Certificates({ data }: CertificatesProps) {
   return (
     <div className="certificates">
-      <div className="link-to" id="certificates" />
-      <div className="title">
-        <h3>Certificates</h3>
-      </div>
+      <h2 className="section-title">Certificates</h2>
       <div className="certificate-list">
         {data.map((certificate) => (
           <Certificate

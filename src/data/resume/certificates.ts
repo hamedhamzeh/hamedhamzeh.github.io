@@ -52,7 +52,8 @@ const certificates: Certificate[] = [
       'Advanced Learning Algorithms',
       'Unsupervised Learning, Recommenders, Reinforcement Learning',
     ],
-    credentialUrl: 'https://www.coursera.org/share/1202450df425b20459d564ed549e5120',
+    credentialUrl:
+      'https://www.coursera.org/share/1202450df425b20459d564ed549e5120',
   },
 ];
 

@@ -6,9 +6,9 @@ interface DegreeProps {
 
 export default function Degree({ data }: DegreeProps) {
   return (
-    <article className="degree-container">
+    <article className="resume-card degree-container">
       <header>
-        <h4 className="degree">{data.degree}</h4>
+        <h3 className="resume-card-title degree">{data.degree}</h3>
         <p className="school">
           <a href={data.link}>{data.school}</a>,{' '}
           <time dateTime={String(data.startYear)}>{data.startYear}</time>–

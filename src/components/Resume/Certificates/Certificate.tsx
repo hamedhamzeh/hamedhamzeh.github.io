@@ -7,10 +7,10 @@ interface CertificateProps {
 
 export default function Certificate({ data }: CertificateProps) {
   return (
-    <article className="certificate-card">
-      <header className="certificate-card-header">
+    <article className="resume-card resume-card--secondary certificate-card">
+      <header className="resume-card-header certificate-card-header">
         <div>
-          <h4>{data.title}</h4>
+          <h3 className="resume-card-title">{data.title}</h3>
           <p className="certificate-issuer">{data.issuer}</p>
         </div>
         <time dateTime={data.issued}>{data.issuedLabel}</time>
@@ -36,7 +36,7 @@ export default function Certificate({ data }: CertificateProps) {
         </ul>
       )}
 
-      <div className="experience-links" aria-label="Related evidence">
+      <div className="resume-actions" aria-label="Related evidence">
         {data.gallery && (
           <LightboxGallery
             images={data.gallery.images}

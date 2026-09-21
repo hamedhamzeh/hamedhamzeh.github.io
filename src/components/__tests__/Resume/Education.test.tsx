@@ -47,11 +47,11 @@ describe('Education', () => {
     expect(mitLink).toHaveAttribute('href', 'https://mit.edu');
   });
 
-  it('has anchor link for navigation', () => {
+  it('does not duplicate the page-owned navigation anchor', () => {
     render(<Education data={mockDegrees} />);
 
     const anchor = document.getElementById('education');
-    expect(anchor).toBeInTheDocument();
+    expect(anchor).not.toBeInTheDocument();
   });
 });
 
@@ -74,7 +74,7 @@ describe('Degree', () => {
   it('renders degree title', () => {
     render(<Degree data={mockDegree} />);
 
-    expect(screen.getByRole('heading', { level: 4 })).toHaveTextContent(
+    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
       'M.S. Computer Science',
     );
   });
@@ -107,6 +107,6 @@ describe('Degree', () => {
     render(<Degree data={mockDegree} />);
 
     const article = document.querySelector('article.degree-container');
-    expect(article).toBeInTheDocument();
+    expect(article).toHaveClass('resume-card');
   });
 });

@@ -28,6 +28,86 @@
   }
 }
 
+/* Shared in-page section navigation */
+.section-nav {
+  align-items: center;
+  backdrop-filter: blur(16px);
+  background: color-mix(in srgb, var(--color-bg-alt) 92%, transparent);
+  border: 1px solid var(--color-border-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
+  justify-content: center;
+  margin: var(--spacing-6) 0 var(--spacing-4);
+  padding: var(--spacing-3) var(--spacing-4);
+  position: sticky;
+  top: var(--header-height);
+  z-index: var(--z-sticky);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.section-nav-link {
+  align-items: center;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  color: var(--color-fg-light);
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+  white-space: nowrap;
+}
+
+.section-nav-link:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-fg-bold);
+}
+
+.section-nav-link.active {
+  background: var(--color-accent-subtle);
+  color: var(--color-accent);
+  font-weight: var(--font-weight-bold);
+}
+
+.section-nav-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 736px) {
+  .section-nav {
+    flex-wrap: nowrap;
+    gap: var(--spacing-1);
+    justify-content: flex-start;
+    margin-left: calc(-1 * var(--spacing-2));
+    margin-right: calc(-1 * var(--spacing-2));
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    padding: var(--spacing-2) var(--spacing-3);
+    scroll-padding-inline: var(--spacing-3);
+    scrollbar-width: none;
+    top: var(--header-height-mobile);
+  }
+
+  .section-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .section-nav-link {
+    font-size: 0.8125rem;
+    padding-inline: var(--spacing-3);
+  }
+}
+
 .nav-link {
   position: relative;
   padding: 0.75rem 1.125rem;

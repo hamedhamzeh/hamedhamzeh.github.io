@@ -9,10 +9,7 @@ interface HonorsProps {
 export default function Honors({ data }: HonorsProps) {
   return (
     <div className="honors">
-      <div className="link-to" id="honors" />
-      <div className="title">
-        <h3>Honors &amp; Awards</h3>
-      </div>
+      <h2 className="section-title">Honors &amp; Awards</h2>
       <div className="honors-list">
         {data.map((honor) => (
           <Honor data={honor} key={`${honor.year}-${honor.title}`} />

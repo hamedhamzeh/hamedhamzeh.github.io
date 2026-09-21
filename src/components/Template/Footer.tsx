@@ -44,7 +44,10 @@ export default function Footer() {
             </div>
           </nav>
 
-          <div className="footer-social" aria-labelledby="footer-social-heading">
+          <div
+            className="footer-social"
+            aria-labelledby="footer-social-heading"
+          >
             <h4 id="footer-social-heading" className="footer-social-label">
               Connect
             </h4>

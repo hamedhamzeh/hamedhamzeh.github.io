@@ -44,6 +44,7 @@
   /* ===================
      LINE HEIGHTS
      =================== */
+  --leading-heading: 1.2;
   --leading-tight: 1.3;
   --leading-normal: 1.7;
 }

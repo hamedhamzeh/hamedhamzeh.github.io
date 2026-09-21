@@ -9,10 +9,7 @@ interface ExperienceProps {
 export default function Experience({ data }: ExperienceProps) {
   return (
     <div className="experience">
-      <div className="link-to" id="experience" />
-      <div className="title">
-        <h3>Experience</h3>
-      </div>
+      <h2 className="section-title">Experience</h2>
       {data.map((job) => (
         <Job data={job} key={`${job.name}-${job.position}`} />
       ))}

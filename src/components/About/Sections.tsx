@@ -1,6 +1,7 @@
 'use client';
 
 import Markdown from 'markdown-to-jsx';
+import SectionNav from '@/components/Navigation/SectionNav';
 import { createUniqueHeadingIds } from '@/lib/anchors';
 
 interface AboutContentProps {
@@ -94,30 +95,19 @@ export default function AboutContent({ markdown }: AboutContentProps) {
         </div>
       ) : null}
       {sections.length > 0 ? (
-        <nav className="about-section-nav" aria-label="About sections">
-          {sections.map((section) => (
-            <a
-              key={section.id}
-              href={`#${section.id}`}
-              className="about-section-nav-link"
-            >
-              {section.title}
-            </a>
-          ))}
-        </nav>
+        <SectionNav
+          items={sections.map(({ id, title }) => ({ id, name: title }))}
+          ariaLabel="About sections"
+          initialActiveId={sections[0]?.id}
+        />
       ) : null}
       {sections.map((section) => (
         <section
           key={section.id}
           className={getSectionClassName(section.title)}
         >
-          <h2 id={section.id}>
-            <a href={`#${section.id}`} className="about-section-heading-link">
-              <span>{section.title}</span>
-              <span className="about-section-heading-hash" aria-hidden="true">
-                #
-              </span>
-            </a>
+          <h2 id={section.id} className="section-title">
+            {section.title}
           </h2>
           <Markdown>{section.body}</Markdown>
         </section>

@@ -33,7 +33,7 @@ function DateRange({
 
 function EvidenceLinks({ links }: { links: EvidenceLink[] }) {
   return (
-    <div className="experience-links" aria-label="Related evidence">
+    <div className="resume-actions" aria-label="Related evidence">
       {links.map((link) => {
         const isExternal = /^https?:\/\//.test(link.url);
 
@@ -58,7 +58,7 @@ function JobSubsection({ data }: { data: PositionSection }) {
   return (
     <section className="job-subsection">
       <header className="job-subsection-header">
-        <h5>{data.title}</h5>
+        <h4>{data.title}</h4>
         {data.startDate ? (
           <DateRange startDate={data.startDate} endDate={data.endDate} />
         ) : null}
@@ -87,11 +87,11 @@ export default function Job({ data }: JobProps) {
   } = data;
 
   return (
-    <article className="jobs-container">
-      <header>
-        <h4>
+    <article className="resume-card jobs-container">
+      <header className="resume-card-header">
+        <h3 className="resume-card-title">
           {url ? <a href={url}>{name}</a> : name} - {position}
-        </h4>
+        </h3>
         <DateRange startDate={startDate} endDate={endDate} />
       </header>
       {summary ? <JobSummary summary={summary} /> : null}

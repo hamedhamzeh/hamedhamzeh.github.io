@@ -47,7 +47,9 @@ describe('Certificates', () => {
     expect(
       screen.getByRole('heading', { name: 'Certificates' }),
     ).toBeInTheDocument();
-    expect(document.getElementById('certificates')).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Certificates', level: 2 }),
+    ).toHaveClass('section-title');
     expect(screen.getByText(mockCertificate.title)).toBeInTheDocument();
   });
 });
@@ -62,6 +64,13 @@ describe('Certificate', () => {
     expect(
       screen.getByText('Advanced Learning Algorithms'),
     ).toBeInTheDocument();
+    expect(screen.getByRole('article')).toHaveClass(
+      'resume-card',
+      'resume-card--secondary',
+    );
+    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+      mockCertificate.title,
+    );
   });
 
   it('opens the credential safely in a new tab', () => {
