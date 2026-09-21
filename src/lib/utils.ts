@@ -8,8 +8,8 @@ export const AUTHOR_NAME = 'Hamed Hamzeh';
 export const TWITTER_HANDLE = '@hamedhamzeh';
 export const SITE_IMAGE_PATH = '/images/me.jpg';
 export const SITE_IMAGE_DIMENSIONS = {
-  width: 1024,
-  height: 1024,
+  width: 640,
+  height: 640,
 } as const;
 
 // Canonical one-line bio, shared across page metadata, OpenGraph, and JSON-LD.

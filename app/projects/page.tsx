@@ -15,7 +15,7 @@ import {
 const PROJECTS_URL = `${SITE_URL}/projects/`;
 
 const PROJECTS_DESCRIPTION =
-  "Early projects and experiments from Michael D'Angelo (2015 and earlier).";
+  'Early projects and experiments from Hamed Hamzeh.';
 
 export const metadata: Metadata = createPageMetadata({
   title: 'Archive',

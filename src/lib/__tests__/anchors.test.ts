@@ -34,10 +34,9 @@ describe('createHeadingId', () => {
     ).toEqual([
       ['Some History', 'some-history'],
       ['I Like', 'i-like'],
-      ['Travel / Geography', 'travel-geography'],
       ['Fun Facts', 'fun-facts'],
       ['I Dream Of', 'i-dream-of'],
-      ['Websites from People I Admire', 'websites-from-people-i-admire'],
+      ['One Last Thing', 'one-last-thing'],
     ]);
   });
 });

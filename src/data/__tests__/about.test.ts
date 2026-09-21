@@ -10,24 +10,19 @@ describe('about data', () => {
 
   it('contains the intro section', () => {
     expect(aboutMarkdown).toContain('# Intro');
-    expect(aboutMarkdown).toContain('OpenAI');
-    expect(aboutMarkdown).toContain('Promptfoo');
+    expect(aboutMarkdown).toContain('computer vision');
+    expect(aboutMarkdown).toContain('AISoccer Coach');
   });
 
   it('contains the history section', () => {
     expect(aboutMarkdown).toContain('# Some History');
-    expect(aboutMarkdown).toContain('MS-DOS');
+    expect(aboutMarkdown).toContain('University of Tehran');
   });
 
   it('contains the likes section', () => {
     expect(aboutMarkdown).toContain('# I Like');
-    expect(aboutMarkdown).toContain('Running');
-    expect(aboutMarkdown).toContain('Skiing');
-  });
-
-  it('contains the travel section', () => {
-    expect(aboutMarkdown).toContain('# Travel / Geography');
-    expect(aboutMarkdown).toContain('Buffalo, New York');
+    expect(aboutMarkdown).toContain('Playing volleyball');
+    expect(aboutMarkdown).toContain('Chess.com');
   });
 
   it('contains the fun facts section', () => {
@@ -36,11 +31,12 @@ describe('about data', () => {
 
   it('contains the dreams section', () => {
     expect(aboutMarkdown).toContain('# I Dream Of');
-    expect(aboutMarkdown).toContain('Staying curious');
+    expect(aboutMarkdown).toContain('A freer and brighter future for Iran');
   });
 
-  it('contains the admired websites section', () => {
-    expect(aboutMarkdown).toContain('# Websites from People I Admire');
+  it('contains the closing section', () => {
+    expect(aboutMarkdown).toContain('# One Last Thing');
+    expect(aboutMarkdown).toContain('interested in collaborating');
   });
 
   it('contains valid markdown links', () => {
@@ -49,7 +45,7 @@ describe('about data', () => {
     const links = aboutMarkdown.match(linkRegex);
 
     expect(links).not.toBeNull();
-    expect(links!.length).toBeGreaterThan(10);
+    expect(links).toHaveLength(2);
   });
 
   it('contains properly formatted headers', () => {

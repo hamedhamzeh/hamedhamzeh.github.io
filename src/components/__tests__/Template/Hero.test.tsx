@@ -15,29 +15,24 @@ describe('Hero', () => {
     render(<Hero />);
 
     const heading = screen.getByRole('heading', { level: 1 });
-    expect(heading).toHaveTextContent("Michael D'Angelo");
+    expect(heading).toHaveTextContent('Hamed Hamzeh');
   });
 
-  it('renders the tagline with OpenAI and promptfoo links', () => {
+  it('renders the current professional tagline', () => {
     render(<Hero />);
 
-    const openAiLink = screen.getByRole('link', { name: /openai/i });
-    expect(openAiLink).toHaveAttribute('href', 'https://openai.com');
-    expect(openAiLink).toHaveClass('hero-highlight');
-
-    const promptfooLink = screen.getByRole('link', { name: /promptfoo/i });
-    expect(promptfooLink).toHaveAttribute('href', 'https://promptfoo.dev');
-    expect(promptfooLink).toHaveClass('hero-highlight');
+    expect(
+      screen.getByText(/AI Engineer and applied researcher/i),
+    ).toHaveTextContent('computer vision, intelligent systems, and MLOps');
   });
 
   it('displays hero chips for credentials', () => {
     render(<Hero />);
 
-    expect(screen.getByText('YC Alum')).toBeInTheDocument();
-    expect(screen.getByText('Stanford ICME')).toBeInTheDocument();
-    expect(
-      screen.getByText('Co-founded Arthena & Matroid'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Applied AI')).toBeInTheDocument();
+    expect(screen.getByText('Computer Vision')).toBeInTheDocument();
+    expect(screen.getByText('MLOps')).toBeInTheDocument();
+    expect(screen.getByText('R&D')).toBeInTheDocument();
   });
 
   it('renders CTA buttons with correct links', () => {
@@ -47,7 +42,7 @@ describe('Hero', () => {
     expect(aboutButton).toHaveAttribute('href', '/about');
     expect(aboutButton).toHaveClass('button');
 
-    const resumeButton = screen.getByRole('link', { name: /view resume/i });
+    const resumeButton = screen.getByRole('link', { name: /my resume/i });
     expect(resumeButton).toHaveAttribute('href', '/resume');
     expect(resumeButton).toHaveClass('button-secondary');
   });

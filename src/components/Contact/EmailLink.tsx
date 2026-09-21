@@ -19,7 +19,7 @@ function prefersReducedMotion(): boolean {
 
 const messages = [
   'hi',
-  'hello',
+  'hallo',
   'hola',
   'you-can-email-me-at-literally-anything! Really',
   'well, not anything. But most things',
@@ -28,9 +28,9 @@ const messages = [
   'but not this :(  ',
   'you.can.also.email.me.with.specific.topics.like',
   'just-saying-hi',
-  'please-work-for-us',
+  'How-tall-are-you',
   'help',
-  'admin',
+  'lets-collaborate',
   'or-I-really-like-your-website',
   'thanks',
 ];
@@ -170,7 +170,7 @@ export default function EmailLink({ loopMessage = false }: EmailLinkProps) {
   const emailContent = (
     <>
       <span className="contact-email-prefix">{displayMessage}</span>
-      <span className="contact-email-domain">@mldangelo.com</span>
+      <span className="contact-email-domain"> @gmail.com</span>
     </>
   );
 
@@ -182,7 +182,7 @@ export default function EmailLink({ loopMessage = false }: EmailLinkProps) {
     >
       {isValid ? (
         <a
-          href={`mailto:${displayMessage}@mldangelo.com`}
+          href="mailto:hamed.hamze2212@gmail.com"
           className="contact-email-link"
           onClick={handleClick}
           onKeyDown={handleKeyDown}

@@ -40,13 +40,15 @@ describe('skills data', () => {
     }
   });
 
-  it('provides both IELTS report variants to exercise gallery navigation', () => {
+  it('provides the redacted IELTS score report', () => {
     const ieltsSkill = skills.find((skill) => skill.title.includes('IELTS'));
 
-    expect(ieltsSkill?.gallery?.images).toHaveLength(2);
-    expect(ieltsSkill?.gallery?.images.map(({ width }) => width)).toEqual([
-      1425, 713,
-    ]);
+    expect(ieltsSkill?.gallery?.images).toHaveLength(1);
+    expect(ieltsSkill?.gallery?.images[0]).toMatchObject({
+      src: '/images/assets/Ielts_Report_Redacted.webp',
+      width: 1425,
+      height: 2000,
+    });
   });
 });
 
