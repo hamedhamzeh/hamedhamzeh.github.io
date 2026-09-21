@@ -17,6 +17,7 @@
   padding: 0 0.5em;
 }
 
+.resume-page .certificates .title,
 .resume-page .education .title,
 .resume-page .experience .title,
 .resume-page .honors .title,
@@ -27,6 +28,7 @@
   text-align: center;
 }
 
+.resume-page .certificates .title h3,
 .resume-page .education .title h3,
 .resume-page .experience .title h3,
 .resume-page .honors .title h3,

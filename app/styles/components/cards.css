@@ -576,3 +576,82 @@
     align-items: flex-start;
   }
 }
+
+/* ========================================
+   CERTIFICATE CARDS
+   ======================================== */
+
+.certificate-list {
+  display: grid;
+  gap: var(--spacing-4);
+}
+
+.certificate-card {
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-5);
+}
+
+.certificate-card-header {
+  align-items: flex-start;
+  display: flex;
+  gap: var(--spacing-4);
+  justify-content: space-between;
+  margin-bottom: var(--spacing-3);
+}
+
+.certificate-card h4 {
+  color: var(--color-fg-bold);
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.certificate-card time {
+  color: var(--color-fg-light);
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.certificate-issuer {
+  color: var(--color-fg-light);
+  font-size: var(--text-sm);
+  margin: var(--spacing-1) 0 0;
+}
+
+.certificate-courses {
+  color: var(--color-fg-light);
+  display: grid;
+  font-size: var(--text-sm);
+  gap: var(--spacing-1);
+  line-height: 1.6;
+  margin: 0 0 var(--spacing-4);
+  padding-left: var(--spacing-5);
+}
+
+.certificate-link {
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+}
+
+.certificate-link:hover {
+  color: var(--color-fg-bold);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.certificate-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 736px) {
+  .certificate-card-header {
+    align-items: flex-start;
+  }
+}

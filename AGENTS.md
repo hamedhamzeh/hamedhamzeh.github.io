@@ -1,6 +1,13 @@
 # AGENTS.md
 
 Guidance for AI coding agents working on this Next.js personal portfolio site.
+At the beginning of each task, read CONTEXT.md and STATUS.md from the attached assistant-context folder. Consult TODO.md for pending work.
+
+After meaningful progress, propose updates to STATUS.md and TODO.md. Add stable facts to CONTEXT.md only after I confirm the summary.
+
+Do not store secrets, sensitive identifiers, or private document contents. Do not take irreversible actions, send messages, publish, deploy, or modify important files without explicit approval.
+
+For code changes, inspect the relevant repository instructions and structure first. Give a short plan for substantial changes, make focused edits, run appropriate tests, explain exactly how to verify the result, and provide a conventional commit message. I will make the commit.
 
 ## Quick Commands
 
