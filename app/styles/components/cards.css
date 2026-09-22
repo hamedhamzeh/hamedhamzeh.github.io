@@ -65,12 +65,73 @@
   font-size: 1rem;
 }
 
+/* A publication with a dedicated page is interactive exactly like a project
+   card: the same `project-card--linked` hover treatment applies. It cannot be
+   one card-wide anchor, because it also carries the publication record next to
+   the citation, so the title link is stretched over the card instead. A
+   publication without a page keeps the static, non-interactive treatment. */
+.publications-grid .project-card {
+  position: relative;
+}
+
+/* The card is the affordance, so the title link stays unadorned: the site-wide
+   animated underline would otherwise sweep under the title on card hover, which
+   the project cards never show. The gradient is reset as well as the
+   decoration, because the underline is drawn with a background image. */
+.publications-grid .publication-card-link {
+  background-image: none;
+  color: inherit;
+  text-decoration: none;
+}
+
+.publications-grid .publication-card-link:focus-visible {
+  outline: none;
+}
+
+.publications-grid .publication-card-link::after {
+  content: '';
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+}
+
+/* Focus lands on the title link, so the ring is drawn on the card itself — the
+   same treatment the project cards give their card link. */
+.publications-grid .project-card:has(.publication-card-link:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
 .publications-grid .project-card-content {
-  padding: 1rem;
+  padding: var(--spacing-3) var(--spacing-4);
+}
+
+/* The venue/status line is a <p>, so it inherited the global
+   `p { margin-bottom: 1.75rem }` and opened a 28px gap above the author line.
+   Reset it and keep the header margin as the single knob for that gap. */
+.publications-grid .project-card-subtitle {
+  margin-bottom: 0;
+}
+
+/* A manuscript without a venue states its review status as a badge below the
+   author line. It borrows the action row's own top spacing, so the badge sits
+   where the buttons sit on the other cards. */
+.publications-grid .project-card-status {
+  margin-bottom: 0;
+  margin-top: var(--spacing-4);
+}
+
+/* The badge adopts the action pills' exact sizing and padding, so the two sit on
+   the same control scale instead of the badge looking roomier. */
+.publications-grid .project-card-status .publication-type {
+  display: inline-block;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  padding: 0.25rem 0.55rem;
 }
 
 .publications-grid .project-card-header {
-  margin-bottom: 0.375rem;
+  margin-bottom: var(--spacing-3);
 }
 
 .publications-grid .project-card-title {
@@ -83,22 +144,69 @@
   font-size: 0.8125rem;
 }
 
+/* The actions row brings its own top margin, so the author line does not need
+   to reserve space below itself. */
 .publications-grid .project-card-desc {
   line-height: 1.4;
-  margin-bottom: 0.5rem;
-}
-
-.publications-grid .project-card-tech {
-  gap: 0.5rem;
   margin-bottom: 0;
 }
 
+/* The year closes the action row: on the buttons' line when it fits, and on
+   its own right-aligned line when the buttons wrap. */
+.publications-grid .project-card-date {
+  margin-left: auto;
+}
+
+/* The shared pills inherit the content's tall line box, which makes them ~38px
+   high and heavy for a citation card. They also sit above the stretched title
+   link, so the record stays clickable. */
+.publications-grid .resume-actions a {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  padding: 0.25rem 0.55rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Stacked mobile cards give the action row its own full-width line so the
+   buttons and the year flow together, with the year at the far end. */
+@media screen and (max-width: 736px) {
+  .publications-grid .project-card-content {
+    align-items: baseline;
+    column-gap: var(--spacing-2);
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .publications-grid .project-card-header,
+  .publications-grid .project-card-desc,
+  .publications-grid .project-card-status,
+  .publications-grid .resume-actions {
+    flex-basis: 100%;
+  }
+
+  /* A tighter pill keeps the year on the buttons' line at phone widths. */
+  .publications-grid .resume-actions a {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  /* The badge tracks the pills' mobile sizing. */
+  .publications-grid .project-card-status .publication-type {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
 @media screen and (min-width: 737px) {
+  /* The card hugs its citation instead of filling a fixed 13.25rem box, which
+     is what distributed ~9px of empty space above the title and below the
+     badges. min-height keeps the media column from collapsing. */
   .publications-grid .project-card-link,
   .publications-grid .project-card-static {
     display: grid;
     grid-template-columns: 10rem minmax(0, 1fr);
-    height: 13.25rem;
+    min-height: 9rem;
   }
 
   .publications-grid .project-card-image {
@@ -107,20 +215,10 @@
   }
 
   .publications-grid .project-card-content {
-    align-content: center;
-    column-gap: 0.75rem;
+    align-content: start;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    padding: 1rem 1.25rem;
-  }
-
-  .publications-grid .project-card-header,
-  .publications-grid .project-card-desc {
-    grid-column: 1 / -1;
-  }
-
-  .publications-grid .project-card-date {
-    align-self: center;
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--spacing-3) var(--spacing-5);
   }
 }
 

@@ -22,6 +22,8 @@ export interface Publication {
   url?: string;
   linkLabel?: string;
   doi?: string;
+  /** Route to the publication's dedicated page, when one exists. */
+  detailPath?: string;
   presentation?: PublicationPresentation;
 }
 
@@ -50,6 +52,8 @@ const publications: Publication[] = [
     url: 'https://ieeexplore.ieee.org/document/11551324',
     linkLabel: 'View on IEEE Xplore',
     doi: '10.1109/MRA.2026.3683248',
+    // Temporary: points at the landing page until the dedicated page exists.
+    detailPath: '/',
   },
   {
     title:
@@ -75,6 +79,8 @@ const publications: Publication[] = [
     url: 'https://ieeexplore.ieee.org/document/10903519',
     linkLabel: 'View on IEEE Xplore',
     doi: '10.1109/ICRoM64545.2024.10903519',
+    // Temporary: points at the landing page until the dedicated page exists.
+    detailPath: '/',
     presentation: {
       label: 'Oral presentation',
       note: 'Selected for oral presentation at ICRoM 2024.',

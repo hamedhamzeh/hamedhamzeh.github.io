@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import Cell, { type ProjectCardData } from '@/components/Projects/Cell';
+import PublicationCard from '@/components/Publications/PublicationCard';
 import { SchemaGraph } from '@/components/Schema';
 import PageWrapper from '@/components/Template/PageWrapper';
 import publications from '@/data/resume/publications';
@@ -21,16 +21,6 @@ export const metadata: Metadata = createPageMetadata({
   description: PUBLICATIONS_DESCRIPTION,
   path: '/publications/',
 });
-
-const publicationCards: ProjectCardData[] = publications.map((publication) => ({
-  title: publication.title,
-  subtitle: publication.venue ?? publication.status,
-  link: publication.url,
-  image: publication.presentation?.gallery.images[0]?.src,
-  date: publication.year ? `${publication.year}-01-01` : undefined,
-  desc: publication.authors.map(({ citationName }) => citationName).join(', '),
-  tech: [publication.type, publication.status],
-}));
 
 export default function PublicationsPage() {
   return (
@@ -55,8 +45,8 @@ export default function PublicationsPage() {
         </header>
 
         <div className="projects-grid publications-grid">
-          {publicationCards.map((publication) => (
-            <Cell data={publication} key={publication.title} />
+          {publications.map((publication) => (
+            <PublicationCard data={publication} key={publication.title} />
           ))}
         </div>
       </section>
