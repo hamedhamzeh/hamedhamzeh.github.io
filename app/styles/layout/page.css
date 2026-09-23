@@ -14,7 +14,7 @@
 .page-main {
   flex: 1;
   width: 100%;
-  max-width: 800px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
 }

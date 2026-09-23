@@ -27,7 +27,7 @@
 
 /* Resume page specific */
 .resume-page {
-  max-width: 880px;
+  max-width: 1056px;
   margin: 0 auto;
 }
 
@@ -46,7 +46,7 @@
   font-size: clamp(1.05rem, 1vw + 0.85rem, 1.2rem);
   line-height: 1.75;
   margin: 0;
-  max-width: 46rem;
+  max-width: 55rem;
   text-align: left;
   text-wrap: pretty;
 }

@@ -8,7 +8,7 @@
    ======================================== */
 
 .about-page {
-  max-width: 52rem;
+  max-width: 62rem;
   margin: 0 auto;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .about-content {
-  max-width: 46rem;
+  max-width: 55rem;
   line-height: 1.85;
 }
 
@@ -46,10 +46,12 @@
 }
 
 .about-intro p {
-  max-width: 41rem;
-  font-size: clamp(1.04rem, 0.7vw + 0.95rem, 1.1rem);
-  line-height: 1.9;
-  color: var(--color-fg-bold);
+  max-width: 55rem;
+  font-size: clamp(1.05rem, 1vw + 0.85rem, 1.2rem);
+  line-height: 1.75;
+  color: var(--color-fg);
+  text-align: left;
+  text-wrap: pretty;
 }
 
 .about-content ul {
@@ -85,7 +87,7 @@
 }
 
 .contact-page {
-  max-width: 880px;
+  max-width: 1056px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
