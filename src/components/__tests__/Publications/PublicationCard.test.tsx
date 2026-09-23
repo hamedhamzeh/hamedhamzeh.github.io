@@ -49,9 +49,8 @@ describe('PublicationCard', () => {
     expect(screen.getByText('2024')).toHaveAttribute('datetime', '2024');
   });
 
-  it('links the dedicated publication page', () => {
+  it('shows an explicit detail-page action', () => {
     render(<PublicationCard data={mockPublication} />);
-
     expect(
       screen.getByRole('link', { name: 'Publication page' }),
     ).toHaveAttribute('href', mockPublication.detailPath);
@@ -74,6 +73,9 @@ describe('PublicationCard', () => {
     expect(screen.getByRole('article')).toHaveClass('project-card--static');
     expect(
       container.querySelector('.publication-card-link'),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('link', { name: 'Publication page' }),
     ).not.toBeInTheDocument();
   });
 
@@ -99,7 +101,7 @@ describe('PublicationCard', () => {
     render(<PublicationCard data={mockPublication} />);
 
     const actionRow = screen
-      .getByRole('link', { name: 'Publication page' })
+      .getByRole('link', { name: /view publication/i })
       .closest('.resume-actions');
 
     expect(actionRow).not.toBeNull();

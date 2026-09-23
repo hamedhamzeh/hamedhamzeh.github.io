@@ -17,7 +17,7 @@ interface PublicationCardProps {
  * Resume's Publications section rather than being duplicated here.
  */
 export default function PublicationCard({ data }: PublicationCardProps) {
-  const image = data.presentation?.gallery.images[0]?.src;
+  const image = data.image ?? data.presentation?.gallery.images[0]?.src;
   const authors = data.authors
     .map(({ citationName }) => citationName)
     .join(', ');

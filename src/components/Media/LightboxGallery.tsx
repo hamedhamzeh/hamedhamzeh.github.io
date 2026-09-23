@@ -24,12 +24,14 @@ interface LightboxGalleryProps {
   images: LightboxImage[];
   triggerLabel: string;
   dialogLabel: string;
+  display?: 'button' | 'grid';
 }
 
 export default function LightboxGallery({
   images,
   triggerLabel,
   dialogLabel,
+  display = 'button',
 }: LightboxGalleryProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -57,6 +59,13 @@ export default function LightboxGallery({
     },
     [imageCount],
   );
+
+  const openGallery = (index: number, trigger: HTMLButtonElement) => {
+    triggerRef.current = trigger;
+    setActiveIndex(index);
+    setZoom(MIN_ZOOM);
+    setIsOpen(true);
+  };
 
   useEffect(() => {
     if (!isOpen) return;
@@ -230,15 +239,40 @@ export default function LightboxGallery({
 
   return (
     <>
-      <button
-        ref={triggerRef}
-        type="button"
-        className="lightbox-gallery-trigger"
-        aria-haspopup="dialog"
-        onClick={() => setIsOpen(true)}
-      >
-        {triggerLabel}
-      </button>
+      {display === 'grid' ? (
+        <div className="portfolio-gallery-grid" aria-label={triggerLabel}>
+          {images.map((image, index) => (
+            <button
+              key={`${image.src}-${index}`}
+              type="button"
+              className="portfolio-gallery-thumbnail"
+              aria-label={`View image ${index + 1}: ${image.alt}`}
+              aria-haspopup="dialog"
+              onClick={(event) => openGallery(index, event.currentTarget)}
+            >
+              <Image
+                src={image.src}
+                alt=""
+                width={image.width}
+                height={image.height}
+                sizes="(max-width: 600px) 50vw, 240px"
+                loading="lazy"
+              />
+              {image.caption && <span>{image.caption}</span>}
+            </button>
+          ))}
+        </div>
+      ) : (
+        <button
+          ref={triggerRef}
+          type="button"
+          className="lightbox-gallery-trigger"
+          aria-haspopup="dialog"
+          onClick={(event) => openGallery(0, event.currentTarget)}
+        >
+          {triggerLabel}
+        </button>
+      )}
       {modal && createPortal(modal, document.body)}
     </>
   );

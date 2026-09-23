@@ -12,10 +12,10 @@ import PageWrapper from '@/components/Template/PageWrapper';
 import certificates from '@/data/resume/certificates';
 import degrees from '@/data/resume/degrees';
 import honors from '@/data/resume/honors';
-import publications from '@/data/resume/publications';
 import { categories, skills } from '@/data/resume/skills';
 import work from '@/data/resume/work';
 import { createPageMetadata } from '@/lib/metadata';
+import { getAllPublications } from '@/lib/portfolio-content';
 
 export const metadata: Metadata = createPageMetadata({
   title: 'Resume',
@@ -35,6 +35,7 @@ const resumeSections = [
 ] as const;
 
 export default function ResumePage() {
+  const publications = getAllPublications();
   return (
     <PageWrapper>
       <section className="resume-page">

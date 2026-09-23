@@ -3,8 +3,8 @@ import type { Metadata } from 'next';
 import PublicationCard from '@/components/Publications/PublicationCard';
 import { SchemaGraph } from '@/components/Schema';
 import PageWrapper from '@/components/Template/PageWrapper';
-import publications from '@/data/resume/publications';
 import { createPageMetadata } from '@/lib/metadata';
+import { getAllPublications } from '@/lib/portfolio-content';
 import {
   breadcrumbNode,
   collectionPageNode,
@@ -23,6 +23,7 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function PublicationsPage() {
+  const publications = getAllPublications();
   return (
     <PageWrapper>
       <SchemaGraph

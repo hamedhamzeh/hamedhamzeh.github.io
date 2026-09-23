@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import publications from '../resume/publications';
+import { getAllPublications } from '@/lib/portfolio-content';
 
 describe('publications data', () => {
+  const publications = getAllPublications();
   it('contains the two verified records and the under-review manuscript', () => {
     expect(publications).toHaveLength(3);
 

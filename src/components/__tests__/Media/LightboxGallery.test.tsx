@@ -21,6 +21,28 @@ const images = [
 ];
 
 describe('LightboxGallery', () => {
+  it('opens the selected thumbnail and restores focus to it', () => {
+    render(
+      <LightboxGallery
+        images={images}
+        triggerLabel="Prototype gallery"
+        dialogLabel="Prototype gallery"
+        display="grid"
+      />,
+    );
+
+    const secondThumbnail = screen.getByRole('button', {
+      name: 'View image 2: Second report',
+    });
+    fireEvent.click(secondThumbnail);
+    expect(
+      screen.getByRole('img', { name: 'Second report' }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('2 of 2')).toBeInTheDocument();
+
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(secondThumbnail).toHaveFocus();
+  });
   it('opens a single image without gallery navigation', () => {
     render(
       <LightboxGallery

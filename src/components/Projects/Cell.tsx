@@ -35,7 +35,7 @@ export default function Cell({ data }: CellProps) {
           className="project-card-image project-card-image--placeholder"
           aria-hidden="true"
         >
-          Publication
+          Project
         </div>
       )}
 

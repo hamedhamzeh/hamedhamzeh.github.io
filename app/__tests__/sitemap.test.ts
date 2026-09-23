@@ -12,6 +12,9 @@ describe('sitemap', () => {
         expect.objectContaining({ url: `${SITE_URL}/about/` }),
         expect.objectContaining({ url: `${SITE_URL}/resume/` }),
         expect.objectContaining({ url: `${SITE_URL}/publications/` }),
+        expect.objectContaining({
+          url: `${SITE_URL}/publications/wormlike-robot-ferromagnetic-surface-inspection/`,
+        }),
         expect.objectContaining({ url: `${SITE_URL}/projects/` }),
         expect.objectContaining({ url: `${SITE_URL}/contact/` }),
       ]),

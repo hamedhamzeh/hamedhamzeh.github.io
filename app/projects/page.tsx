@@ -3,8 +3,8 @@ import type { Metadata } from 'next';
 import Cell from '@/components/Projects/Cell';
 import { SchemaGraph } from '@/components/Schema';
 import PageWrapper from '@/components/Template/PageWrapper';
-import data from '@/data/projects';
 import { createPageMetadata } from '@/lib/metadata';
+import { getAllProjects } from '@/lib/portfolio-content';
 import {
   breadcrumbNode,
   collectionPageNode,
@@ -24,6 +24,7 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function ProjectsPage() {
+  const data = getAllProjects();
   const featuredProjects = data.filter((p) => p.featured);
   const otherProjects = data.filter((p) => !p.featured);
 
