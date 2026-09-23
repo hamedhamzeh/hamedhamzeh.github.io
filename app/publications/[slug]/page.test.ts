@@ -4,16 +4,23 @@ import { SITE_URL } from '@/lib/utils';
 import { generateMetadata, generateStaticParams } from './page';
 
 describe('publication detail page', () => {
-  const slug = 'wormlike-robot-ferromagnetic-surface-inspection';
+  const slugs = [
+    'wormlike-robot-ferromagnetic-surface-inspection',
+    'puppet-robot-pose-detection',
+  ];
 
-  it('exports the Markdown-backed publication route', () => {
-    expect(generateStaticParams()).toContainEqual({ slug });
+  it('exports both Markdown-backed publication routes', () => {
+    for (const slug of slugs) {
+      expect(generateStaticParams()).toContainEqual({ slug });
+    }
   });
 
-  it('uses its trailing-slash canonical URL in metadata', async () => {
-    const metadata = await generateMetadata({
-      params: Promise.resolve({ slug }),
-    });
-    expect(metadata.openGraph?.url).toBe(`${SITE_URL}/publications/${slug}/`);
+  it('uses trailing-slash canonical URLs in metadata', async () => {
+    for (const slug of slugs) {
+      const metadata = await generateMetadata({
+        params: Promise.resolve({ slug }),
+      });
+      expect(metadata.openGraph?.url).toBe(`${SITE_URL}/publications/${slug}/`);
+    }
   });
 });

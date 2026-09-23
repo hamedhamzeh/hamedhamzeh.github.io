@@ -18,6 +18,7 @@ describe('publications data', () => {
     );
 
     expect(puppetPaper).toMatchObject({
+      detailPath: '/publications/puppet-robot-pose-detection/',
       year: 2024,
       type: 'Conference paper',
       status: 'Published',

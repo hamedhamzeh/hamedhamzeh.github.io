@@ -30,7 +30,7 @@ Write the project story here.
 
 ## Publication frontmatter
 
-The wormlike robot file in `content/publications/` is the current example. A publication requires `title`, `description`, `authors` (each with `name` and `citationName`), `year`, `type`, and `status`. Optional fields include `venue`, `url`, `linkLabel`, `doi`, and `image`. The frontmatter supplies its card, Resume citation, and detail-page metadata. The Markdown body may be empty until verified detail is ready.
+The two published-paper files in `content/publications/` are current examples. A publication requires `title`, `description`, `authors` (each with `name` and `citationName`), `year`, `type`, and `status`. Optional fields include `venue`, `url`, `linkLabel`, `doi`, `image`, and `presentation`. The puppet robot file shows how `presentation` keeps its certificate gallery on the Resume. The frontmatter supplies its card, Resume citation, and detail-page metadata. The Markdown body may be empty until verified detail is ready.
 
 ## Images and galleries
 

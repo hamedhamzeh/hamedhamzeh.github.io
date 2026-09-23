@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
+import { getAllPublications } from '@/lib/portfolio-content';
 import Publications from '../../Resume/Publications';
 import Publication from '../../Resume/Publications/Publication';
 
@@ -40,6 +41,20 @@ const mockPublication = {
 };
 
 describe('Publications', () => {
+  it('keeps the puppet paper certificate action after loading Markdown', () => {
+    const puppetPaper = getAllPublications().find((publication) =>
+      publication.title.startsWith('Design of a Remote Controlled Puppet'),
+    );
+    expect(puppetPaper).toBeDefined();
+    render(<Publications data={[puppetPaper!]} />);
+    expect(
+      screen.getByRole('button', { name: 'View presentation certificate' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: /view on ieee xplore/i }),
+    ).toHaveAttribute('href', 'https://ieeexplore.ieee.org/document/10903519');
+  });
+
   it('renders the section title, anchor, and publications', () => {
     render(<Publications data={[mockPublication]} />);
 

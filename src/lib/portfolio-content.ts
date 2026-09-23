@@ -7,6 +7,7 @@ import legacyProjects, { type Project } from '@/data/projects';
 import legacyPublications, {
   type Publication,
   type PublicationAuthor,
+  type PublicationPresentation,
 } from '@/data/resume/publications';
 import type { LightboxImage } from '@/types/media';
 
@@ -18,6 +19,7 @@ export interface PortfolioMedia {
 export interface PublicationDetail extends Publication {
   slug: string;
   description: string;
+  year: number;
   content: string;
   media: PortfolioMedia;
   detailPath: string;
@@ -175,6 +177,40 @@ function readMedia(
   return { images, galleries };
 }
 
+function readPresentation(
+  value: unknown,
+  source: string,
+): PublicationPresentation | undefined {
+  if (value == null) return undefined;
+  const data = record(value, 'presentation', source);
+  const gallery = record(data.gallery, 'presentation.gallery', source);
+  if (!Array.isArray(gallery.images) || gallery.images.length === 0) {
+    throw new Error(
+      `${source}: presentation.gallery.images needs at least one image`,
+    );
+  }
+
+  return {
+    label: readString(data.label, 'presentation.label', source),
+    note: readString(data.note, 'presentation.note', source),
+    gallery: {
+      triggerLabel: readString(
+        gallery.triggerLabel,
+        'presentation.gallery.triggerLabel',
+        source,
+      ),
+      dialogLabel: readString(
+        gallery.dialogLabel,
+        'presentation.gallery.dialogLabel',
+        source,
+      ),
+      images: gallery.images.map((image, index) =>
+        readImage(image, `presentation.gallery.images[${index}]`, source),
+      ),
+    },
+  };
+}
+
 function readMarkdown(
   kind: ContentKind,
   slug: string,
@@ -234,6 +270,7 @@ export function getPublicationBySlug(slug: string): PublicationDetail | null {
     linkLabel: optionalString(data.linkLabel, 'linkLabel', source),
     doi: optionalString(data.doi, 'doi', source),
     image: optionalString(data.image, 'image', source),
+    presentation: readPresentation(data.presentation, source),
     detailPath: `/publications/${slug}/`,
     content,
     media: readMedia(data.media, content, source),
@@ -241,11 +278,13 @@ export function getPublicationBySlug(slug: string): PublicationDetail | null {
 }
 
 export function getAllPublications(): Publication[] {
-  const pageBacked = getDetailSlugs('publications').map((slug) => {
-    const publication = getPublicationBySlug(slug);
-    if (!publication) throw new Error(`Missing publication: ${slug}`);
-    return publication;
-  });
+  const pageBacked = getDetailSlugs('publications')
+    .map((slug) => {
+      const publication = getPublicationBySlug(slug);
+      if (!publication) throw new Error(`Missing publication: ${slug}`);
+      return publication;
+    })
+    .sort((a, b) => b.year - a.year);
   const pageByTitle = new Map(
     pageBacked.map((publication) => [publication.title, publication]),
   );
