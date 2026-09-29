@@ -1,17 +1,15 @@
 .portfolio-detail-page {
-  max-width: 960px;
+  max-width: 1056px;
   margin: 0 auto;
-  padding: 0 1rem 3rem;
 }
 
 .portfolio-detail-header {
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--color-border);
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-6);
 }
 
 .portfolio-detail-header h1 {
   font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: var(--font-weight-bold);
   line-height: 1.2;
   margin: 0 0 1rem;
 }
@@ -28,8 +26,39 @@
   margin-top: 1.5rem;
 }
 
+.portfolio-detail-prose {
+  padding-top: var(--spacing-10);
+}
+
+.portfolio-detail-content .section-title {
+  color: var(--color-fg-bold);
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.3vw, 1.85rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  line-height: var(--leading-heading);
+  margin: var(--spacing-16) auto var(--spacing-6);
+  padding-bottom: var(--heading-rule-gap);
+  text-align: center;
+  width: fit-content;
+}
+
+.portfolio-detail-prose .section-title:first-child {
+  margin-top: 0;
+}
+
 .portfolio-detail-content [id] {
-  scroll-margin-top: 6rem;
+  scroll-margin-top: calc(var(--header-height) + var(--scroll-offset-resume));
+}
+
+@media (max-width: 736px) {
+  .portfolio-detail-prose {
+    padding-top: var(--spacing-8);
+  }
+
+  .portfolio-detail-content [id] {
+    scroll-margin-top: calc(var(--header-height-mobile) + var(--scroll-offset-resume));
+  }
 }
 
 .portfolio-detail-figure {

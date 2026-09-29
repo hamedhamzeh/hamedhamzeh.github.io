@@ -63,6 +63,4 @@ media:
 
 ## Demonstration videos
 
-These three clips document the puppet robot demonstration.
-
 <VideoGallery id="demonstrations" showTitle="false" />

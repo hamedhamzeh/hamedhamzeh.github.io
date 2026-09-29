@@ -58,6 +58,4 @@ media:
 
 ## Demonstration videos
 
-These clips show the robot in five experimental scenarios.
-
 <VideoGallery id="experiments" />

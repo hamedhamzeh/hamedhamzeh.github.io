@@ -59,12 +59,16 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         ]}
       />
       <article className="portfolio-detail-page">
-        <header className="portfolio-detail-header">
+        <header className="page-header portfolio-detail-header">
           <h1>{project.title}</h1>
           {project.subtitle && <p>{project.subtitle}</p>}
           <p>{project.desc}</p>
         </header>
-        <DetailContent content={project.content} media={project.media} />
+        <DetailContent
+          content={project.content}
+          media={project.media}
+          sectionNavLabel="Project sections"
+        />
       </article>
     </PageWrapper>
   );

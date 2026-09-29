@@ -20,6 +20,33 @@ describe('DetailContent', () => {
     expect(
       screen.getAllByRole('heading', { name: 'Overview' })[1],
     ).toHaveAttribute('id', 'overview-2');
+    const nav = screen.getByRole('navigation', { name: 'Page sections' });
+    expect(nav).toHaveClass('section-nav');
+    expect(nav.querySelectorAll('a')).toHaveLength(2);
+    expect(nav.querySelectorAll('a')[0]).toHaveAttribute('href', '#overview');
+    expect(nav.querySelectorAll('a')[1]).toHaveAttribute('href', '#overview-2');
+    expect(screen.getAllByRole('heading', { name: 'Overview' })[0]).toHaveClass(
+      'section-title',
+    );
+  });
+
+  it('links only real second-level sections and accounts for other heading ids', () => {
+    render(
+      <DetailContent
+        content={'### Overview\n\n## Overview\n\n```md\n## Code sample\n```'}
+        media={{}}
+        sectionNavLabel="Publication sections"
+      />,
+    );
+    const nav = screen.getByRole('navigation', {
+      name: 'Publication sections',
+    });
+    expect(nav.querySelectorAll('a')).toHaveLength(1);
+    expect(nav.querySelector('a')).toHaveAttribute('href', '#overview-2');
+    expect(screen.getByRole('heading', { level: 2 })).toHaveAttribute(
+      'id',
+      'overview-2',
+    );
   });
 
   it('renders named images with alt text and captions', () => {

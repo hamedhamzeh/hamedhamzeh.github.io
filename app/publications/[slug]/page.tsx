@@ -56,7 +56,7 @@ export default async function PublicationDetailPage({ params }: PageProps) {
         ]}
       />
       <article className="portfolio-detail-page">
-        <header className="portfolio-detail-header">
+        <header className="page-header portfolio-detail-header">
           <h1>{publication.title}</h1>
           <p>{publication.authors.map((author) => author.name).join(', ')}</p>
           <p>
@@ -78,6 +78,7 @@ export default async function PublicationDetailPage({ params }: PageProps) {
         <DetailContent
           content={publication.content}
           media={publication.media}
+          sectionNavLabel="Publication sections"
         />
       </article>
     </PageWrapper>
