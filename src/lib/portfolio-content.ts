@@ -9,11 +9,12 @@ import legacyPublications, {
   type PublicationAuthor,
   type PublicationPresentation,
 } from '@/data/resume/publications';
-import type { LightboxImage } from '@/types/media';
+import type { LightboxImage, VideoCaption, VideoData } from '@/types/media';
 
 export interface PortfolioMedia {
   images?: Record<string, LightboxImage>;
   galleries?: Record<string, LightboxImage[]>;
+  videoGalleries?: Record<string, VideoData[]>;
 }
 
 export interface PublicationDetail extends Publication {
@@ -132,6 +133,90 @@ function readImage(
   };
 }
 
+function readVideoPath(
+  value: unknown,
+  field: string,
+  source: string,
+  extension: '.mp4' | '.webp' | '.vtt',
+): string {
+  const videoPath = readString(value, field, source);
+  if (
+    !videoPath.startsWith('/videos/') ||
+    videoPath.includes('..') ||
+    !videoPath.toLowerCase().endsWith(extension)
+  ) {
+    throw new Error(
+      `${source}: ${field} must be a local /videos/ ${extension} path`,
+    );
+  }
+  return videoPath;
+}
+
+function readVideo(value: unknown, field: string, source: string): VideoData {
+  const data = record(value, field, source);
+  const width = data.width ?? 1920;
+  const height = data.height ?? 1080;
+  if (
+    typeof width !== 'number' ||
+    !Number.isInteger(width) ||
+    width <= 0 ||
+    typeof height !== 'number' ||
+    !Number.isInteger(height) ||
+    height <= 0
+  ) {
+    throw new Error(
+      `${source}: ${field} needs positive integer width and height`,
+    );
+  }
+
+  let captions: VideoCaption[] | undefined;
+  if (data.captions != null) {
+    if (!Array.isArray(data.captions)) {
+      throw new Error(`${source}: ${field}.captions must be a list`);
+    }
+    captions = data.captions.map((value: unknown, index: number) => {
+      const caption = record(value, `${field}.captions[${index}]`, source);
+      return {
+        src: readVideoPath(
+          caption.src,
+          `${field}.captions[${index}].src`,
+          source,
+          '.vtt',
+        ),
+        language: readString(
+          caption.language,
+          `${field}.captions[${index}].language`,
+          source,
+        ),
+        label: readString(
+          caption.label,
+          `${field}.captions[${index}].label`,
+          source,
+        ),
+        default: caption.default === true,
+      };
+    });
+    if (captions.filter((caption) => caption.default).length > 1) {
+      throw new Error(`${source}: ${field} can have only one default caption`);
+    }
+  }
+
+  return {
+    src: readVideoPath(data.src, `${field}.src`, source, '.mp4'),
+    poster: readVideoPath(data.poster, `${field}.poster`, source, '.webp'),
+    title: readString(data.title, `${field}.title`, source),
+    description: optionalString(
+      data.description,
+      `${field}.description`,
+      source,
+    ),
+    width,
+    height,
+    captions,
+    transcript: optionalString(data.transcript, `${field}.transcript`, source),
+  };
+}
+
 function readMedia(
   value: unknown,
   content: string,
@@ -140,6 +225,7 @@ function readMedia(
   const data = value == null ? {} : record(value, 'media', source);
   const images: Record<string, LightboxImage> = {};
   const galleries: Record<string, LightboxImage[]> = {};
+  const videoGalleries: Record<string, VideoData[]> = {};
 
   if (data.images != null) {
     for (const [id, image] of Object.entries(
@@ -162,19 +248,38 @@ function readMedia(
       );
     }
   }
+  if (data.videoGalleries != null) {
+    for (const [id, videos] of Object.entries(
+      record(data.videoGalleries, 'media.videoGalleries', source),
+    )) {
+      if (!Array.isArray(videos) || videos.length === 0) {
+        throw new Error(
+          `${source}: media.videoGalleries.${id} needs at least one video`,
+        );
+      }
+      videoGalleries[id] = videos.map((video, index) =>
+        readVideo(video, `media.videoGalleries.${id}[${index}]`, source),
+      );
+    }
+  }
 
   for (const match of content.matchAll(
-    /<(ImageBlock|Gallery)\s+id=["']([^"']+)["']\s*\/>/g,
+    /<(ImageBlock|Gallery|VideoGallery)\s+id=["']([^"']+)["']\s*\/>/g,
   )) {
     const [, component, id] = match;
-    const exists = component === 'ImageBlock' ? images[id] : galleries[id];
+    const exists =
+      component === 'ImageBlock'
+        ? images[id]
+        : component === 'Gallery'
+          ? galleries[id]
+          : videoGalleries[id];
     if (!exists)
       throw new Error(
         `${source}: ${component} references missing media id "${id}"`,
       );
   }
 
-  return { images, galleries };
+  return { images, galleries, videoGalleries };
 }
 
 function readPresentation(

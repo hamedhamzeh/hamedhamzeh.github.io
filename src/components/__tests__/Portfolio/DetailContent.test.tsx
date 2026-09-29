@@ -61,4 +61,33 @@ describe('DetailContent', () => {
       screen.getByRole('img', { name: 'Robot side view' }),
     ).toBeInTheDocument();
   });
+
+  it('hides a gallery title when requested while retaining the video name', () => {
+    render(
+      <DetailContent
+        content={'<VideoGallery id="demonstrations" showTitle="false" />'}
+        media={{
+          videoGalleries: {
+            demonstrations: [
+              {
+                src: '/videos/puppet-robot/demo.mp4',
+                poster: '/videos/puppet-robot/posters/demo.webp',
+                title: 'Puppet robot demonstration 1',
+                width: 1280,
+                height: 720,
+              },
+            ],
+          },
+        }}
+      />,
+    );
+    expect(
+      screen.queryByRole('heading', { name: 'Puppet robot demonstration 1' }),
+    ).toBeNull();
+    expect(
+      screen.getByLabelText('Puppet robot demonstration 1', {
+        selector: 'video',
+      }),
+    ).toBeInTheDocument();
+  });
 });

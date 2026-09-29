@@ -47,6 +47,7 @@
      SEMANTIC COLORS
      =================== */
   --color-white: #fff;
+  --color-video-canvas: #000;
   --color-overlay-light: rgba(255, 255, 255, 0.15);
   --color-overlay-dark: rgba(0, 0, 0, 0.15);
   --color-overlay-darker: rgba(0, 0, 0, 0.3);

@@ -4,6 +4,9 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   output: 'export',
 
+  // GitHub Pages project sites use a repository subdirectory.
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || undefined,
+
   // Allow dev server access from local network (mobile testing, etc.)
   allowedDevOrigins: ['http://192.168.*.*:3000'],
 

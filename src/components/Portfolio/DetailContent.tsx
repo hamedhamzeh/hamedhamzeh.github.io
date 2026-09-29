@@ -4,6 +4,7 @@ import Markdown from 'markdown-to-jsx';
 import Image from 'next/image';
 
 import LightboxGallery from '@/components/Media/LightboxGallery';
+import VideoGallery from '@/components/Media/VideoGallery';
 import { createHeadingId } from '@/lib/anchors';
 import type { PortfolioMedia } from '@/lib/portfolio-content';
 
@@ -58,6 +59,25 @@ export default function DetailContent({ content, media }: DetailContentProps) {
                     triggerLabel={`${id} image gallery`}
                     dialogLabel={`${id} image gallery`}
                     display="grid"
+                  />
+                );
+              },
+            },
+            VideoGallery: {
+              component: ({
+                id,
+                showTitle,
+              }: {
+                id: string;
+                showTitle?: string;
+              }) => {
+                const videos = media.videoGalleries?.[id];
+                if (!videos) return null;
+                return (
+                  <VideoGallery
+                    videos={videos}
+                    label={`${id} videos`}
+                    showTitle={showTitle !== 'false'}
                   />
                 );
               },

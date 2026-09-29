@@ -43,6 +43,33 @@ describe('portfolio Markdown content', () => {
       status: 'Published',
     });
     expect(getDetailSlugs('publications')).toContain(slug);
+    expect(publication?.media.videoGalleries?.experiments).toHaveLength(5);
+  });
+
+  it('loads the puppet publication video gallery', () => {
+    const publication = getPublicationBySlug('puppet-robot-pose-detection');
+    expect(publication?.media.videoGalleries?.demonstrations).toHaveLength(3);
+  });
+
+  it('points every publication video at an existing MP4 and poster', () => {
+    for (const slug of [
+      'wormlike-robot-ferromagnetic-surface-inspection',
+      'puppet-robot-pose-detection',
+    ]) {
+      const publication = getPublicationBySlug(slug);
+      for (const videos of Object.values(
+        publication?.media.videoGalleries ?? {},
+      )) {
+        for (const video of videos) {
+          expect(
+            fs.existsSync(path.join(process.cwd(), 'public', video.src)),
+          ).toBe(true);
+          expect(
+            fs.existsSync(path.join(process.cwd(), 'public', video.poster)),
+          ).toBe(true);
+        }
+      }
+    }
   });
 
   it('adds a Markdown-backed project to the index data', () => {
@@ -145,6 +172,69 @@ media:
     );
     expect(() => getProjectBySlug('broken-image')).toThrow(
       /positive integer width and height/,
+    );
+  });
+
+  it('rejects a missing video gallery reference', () => {
+    useTemporaryContent(
+      'projects',
+      'broken-videos',
+      `---
+title: Broken Videos
+description: A test entry.
+date: '2026-09-23'
+---
+<VideoGallery id="missing" />
+`,
+    );
+    expect(() => getProjectBySlug('broken-videos')).toThrow(/missing media id/);
+  });
+
+  it('rejects invalid video paths and dimensions', () => {
+    useTemporaryContent(
+      'projects',
+      'broken-video-data',
+      `---
+title: Broken Video Data
+description: A test entry.
+date: '2026-09-23'
+media:
+  videoGalleries:
+    demo:
+      - src: https://example.com/demo.mp4
+        poster: /videos/demo.webp
+        title: Demo
+        width: 0
+        height: 720
+---
+<VideoGallery id="demo" />
+`,
+    );
+    expect(() => getProjectBySlug('broken-video-data')).toThrow(
+      /positive integer width and height/,
+    );
+  });
+
+  it('rejects external video URLs', () => {
+    useTemporaryContent(
+      'projects',
+      'external-video',
+      `---
+title: External Video
+description: A test entry.
+date: '2026-09-23'
+media:
+  videoGalleries:
+    demo:
+      - src: https://example.com/demo.mp4
+        poster: /videos/demo.webp
+        title: Demo
+---
+<VideoGallery id="demo" />
+`,
+    );
+    expect(() => getProjectBySlug('external-video')).toThrow(
+      /local \/videos\/ .mp4 path/,
     );
   });
 });
