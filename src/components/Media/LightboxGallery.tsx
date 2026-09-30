@@ -25,6 +25,7 @@ interface LightboxGalleryProps {
   triggerLabel: string;
   dialogLabel: string;
   display?: 'button' | 'grid';
+  showThumbnailCaptions?: boolean;
 }
 
 export default function LightboxGallery({
@@ -32,6 +33,7 @@ export default function LightboxGallery({
   triggerLabel,
   dialogLabel,
   display = 'button',
+  showThumbnailCaptions = true,
 }: LightboxGalleryProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -240,7 +242,15 @@ export default function LightboxGallery({
   return (
     <>
       {display === 'grid' ? (
-        <div className="portfolio-gallery-grid" aria-label={triggerLabel}>
+        <div
+          className={[
+            'portfolio-gallery-grid',
+            images.length === 1 && 'is-single',
+          ]
+            .filter(Boolean)
+            .join(' ')}
+          aria-label={triggerLabel}
+        >
           {images.map((image, index) => (
             <button
               key={`${image.src}-${index}`}
@@ -258,7 +268,9 @@ export default function LightboxGallery({
                 sizes="(max-width: 600px) 50vw, 240px"
                 loading="lazy"
               />
-              {image.caption && <span>{image.caption}</span>}
+              {showThumbnailCaptions && image.caption && (
+                <span>{image.caption}</span>
+              )}
             </button>
           ))}
         </div>

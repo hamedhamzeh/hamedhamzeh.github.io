@@ -53,6 +53,7 @@ export default function DetailContent({
   if (!content) return null;
 
   const sectionItems = getSectionItems(content);
+  const hasDenseSectionNav = sectionItems.length > 7;
   const headingCounts = new Map<string, number>();
   const slugify = (value: string) => {
     const base = createHeadingId(value);
@@ -62,7 +63,14 @@ export default function DetailContent({
   };
 
   return (
-    <div className="portfolio-detail-content">
+    <div
+      className={[
+        'portfolio-detail-content',
+        hasDenseSectionNav && 'has-dense-section-nav',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
       {sectionItems.length > 0 && (
         <SectionNav
           items={sectionItems}
@@ -92,9 +100,26 @@ export default function DetailContent({
                 ),
               },
               ImageBlock: {
-                component: ({ id }: { id: string }) => {
+                component: ({
+                  id,
+                  display,
+                }: {
+                  id: string;
+                  display?: string;
+                }) => {
                   const image = media.images?.[id];
                   if (!image) return null;
+                  if (display === 'card') {
+                    return (
+                      <LightboxGallery
+                        images={[image]}
+                        triggerLabel={`${id} image`}
+                        dialogLabel={image.title ?? `${id} image`}
+                        display="grid"
+                        showThumbnailCaptions={false}
+                      />
+                    );
+                  }
                   return (
                     <figure className="portfolio-detail-figure">
                       <Image
@@ -113,7 +138,13 @@ export default function DetailContent({
                 },
               },
               Gallery: {
-                component: ({ id }: { id: string }) => {
+                component: ({
+                  id,
+                  showCaptions,
+                }: {
+                  id: string;
+                  showCaptions?: string;
+                }) => {
                   const images = media.galleries?.[id];
                   if (!images) return null;
                   return (
@@ -122,6 +153,7 @@ export default function DetailContent({
                       triggerLabel={`${id} image gallery`}
                       dialogLabel={`${id} image gallery`}
                       display="grid"
+                      showThumbnailCaptions={showCaptions !== 'false'}
                     />
                   );
                 },

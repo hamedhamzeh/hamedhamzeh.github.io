@@ -89,6 +89,37 @@ describe('DetailContent', () => {
     ).toBeInTheDocument();
   });
 
+  it('moves gallery captions into the lightbox when requested', () => {
+    render(
+      <DetailContent
+        content={'<Gallery id="prototype" showCaptions="false" />'}
+        media={{ galleries: { prototype: [image] } }}
+      />,
+    );
+
+    expect(screen.queryByText('Prototype view')).not.toBeInTheDocument();
+    fireEvent.click(
+      screen.getByRole('button', { name: 'View image 1: Robot prototype' }),
+    );
+    expect(screen.getByText('Prototype view')).toBeInTheDocument();
+  });
+
+  it('renders a named image as a lightbox card', () => {
+    render(
+      <DetailContent
+        content={'<ImageBlock id="prototype" display="card" />'}
+        media={{ images: { prototype: image } }}
+      />,
+    );
+
+    expect(screen.queryByText('Prototype view')).not.toBeInTheDocument();
+    fireEvent.click(
+      screen.getByRole('button', { name: 'View image 1: Robot prototype' }),
+    );
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(screen.getByText('Prototype view')).toBeInTheDocument();
+  });
+
   it('hides a gallery title when requested while retaining the video name', () => {
     render(
       <DetailContent
@@ -116,5 +147,35 @@ describe('DetailContent', () => {
         selector: 'video',
       }),
     ).toBeInTheDocument();
+  });
+
+  it('preserves an authored semantic research flow', () => {
+    const { container } = render(
+      <DetailContent
+        content={`<ol className="research-flow" aria-label="Control pipeline">
+  <li><strong>Detection</strong><span>Find the keypoints.</span></li>
+</ol>`}
+        media={{}}
+      />,
+    );
+    expect(container.querySelector('.research-flow')).toHaveAttribute(
+      'aria-label',
+      'Control pipeline',
+    );
+  });
+
+  it('preserves an authored metrics table', () => {
+    render(
+      <DetailContent
+        content={`<div className="publication-metrics-table" role="region" aria-label="Model evaluation metrics" tabIndex="0">
+  <table><tbody><tr><td>Overall Accuracy</td><td>91.4%</td></tr></tbody></table>
+</div>`}
+        media={{}}
+      />,
+    );
+    expect(
+      screen.getByRole('region', { name: 'Model evaluation metrics' }),
+    ).toHaveClass('publication-metrics-table');
+    expect(screen.getByRole('cell', { name: '91.4%' })).toBeInTheDocument();
   });
 });

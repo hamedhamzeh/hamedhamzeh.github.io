@@ -48,7 +48,25 @@ describe('portfolio Markdown content', () => {
 
   it('loads the puppet publication video gallery', () => {
     const publication = getPublicationBySlug('puppet-robot-pose-detection');
+    expect(publication?.media.images?.['pose-annotations']).toBeDefined();
+    expect(publication?.media.galleries?.['mechanical-design']).toHaveLength(4);
+    expect(publication?.media.galleries?.['model-results']).toBeUndefined();
     expect(publication?.media.videoGalleries?.demonstrations).toHaveLength(3);
+  });
+
+  it('points every publication image at an existing file', () => {
+    for (const slug of getDetailSlugs('publications')) {
+      const publication = getPublicationBySlug(slug);
+      const images = [
+        ...Object.values(publication?.media.images ?? {}),
+        ...Object.values(publication?.media.galleries ?? {}).flat(),
+      ];
+      for (const image of images) {
+        expect(
+          fs.existsSync(path.join(process.cwd(), 'public', image.src.slice(1))),
+        ).toBe(true);
+      }
+    }
   });
 
   it('points every publication video at an existing MP4 and poster', () => {

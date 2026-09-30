@@ -64,6 +64,26 @@ describe('LightboxGallery', () => {
     expect(screen.queryByText('1 of 1')).not.toBeInTheDocument();
   });
 
+  it('can show a caption only after opening the image', () => {
+    render(
+      <LightboxGallery
+        images={[{ ...images[0], caption: 'Detailed image explanation' }]}
+        triggerLabel="Prototype gallery"
+        dialogLabel="Prototype gallery"
+        display="grid"
+        showThumbnailCaptions={false}
+      />,
+    );
+
+    expect(
+      screen.queryByText('Detailed image explanation'),
+    ).not.toBeInTheDocument();
+    fireEvent.click(
+      screen.getByRole('button', { name: 'View image 1: First report' }),
+    );
+    expect(screen.getByText('Detailed image explanation')).toBeInTheDocument();
+  });
+
   it('closes with the close button and restores trigger focus', () => {
     render(
       <LightboxGallery
