@@ -8,7 +8,7 @@
 
 .video-gallery:focus-visible,
 .video-gallery-select:focus-visible,
-.video-gallery-indicator:focus-visible {
+.carousel-indicator:focus-visible {
   outline: 3px solid var(--color-accent);
   outline-offset: 3px;
 }
@@ -96,16 +96,24 @@
   cursor: pointer;
 }
 
-.video-gallery-indicators {
+.carousel-indicators {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.1rem;
-  margin-top: var(--spacing-4);
+  margin: var(--spacing-4) auto 0;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  width: max-content;
 }
 
-.video-gallery-indicator {
+.carousel-indicators::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-indicator {
   display: inline-grid;
+  flex: 0 0 44px;
   place-items: center;
   width: 44px;
   height: 44px;
@@ -117,7 +125,7 @@
   cursor: pointer;
 }
 
-.video-gallery-indicator-mark {
+.carousel-indicator-mark {
   display: block;
   width: 10px;
   height: 10px;
@@ -129,11 +137,11 @@
     opacity 320ms ease;
 }
 
-.video-gallery-indicator:hover .video-gallery-indicator-mark {
+.carousel-indicator:hover .carousel-indicator-mark {
   opacity: 0.7;
 }
 
-.video-gallery-indicator.is-active .video-gallery-indicator-mark {
+.carousel-indicator.is-active .carousel-indicator-mark {
   width: 32px;
   background: var(--color-fg-bold);
   opacity: 1;
@@ -255,7 +263,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .video-gallery-slide,
-  .video-gallery-indicator-mark {
+  .carousel-indicator-mark {
     transition: none;
   }
 

@@ -1,20 +1,16 @@
 'use client';
 
 import { type CSSProperties, useRef, useState } from 'react';
-
 import VideoPlayer from '@/components/Media/VideoPlayer';
+import { useCarouselGestures } from '@/hooks/useCarouselGestures';
 import type { VideoData } from '@/types/media';
+
+import CarouselIndicators from './CarouselIndicators';
 
 interface VideoGalleryProps {
   videos: VideoData[];
   label: string;
   showTitle?: boolean;
-}
-
-interface DragStart {
-  pointerId: number;
-  x: number;
-  captured: boolean;
 }
 
 function slideOffset(index: number, activeIndex: number, count: number) {
@@ -29,72 +25,31 @@ export default function VideoGallery({
   showTitle = true,
 }: VideoGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [dragX, setDragX] = useState(0);
   const galleryRef = useRef<HTMLElement>(null);
-  const dragStart = useRef<DragStart | null>(null);
-  const suppressClickUntil = useRef(0);
   const count = videos.length;
-
-  if (count === 0) return null;
 
   const move = (direction: number) => {
     if (count < 2) return;
     setActiveIndex((current) => (current + direction + count) % count);
   };
 
-  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (count < 2 || (event.pointerType === 'mouse' && event.button !== 0)) {
-      return;
-    }
-
-    const target = event.target as HTMLElement;
-    if (target.closest('.video-player-play, .video-player-transcript')) {
-      return;
-    }
-    if (target instanceof HTMLVideoElement) {
-      const bounds = target.getBoundingClientRect();
-      if (!target.paused || event.clientY > bounds.bottom - 48) return;
-    }
-
-    dragStart.current = {
-      pointerId: event.pointerId,
-      x: event.clientX,
-      captured: false,
-    };
-  };
-
-  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (dragStart.current?.pointerId !== event.pointerId) return;
-    const distance = event.clientX - dragStart.current.x;
-    if (Math.abs(distance) > 8) {
-      event.preventDefault();
-      if (!dragStart.current.captured) {
-        event.currentTarget.setPointerCapture?.(event.pointerId);
-        dragStart.current.captured = true;
+  const gestures = useCarouselGestures({
+    enabled: count > 1,
+    onSwipe: move,
+    canStart: (event) => {
+      const target = event.target as HTMLElement;
+      if (target.closest('.video-player-play, .video-player-transcript')) {
+        return false;
       }
-    }
-    const limit = event.currentTarget.clientWidth * 0.6;
-    setDragX(Math.max(-limit, Math.min(limit, distance)));
-  };
+      if (target instanceof HTMLVideoElement) {
+        const bounds = target.getBoundingClientRect();
+        if (!target.paused || event.clientY > bounds.bottom - 48) return false;
+      }
+      return true;
+    },
+  });
 
-  const finishDrag = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (dragStart.current?.pointerId !== event.pointerId) return;
-    const distance = event.clientX - dragStart.current.x;
-    const threshold = Math.min(80, event.currentTarget.clientWidth * 0.15);
-    suppressClickUntil.current = Math.abs(distance) > 8 ? Date.now() + 350 : 0;
-    dragStart.current = null;
-    setDragX(0);
-    if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId);
-    }
-    if (Math.abs(distance) >= threshold) move(distance < 0 ? 1 : -1);
-  };
-
-  const cancelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (dragStart.current?.pointerId !== event.pointerId) return;
-    dragStart.current = null;
-    setDragX(0);
-  };
+  if (count === 0) return null;
 
   return (
     <section
@@ -124,18 +79,13 @@ export default function VideoGallery({
         </div>
       )}
       <div
-        className={`video-gallery-viewport${dragStart.current ? ' is-dragging' : ''}`}
-        style={{ '--drag-offset': `${dragX}px` } as CSSProperties}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={finishDrag}
-        onPointerCancel={cancelDrag}
-        onClickCapture={(event) => {
-          if (Date.now() > suppressClickUntil.current) return;
-          event.preventDefault();
-          event.stopPropagation();
-          suppressClickUntil.current = 0;
-        }}
+        className={`video-gallery-viewport${gestures.isDragging ? ' is-dragging' : ''}`}
+        style={{ '--drag-offset': `${gestures.dragX}px` } as CSSProperties}
+        onPointerDown={gestures.onPointerDown}
+        onPointerMove={gestures.onPointerMove}
+        onPointerUp={gestures.onPointerUp}
+        onPointerCancel={gestures.onPointerCancel}
+        onClickCapture={gestures.onClickCapture}
       >
         <div className="video-gallery-track">
           {videos.map((video, index) => {
@@ -172,27 +122,15 @@ export default function VideoGallery({
         </div>
       </div>
       {count > 1 && (
-        <div
-          className="video-gallery-indicators"
-          role="group"
-          aria-label="Choose a video"
-        >
-          {videos.map((video, index) => (
-            <button
-              key={video.src}
-              className={`video-gallery-indicator${index === activeIndex ? ' is-active' : ''}`}
-              type="button"
-              aria-label={`Show ${video.title} (${index + 1} of ${count})`}
-              aria-current={index === activeIndex ? 'true' : undefined}
-              onClick={() => setActiveIndex(index)}
-            >
-              <span
-                className="video-gallery-indicator-mark"
-                aria-hidden="true"
-              />
-            </button>
-          ))}
-        </div>
+        <CarouselIndicators
+          items={videos.map((video, index) => ({
+            key: video.src,
+            label: `Show ${video.title} (${index + 1} of ${count})`,
+          }))}
+          activeIndex={activeIndex}
+          groupLabel="Choose a video"
+          onSelect={setActiveIndex}
+        />
       )}
     </section>
   );

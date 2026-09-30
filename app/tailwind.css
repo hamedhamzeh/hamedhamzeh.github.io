@@ -27,6 +27,7 @@
 @import './styles/components/lightbox-gallery.css';
 /* Keep the carousel styles in the shared component layer. */
 @import './styles/components/video-gallery.css';
+@import './styles/components/project-carousel.css';
 
 /* Layout */
 @import './styles/layout/header.css';

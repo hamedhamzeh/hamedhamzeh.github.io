@@ -1,11 +1,15 @@
 import type { Metadata } from 'next';
 
-import PlaceholderCard from '@/components/Projects/PlaceholderCard';
+import ProjectsShowcase from '@/components/Projects/ProjectsShowcase';
 import { SchemaGraph } from '@/components/Schema';
 import PageWrapper from '@/components/Template/PageWrapper';
-import projects from '@/data/projects';
 import { createPageMetadata } from '@/lib/metadata';
-import { breadcrumbNode, collectionPageNode, HOME_URL, SITE_URL } from '@/lib/schema';
+import {
+  breadcrumbNode,
+  collectionPageNode,
+  HOME_URL,
+  SITE_URL,
+} from '@/lib/schema';
 
 const PROJECTS_URL = `${SITE_URL}/projects/`;
 
@@ -39,11 +43,7 @@ export default function ProjectsPage() {
           <h1 className="page-title">Projects</h1>
           <p className="projects-intro">Project stories are being prepared.</p>
         </header>
-        <div className="projects-showcase">
-          {projects.map((project, index) => (
-            <PlaceholderCard data={project} index={index} key={project.title} />
-          ))}
-        </div>
+        <ProjectsShowcase />
       </section>
     </PageWrapper>
   );
