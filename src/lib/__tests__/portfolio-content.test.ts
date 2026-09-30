@@ -119,25 +119,23 @@ Sample body.
     ).toBe(true);
   });
 
-  it('upgrades a matching project card instead of duplicating it', () => {
+  it('keeps Markdown projects separate from index placeholders', () => {
     useTemporaryContent(
       'projects',
-      'nearest-dollar',
+      'sample-project',
       `---
-title: Nearest Dollar
-description: A replacement summary for the existing card.
+title: Sample Project
+description: A sample project summary.
 date: '2026-09-23'
 ---
 Project body.
 `,
     );
-    const matching = getAllProjects().filter(
-      (project) => project.title === 'Nearest Dollar',
-    );
-    expect(matching).toHaveLength(1);
-    expect(matching[0]).toMatchObject({
-      link: '/projects/nearest-dollar/',
-      desc: 'A replacement summary for the existing card.',
+    expect(getAllProjects()).toHaveLength(1);
+    expect(getAllProjects()[0]).toMatchObject({
+      title: 'Sample Project',
+      link: '/projects/sample-project/',
+      desc: 'A sample project summary.',
     });
   });
 

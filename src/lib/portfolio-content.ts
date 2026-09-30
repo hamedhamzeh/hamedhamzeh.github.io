@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import matter from 'gray-matter';
 
-import legacyProjects, { type Project } from '@/data/projects';
+import type { Project } from '@/data/projects';
 import legacyPublications, {
   type Publication,
   type PublicationAuthor,
@@ -436,20 +436,9 @@ export function getProjectBySlug(slug: string): ProjectDetail | null {
 }
 
 export function getAllProjects(): Project[] {
-  const pageBacked = getDetailSlugs('projects').map((slug) => {
+  return getDetailSlugs('projects').map((slug) => {
     const project = getProjectBySlug(slug);
     if (!project) throw new Error(`Missing project: ${slug}`);
     return project;
   });
-  const pageByTitle = new Map(
-    pageBacked.map((project) => [project.title, project]),
-  );
-  const retainedLegacy = legacyProjects.map(
-    (project) => pageByTitle.get(project.title) ?? project,
-  );
-  const newPages = pageBacked.filter(
-    (project) =>
-      !legacyProjects.some((legacy) => legacy.title === project.title),
-  );
-  return [...retainedLegacy, ...newPages];
 }

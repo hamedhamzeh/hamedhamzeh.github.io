@@ -1,21 +1,15 @@
 import type { Metadata } from 'next';
 
-import Cell from '@/components/Projects/Cell';
+import PlaceholderCard from '@/components/Projects/PlaceholderCard';
 import { SchemaGraph } from '@/components/Schema';
 import PageWrapper from '@/components/Template/PageWrapper';
+import projects from '@/data/projects';
 import { createPageMetadata } from '@/lib/metadata';
-import { getAllProjects } from '@/lib/portfolio-content';
-import {
-  breadcrumbNode,
-  collectionPageNode,
-  HOME_URL,
-  SITE_URL,
-} from '@/lib/schema';
+import { breadcrumbNode, collectionPageNode, HOME_URL, SITE_URL } from '@/lib/schema';
 
 const PROJECTS_URL = `${SITE_URL}/projects/`;
 
-const PROJECTS_DESCRIPTION =
-  'Selected projects and experiments by Hamed Hamzeh.';
+const PROJECTS_DESCRIPTION = 'A preview of Hamed Hamzeh’s project portfolio.';
 
 export const metadata: Metadata = createPageMetadata({
   title: 'Projects',
@@ -24,10 +18,6 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 export default function ProjectsPage() {
-  const data = getAllProjects();
-  const featuredProjects = data.filter((p) => p.featured);
-  const otherProjects = data.filter((p) => !p.featured);
-
   return (
     <PageWrapper>
       <SchemaGraph
@@ -47,29 +37,13 @@ export default function ProjectsPage() {
       <section className="projects-page">
         <header className="page-header projects-header">
           <h1 className="page-title">Projects</h1>
+          <p className="projects-intro">Project stories are being prepared.</p>
         </header>
-
-        {featuredProjects.length > 0 && (
-          <section className="projects-featured">
-            <h2 className="section-title">Hackathons &amp; Awards</h2>
-            <div className="projects-grid projects-grid--featured">
-              {featuredProjects.map((project) => (
-                <Cell data={project} key={project.title} />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {otherProjects.length > 0 && (
-          <section className="projects-other">
-            <h2 className="section-title">Side Projects</h2>
-            <div className="projects-grid">
-              {otherProjects.map((project) => (
-                <Cell data={project} key={project.title} />
-              ))}
-            </div>
-          </section>
-        )}
+        <div className="projects-showcase">
+          {projects.map((project, index) => (
+            <PlaceholderCard data={project} index={index} key={project.title} />
+          ))}
+        </div>
       </section>
     </PageWrapper>
   );
