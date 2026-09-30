@@ -70,4 +70,8 @@ media:
 <Gallery id="testing" />
 ```
 
-Use local `/images/` paths, meaningful alt text, and the actual image dimensions. A gallery needs at least two images. It displays thumbnails that open the existing lightbox. Standard Markdown headings receive stable URL anchors. Video blocks will be defined in a later milestone.
+Use local `/images/` paths, meaningful alt text, and the actual image dimensions. A gallery needs at least two images. It displays thumbnails that open the existing lightbox. Standard Markdown headings receive stable URL anchors. `<ImageBlock id="…" display="card" />` renders a single image as a lightbox card, `showCaptions="false"` hides gallery thumbnails' captions, and `<VideoGallery id="…" showTitle="false" />` renders a named `videoGalleries` entry.
+
+## Extracting figures from a paper
+
+`scripts/extract-wormlike-figures.py` is a dev-only helper that crops the wormlike paper's figures out of `public/journals/wormlike-robot.pdf` into `public/images/publications/wormlike-robot/`. It is not part of the site build and is not wired into `package.json`; run it manually after a one-time `python -m pip install pymupdf`. Copy the script's printed pixel dimensions into the Markdown frontmatter.

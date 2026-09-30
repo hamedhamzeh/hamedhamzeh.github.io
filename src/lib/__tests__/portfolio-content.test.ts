@@ -44,6 +44,9 @@ describe('portfolio Markdown content', () => {
     });
     expect(getDetailSlugs('publications')).toContain(slug);
     expect(publication?.media.videoGalleries?.experiments).toHaveLength(5);
+    expect(publication?.media.galleries?.['design']).toHaveLength(3);
+    expect(publication?.media.galleries?.['analysis']).toBeUndefined();
+    expect(publication?.media.galleries?.['results']).toHaveLength(4);
   });
 
   it('loads the puppet publication video gallery', () => {

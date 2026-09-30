@@ -120,7 +120,7 @@ The current vision pipeline drives the robot's head and arms. Although the hardw
 
 ## Mechanical design
 
-The stationary robot measures approximately 160 mm high, 90 mm wide, and 75 mm deep with its arms retracted. Its two 80 mm arms, 50 mm head structure, and main body can be adjusted for puppets of different sizes.
+We made the stationary robot adjustable so it can fit puppets of different sizes. With its arms retracted, it measures about 160 mm high, 90 mm wide, and 75 mm deep; its arms are 80 mm long and its head structure is 50 mm.
 
 Most structural parts are 3D-printed in PLA, while Plexiglas provides a rigid base. Two SG90 servos move the arms, a third SG90 moves the head, and an SG-5010 Pro servo rotates the body. The modular construction keeps the motors accessible for maintenance and allows the stationary unit to be mounted on an optional base with two DC motors and three wheels.
 
@@ -134,7 +134,7 @@ Rotation, resizing, and brightness augmentation were used to diversify the train
 
 <ImageBlock id="pose-annotations" display="card" />
 
-The paper reports 91.4% overall accuracy and 0.91 mean average precision, alongside a false-positive rate of 0.08, a false-negative rate of 0.12, and a mean squared error of 0.015. These values reproduce the paper's evaluation and are not intended as a cross-model benchmark.
+We reached 91.4% overall accuracy and 0.91 mean average precision, alongside a false-positive rate of 0.08, a false-negative rate of 0.12, and a mean squared error of 0.015. These are the metrics reported for this prototype, not a cross-model benchmark.
 
 <div className="publication-metrics-table" role="region" aria-label="Model evaluation metrics" tabIndex="0">
   <table>
@@ -162,4 +162,4 @@ After filtering and joint mapping, the processed commands are transmitted over W
 
 - **One-puppet dataset:** The model was trained on a single puppet, limiting evidence of generalization to different puppet shapes and appearances.
 - **Partial motion mapping:** The trained system controls the head and arms but does not infer whole-body rotation or mobile-base motion.
-- **Planned extensions:** The paper proposes adding rotation information, expanding the dataset, improving augmentation, and using pruning or quantization for edge deployment.
+- **Planned extensions:** We want to add rotation information, expand the dataset, improve augmentation, and explore pruning or quantization for edge deployment.
