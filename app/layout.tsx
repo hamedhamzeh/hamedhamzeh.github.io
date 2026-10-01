@@ -52,6 +52,11 @@ export const metadata: Metadata = {
   authors: [{ name: AUTHOR_NAME }],
   creator: AUTHOR_NAME,
   metadataBase: new URL(SITE_URL),
+  icons: {
+    icon: [{ url: '/images/favicon/favicon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/images/favicon/apple-touch-icon.png', sizes: '180x180' }],
+  },
+  manifest: '/images/favicon/manifest.json',
   openGraph: {
     type: 'website',
     locale: 'en_US',
