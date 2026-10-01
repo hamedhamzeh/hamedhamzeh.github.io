@@ -6,6 +6,13 @@ import Hero from '../../Template/Hero';
 describe('Hero', () => {
   beforeEach(() => {
     vi.stubGlobal(
+      'IntersectionObserver',
+      class {
+        observe = vi.fn();
+        disconnect = vi.fn();
+      },
+    );
+    vi.stubGlobal(
       'matchMedia',
       vi.fn().mockReturnValue({
         matches: false,

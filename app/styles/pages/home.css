@@ -162,15 +162,19 @@
   pointer-events: none;
 }
 
-.hero-dot-grid,
-.hero-dot-spotlight {
+.hero-vision-fallback,
+.hero-vision-field {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(var(--color-accent) 1px, transparent 1.5px);
-  background-size: 28px 28px;
+  width: 100%;
+  height: 100%;
+  color: var(--color-accent);
 }
 
-.hero-dot-grid {
+/* Static fallback for touch, reduced motion, no JavaScript, or unavailable canvas. */
+.hero-vision-fallback {
+  background-image: radial-gradient(var(--color-accent) 1px, transparent 1.5px);
+  background-size: 28px 28px;
   opacity: 0.13;
 }
 
@@ -183,31 +187,24 @@ body:has(.hero-bg) .site-footer-new {
   z-index: 1;
 }
 
-.hero-dot-spotlight {
-  background-image: radial-gradient(var(--color-accent) 1.5px, transparent 2px);
-  mask-image: radial-gradient(
-    circle 180px at var(--pointer-x, 50%) var(--pointer-y, 35%),
-    #000,
-    transparent
-  );
-  opacity: 0;
-  transition: opacity 350ms ease;
+.hero-vision-field {
+  display: none;
 }
 
-.hero-bg[data-active='true'] .hero-dot-spotlight {
-  opacity: 0.45;
+.hero-bg[data-animated='true'] .hero-vision-field {
+  display: block;
 }
 
-[data-theme='dark'] .hero-dot-grid,
-[data-theme='dark'] .hero-dot-spotlight {
+.hero-bg[data-animated='true'] .hero-vision-fallback {
+  display: none;
+}
+
+[data-theme='dark'] .hero-vision-fallback {
   background-image: radial-gradient(var(--color-accent-secondary) 1px, transparent 1.5px);
 }
 
-@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
-  .hero-dot-spotlight {
-    display: none;
-    transition: none;
-  }
+[data-theme='dark'] .hero-vision-field {
+  color: var(--color-accent-secondary);
 }
 
 /* Mobile - same breakpoint as the header and the in-page section navs.
