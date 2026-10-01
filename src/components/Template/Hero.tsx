@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import HeroBackground from './HeroBackground';
 import ThemePortrait from './ThemePortrait';
 
 export default function Hero() {
@@ -37,9 +38,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="hero-bg" aria-hidden="true">
-        <div className="hero-gradient" />
-      </div>
+      <HeroBackground />
     </section>
   );
 }

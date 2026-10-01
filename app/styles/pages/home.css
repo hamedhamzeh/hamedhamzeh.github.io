@@ -154,27 +154,60 @@
 
 /* Background */
 .hero-bg {
-  position: absolute;
+  position: fixed;
   inset: 0;
+  z-index: 0;
   overflow: hidden;
   overflow: clip;
   pointer-events: none;
 }
 
-/* Sized to the hero so the glow fades out inside it - an oversized blurred
-   layer gets clipped by .hero-bg and leaves a visible rectangular edge */
-.hero-gradient {
+.hero-dot-grid,
+.hero-dot-spotlight {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse 80% 65% at 50% 35%,
-    var(--color-accent-light) 0%,
-    var(--color-accent-subtle) 25%,
-    color-mix(in srgb, var(--color-accent) 3%, transparent) 45%,
-    transparent 65%
+  background-image: radial-gradient(var(--color-accent) 1px, transparent 1.5px);
+  background-size: 28px 28px;
+}
+
+.hero-dot-grid {
+  opacity: 0.13;
+}
+
+body:has(.hero-bg)::after {
+  display: none;
+}
+
+body:has(.hero-bg) .site-footer-new {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-dot-spotlight {
+  background-image: radial-gradient(var(--color-accent) 1.5px, transparent 2px);
+  mask-image: radial-gradient(
+    circle 180px at var(--pointer-x, 50%) var(--pointer-y, 35%),
+    #000,
+    transparent
   );
-  filter: blur(50px);
-  opacity: 0.7;
+  opacity: 0;
+  transition: opacity 350ms ease;
+}
+
+.hero-bg[data-active='true'] .hero-dot-spotlight {
+  opacity: 0.45;
+}
+
+[data-theme='dark'] .hero-dot-grid,
+[data-theme='dark'] .hero-dot-spotlight {
+  background-image: radial-gradient(var(--color-accent-secondary) 1px, transparent 1.5px);
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .hero-dot-spotlight {
+    display: none;
+    transition: none;
+  }
 }
 
 /* Mobile - same breakpoint as the header and the in-page section navs.
@@ -389,16 +422,6 @@
 
 [data-theme='dark'] .hero-chip {
   background: var(--color-bg-offset);
-}
-
-[data-theme='dark'] .hero-gradient {
-  background: radial-gradient(
-    ellipse 80% 65% at 50% 35%,
-    color-mix(in srgb, var(--color-accent-secondary) 20%, transparent) 0%,
-    color-mix(in srgb, var(--color-accent-secondary) 8%, transparent) 25%,
-    transparent 65%
-  );
-  opacity: 0.8;
 }
 
 [data-theme='dark'] .home-section {
