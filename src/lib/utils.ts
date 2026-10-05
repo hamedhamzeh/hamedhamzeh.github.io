@@ -5,7 +5,8 @@
 // Site configuration
 export const SITE_URL = 'https://hamedhamzeh.github.io';
 export const AUTHOR_NAME = 'Hamed Hamzeh';
-export const TWITTER_HANDLE = '@hamedhamzeh';
+export const AUTHOR_NAME_FA = 'حامد حمزه';
+export const SITE_TITLE = `${AUTHOR_NAME} | AI Engineer & Applied Researcher`;
 export const SITE_IMAGE_PATH = '/images/me.jpg';
 export const SITE_IMAGE_DIMENSIONS = {
   width: 640,
@@ -14,7 +15,7 @@ export const SITE_IMAGE_DIMENSIONS = {
 
 // Canonical one-line bio, shared across page metadata, OpenGraph, and JSON-LD.
 export const SITE_DESCRIPTION =
-  'Computer Vision Developer with experience building deep-learning systems for industrial monitoring, sports analytics, robotics, and medical imaging, with a growing focus on MLOps and reliable AI deployment.';
+  'AI Engineer and applied researcher focused on computer vision, intelligent systems, and MLOps, with experience translating ideas into models, pipelines, and deployable products.';
 // Image dimension constants
 export const AVATAR_SIZE = {
   hero: 120,

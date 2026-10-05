@@ -20,6 +20,11 @@ describe('Footer', () => {
     ).toBeInTheDocument();
   });
 
+  it('keeps the Persian search alias out of visible content', () => {
+    render(<Footer />);
+    expect(screen.queryByText('حامد حمزه')).not.toBeInTheDocument();
+  });
+
   it('displays the current year in copyright', () => {
     render(<Footer />);
 

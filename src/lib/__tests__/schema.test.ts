@@ -20,6 +20,7 @@ import {
 } from '@/lib/schema';
 import {
   AUTHOR_NAME,
+  AUTHOR_NAME_FA,
   SITE_IMAGE_DIMENSIONS,
   SITE_IMAGE_PATH,
   SITE_URL,
@@ -91,6 +92,7 @@ describe('personNode', () => {
   it('uses author name and split given/family names', () => {
     const node = personNode();
     expect(node.name).toBe(AUTHOR_NAME);
+    expect(node.alternateName).toBe(AUTHOR_NAME_FA);
     const [givenName, ...familyParts] = AUTHOR_NAME.split(' ');
     const familyName = familyParts.join(' ');
     expect(node.givenName).toBe(givenName);

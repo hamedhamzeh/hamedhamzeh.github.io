@@ -4,6 +4,7 @@ import work from '@/data/resume/work';
 import type { Post } from '@/lib/posts';
 import {
   AUTHOR_NAME,
+  AUTHOR_NAME_FA,
   SITE_DESCRIPTION,
   SITE_IMAGE_DIMENSIONS,
   SITE_IMAGE_PATH,
@@ -71,6 +72,7 @@ export function personNode(): SchemaNode {
     '@type': 'Person',
     '@id': PERSON_ID,
     name: AUTHOR_NAME,
+    alternateName: AUTHOR_NAME_FA,
     givenName,
     familyName,
     url: HOME_URL,
@@ -109,7 +111,7 @@ export function websiteNode(): SchemaNode {
     '@id': WEBSITE_ID,
     url: HOME_URL,
     name: AUTHOR_NAME,
-    alternateName: ['hamedhamzeh.github.io', 'hamedo'],
+    alternateName: [AUTHOR_NAME_FA, 'hamedhamzeh.github.io', 'hamedo'],
     description: SITE_DESCRIPTION,
     inLanguage: SITE_LANGUAGE,
     publisher: personRef(),

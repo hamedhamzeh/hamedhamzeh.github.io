@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { SchemaGraph } from '@/components/Schema';
 import PageWrapper from '@/components/Template/PageWrapper';
 import PostContent from '@/components/Writing/PostContent';
+import { createPageMetadata } from '@/lib/metadata';
 import { getAllPosts, getPostBySlug } from '@/lib/posts';
 import {
   blogPostingNode,
@@ -37,22 +38,22 @@ export async function generateMetadata({
   }
 
   const url = `${SITE_URL}/writing/${post.slug}/`;
-
-  return {
+  const pageMetadata = createPageMetadata({
     title: post.title,
     description: post.description,
+    path: `/writing/${post.slug}/`,
+  });
+
+  return {
+    ...pageMetadata,
     openGraph: {
+      ...pageMetadata.openGraph,
       type: 'article',
       title: post.title,
       description: post.description,
       url,
       publishedTime: post.date,
       authors: [AUTHOR_NAME],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.title,
-      description: post.description,
     },
   };
 }

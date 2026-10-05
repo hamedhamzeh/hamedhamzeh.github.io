@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { SITE_DESCRIPTION } from '@/lib/utils';
+
 import HeroBackground from './HeroBackground';
 import ThemePortrait from './ThemePortrait';
 
@@ -15,11 +17,7 @@ export default function Hero() {
           <span className="hero-name">Hamed Hamzeh</span>
         </h1>
 
-        <p className="hero-tagline">
-          AI Engineer and applied researcher focused on computer vision,
-          intelligent systems, and MLOps, with experience translating ideas into
-          models, pipelines, and deployable products.
-        </p>
+        <p className="hero-tagline">{SITE_DESCRIPTION}</p>
 
         <div className="hero-chips">
           <span className="hero-chip">Applied AI</span>

@@ -11,6 +11,7 @@ import {
   SITE_DESCRIPTION,
   SITE_IMAGE_DIMENSIONS,
   SITE_IMAGE_PATH,
+  SITE_TITLE,
   SITE_URL,
 } from '@/lib/utils';
 import './tailwind.css';
@@ -35,7 +36,7 @@ const raleway = Raleway({
 
 export const metadata: Metadata = {
   title: {
-    default: AUTHOR_NAME,
+    default: SITE_TITLE,
     template: `%s | ${AUTHOR_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -62,7 +63,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: `${SITE_URL}/`,
     siteName: AUTHOR_NAME,
-    title: AUTHOR_NAME,
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     images: [
       {
@@ -73,14 +74,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-  // twitter: {
-  //   card: 'summary_large_image',
-  //   site: TWITTER_HANDLE,
-  //   creator: TWITTER_HANDLE,
-  //   title: AUTHOR_NAME,
-  //   description: SITE_DESCRIPTION,
-  //   images: [SITE_IMAGE_PATH],
-  // },
   robots: {
     index: true,
     follow: true,

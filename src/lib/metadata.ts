@@ -5,26 +5,28 @@ import {
   SITE_IMAGE_DIMENSIONS,
   SITE_IMAGE_PATH,
   SITE_URL,
-  TWITTER_HANDLE,
 } from './utils';
 
 interface PageMetadataOptions {
   title: string;
   description: string;
   path?: `/${string}`;
+  absoluteTitle?: boolean;
 }
 
 export function createPageMetadata({
   title,
   description,
   path,
+  absoluteTitle = false,
 }: PageMetadataOptions): Metadata {
   const absoluteUrl = path ? new URL(path, SITE_URL).toString() : undefined;
-  const pageTitle = `${title} | ${AUTHOR_NAME}`;
+  const pageTitle = absoluteTitle ? title : `${title} | ${AUTHOR_NAME}`;
 
   return {
-    title,
+    title: absoluteTitle ? { absolute: title } : title,
     description,
+    ...(absoluteUrl ? { alternates: { canonical: absoluteUrl } } : {}),
     openGraph: {
       type: 'website',
       locale: 'en_US',
@@ -40,14 +42,6 @@ export function createPageMetadata({
           alt: AUTHOR_NAME,
         },
       ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      site: TWITTER_HANDLE,
-      creator: TWITTER_HANDLE,
-      title: pageTitle,
-      description,
-      images: [SITE_IMAGE_PATH],
     },
   };
 }
