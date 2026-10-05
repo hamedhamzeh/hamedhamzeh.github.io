@@ -1,0 +1,957 @@
+/* ========================================
+   CARD COMPONENTS
+   Project cards, job cards, and card patterns
+   ======================================== */
+
+/* Portrait image */
+@layer components {
+  .theme-portrait {
+    display: inline-block;
+    position: relative;
+    line-height: 0;
+  }
+}
+
+/* ========================================
+   PROJECT SHOWCASE
+   ======================================== */
+
+.projects-page {
+  padding-bottom: var(--spacing-8);
+}
+
+.projects-header {
+  margin-bottom: var(--spacing-8);
+  max-width: 44rem;
+}
+
+.projects-eyebrow {
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  margin-bottom: var(--spacing-2);
+  text-transform: uppercase;
+}
+
+.projects-intro {
+  color: var(--color-fg-light);
+  font-size: var(--text-lg);
+  margin: var(--spacing-3) 0 0;
+}
+
+.projects-showcase {
+  min-width: 0;
+}
+
+.projects-category-controls {
+  margin-bottom: var(--spacing-8);
+}
+
+.projects-category-heading {
+  align-items: baseline;
+  display: flex;
+  gap: var(--spacing-3);
+  justify-content: space-between;
+  margin-bottom: var(--spacing-5);
+}
+
+.projects-category-heading h2 {
+  font-size: var(--text-xl);
+  margin: 0;
+}
+
+.projects-category-heading span {
+  color: var(--color-fg-light);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.project-carousel:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.project-carousel-viewport {
+  cursor: grab;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.project-carousel.is-contained .project-carousel-viewport {
+  cursor: default;
+}
+
+.project-carousel-viewport.is-dragging {
+  cursor: grabbing;
+}
+
+.project-carousel-track {
+  display: flex;
+  gap: var(--spacing-5);
+  width: 100%;
+  transition: transform 560ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-carousel.is-contained .project-carousel-track {
+  justify-content: center;
+}
+
+.project-carousel-viewport.is-dragging .project-carousel-track {
+  transition: none;
+}
+
+.project-carousel-slide {
+  flex: 0 0 calc((100% - var(--spacing-5) - var(--spacing-5)) / 3);
+  min-width: 0;
+}
+
+.project-preview-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.project-preview-art {
+  align-items: center;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, var(--color-accent-subtle), var(--color-surface-subtle));
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.project-carousel-slide:nth-child(3n + 2) .project-preview-art {
+  background: linear-gradient(135deg, var(--color-surface-subtle), var(--color-accent-subtle));
+}
+
+.project-carousel-slide:nth-child(3n) .project-preview-art {
+  background: linear-gradient(135deg, var(--color-accent-subtle), var(--color-bg));
+}
+
+.project-preview-art-number {
+  color: var(--color-accent);
+  font-family: var(--font-heading);
+  font-size: clamp(5rem, 14vw, 9rem);
+  font-weight: var(--font-weight-black);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1;
+  opacity: 0.16;
+  position: relative;
+  z-index: 1;
+}
+
+.project-preview-art-orbit,
+.project-preview-art-shape {
+  border: 1px solid var(--color-accent-border);
+  border-radius: 50%;
+  height: 72%;
+  position: absolute;
+  width: 72%;
+}
+
+.project-preview-art-orbit {
+  transform: rotate(-28deg) scaleX(0.58);
+}
+
+.project-preview-art-shape {
+  border-color: var(--color-accent);
+  height: 42%;
+  opacity: 0.45;
+  transform: rotate(38deg) scaleX(0.82);
+  width: 42%;
+}
+
+.project-preview-content {
+  padding: var(--spacing-5);
+}
+
+.project-preview-label {
+  color: var(--color-accent);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  margin-bottom: var(--spacing-2);
+  text-transform: uppercase;
+}
+
+.project-preview-content h3 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--spacing-2);
+}
+
+.project-preview-content > p:last-child {
+  color: var(--color-fg-light);
+  font-size: var(--text-sm);
+  margin-bottom: 0;
+}
+
+.projects-grid {
+  display: grid;
+  gap: 1.75rem;
+  grid-template-columns: 1fr;
+}
+
+.publications-grid {
+  gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+.publications-page .projects-header {
+  margin-bottom: 2rem;
+}
+
+@media screen and (min-width: 600px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .publications-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dedicated publication cards are intentionally denser than project cards.
+   Their longer titles need more horizontal room, while the supporting image
+   should remain secondary to the citation details. */
+.publications-grid .project-card-image {
+  aspect-ratio: 16 / 7;
+}
+
+.publications-grid .project-card-image--placeholder {
+  font-size: 1rem;
+}
+
+/* A publication with a dedicated page is interactive exactly like a project
+   card: the same `project-card--linked` hover treatment applies. It cannot be
+   one card-wide anchor, because it also carries the publication record next to
+   the citation, so the title link is stretched over the card instead. A
+   publication without a page keeps the static, non-interactive treatment. */
+.publications-grid .project-card {
+  position: relative;
+}
+
+/* The card is the affordance, so the title link stays unadorned: the site-wide
+   animated underline would otherwise sweep under the title on card hover, which
+   the project cards never show. The gradient is reset as well as the
+   decoration, because the underline is drawn with a background image. */
+.publications-grid .publication-card-link {
+  background-image: none;
+  color: inherit;
+  text-decoration: none;
+}
+
+.publications-grid .publication-card-link:focus-visible {
+  outline: none;
+}
+
+.publications-grid .publication-card-link::after {
+  content: '';
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+}
+
+/* Focus lands on the title link, so the ring is drawn on the card itself — the
+   same treatment the project cards give their card link. */
+.publications-grid .project-card:has(.publication-card-link:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.publications-grid .project-card-content {
+  padding: var(--spacing-3) var(--spacing-4);
+}
+
+/* The venue/status line is a <p>, so it inherited the global
+   `p { margin-bottom: 1.75rem }` and opened a 28px gap above the author line.
+   Reset it and keep the header margin as the single knob for that gap. */
+.publications-grid .project-card-subtitle {
+  margin-bottom: 0;
+}
+
+/* A manuscript without a venue states its review status as a badge below the
+   author line. It borrows the action row's own top spacing, so the badge sits
+   where the buttons sit on the other cards. */
+.publications-grid .project-card-status {
+  margin-bottom: 0;
+  margin-top: var(--spacing-4);
+}
+
+/* The badge adopts the action pills' exact sizing and padding, so the two sit on
+   the same control scale instead of the badge looking roomier. */
+.publications-grid .project-card-status .publication-type {
+  display: inline-block;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  padding: 0.25rem 0.55rem;
+}
+
+.publications-grid .project-card-header {
+  margin-bottom: var(--spacing-3);
+}
+
+.publications-grid .project-card-title {
+  font-size: 1.0625rem;
+  line-height: 1.2;
+}
+
+.publications-grid .project-card-subtitle,
+.publications-grid .project-card-desc {
+  font-size: 0.8125rem;
+}
+
+/* The actions row brings its own top margin, so the author line does not need
+   to reserve space below itself. */
+.publications-grid .project-card-desc {
+  line-height: 1.4;
+  margin-bottom: 0;
+}
+
+/* The year closes the action row: on the buttons' line when it fits, and on
+   its own right-aligned line when the buttons wrap. */
+.publications-grid .project-card-date {
+  margin-left: auto;
+}
+
+/* The shared pills inherit the content's tall line box, which makes them ~38px
+   high and heavy for a citation card. They also sit above the stretched title
+   link, so the record stays clickable. */
+.publications-grid .resume-actions a {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  padding: 0.25rem 0.55rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Stacked mobile cards give the action row its own full-width line so the
+   buttons and the year flow together, with the year at the far end. */
+@media screen and (max-width: 736px) {
+  .publications-grid .project-card-content {
+    align-items: baseline;
+    column-gap: var(--spacing-2);
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .publications-grid .project-card-header,
+  .publications-grid .project-card-desc,
+  .publications-grid .project-card-status,
+  .publications-grid .resume-actions {
+    flex-basis: 100%;
+  }
+
+  /* A tighter pill keeps the year on the buttons' line at phone widths. */
+  .publications-grid .resume-actions a {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  /* The badge tracks the pills' mobile sizing. */
+  .publications-grid .project-card-status .publication-type {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+@media screen and (min-width: 737px) {
+  /* The card hugs its citation instead of filling a fixed 13.25rem box, which
+     is what distributed ~9px of empty space above the title and below the
+     badges. min-height keeps the media column from collapsing. */
+  .publications-grid .project-card-link,
+  .publications-grid .project-card-static {
+    display: grid;
+    grid-template-columns: 10rem minmax(0, 1fr);
+    min-height: 9rem;
+  }
+
+  .publications-grid .project-card-image {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+
+  .publications-grid .project-card-content {
+    align-content: start;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--spacing-3) var(--spacing-5);
+  }
+}
+
+.project-card {
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border-bg);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+@media screen and (max-width: 999px) {
+  .project-carousel-slide {
+    flex-basis: calc((100% - var(--spacing-5)) / 2);
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .project-carousel-slide {
+    flex-basis: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-carousel-track {
+    transition: none;
+  }
+}
+
+.project-card--linked:hover {
+  transform: translateY(var(--lift-md));
+  border-color: var(--color-accent-border);
+  box-shadow:
+    var(--shadow-xl),
+    0 0 0 1px var(--color-accent-border);
+}
+
+/* Full card link wrapper */
+.project-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.project-card-link:focus-visible {
+  outline: none;
+}
+
+.project-card:has(.project-card-link:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Static (non-linked) project cards */
+.project-card--static {
+  cursor: default;
+}
+
+.project-card-static {
+  display: block;
+}
+
+.project-card-image {
+  position: relative;
+  display: block;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+}
+
+.project-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+.project-card-image--placeholder {
+  align-items: center;
+  background: linear-gradient(135deg, var(--color-accent-subtle), var(--color-surface-subtle));
+  color: var(--color-accent);
+  display: flex;
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+  justify-content: center;
+  letter-spacing: var(--tracking-tight);
+}
+
+.project-card--linked:hover .project-card-image img {
+  transform: scale(var(--scale-sm));
+}
+
+.project-card-content {
+  padding: 1.5rem;
+}
+
+.project-card-header {
+  margin-bottom: 0.875rem;
+}
+
+.project-card-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-black);
+  margin-bottom: 0.35rem;
+}
+
+.project-card-subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-fg-light);
+  font-weight: var(--font-weight-medium);
+}
+
+.project-card-desc {
+  font-size: var(--text-base);
+  color: var(--color-fg);
+  margin-bottom: 1.25rem;
+  line-height: var(--leading-normal);
+}
+
+.project-card-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-bottom: 1.25rem;
+}
+
+.project-card-date {
+  font-size: var(--text-xs);
+  color: var(--color-fg-light);
+}
+
+/* ========================================
+   SHARED RESUME CARDS
+   ======================================== */
+
+.resume-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  position: relative;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.resume-card::before {
+  background: linear-gradient(180deg, var(--color-accent) 0%, var(--color-accent-secondary) 100%);
+  border-radius: 2px;
+  bottom: var(--spacing-5);
+  content: '';
+  left: 0;
+  position: absolute;
+  top: var(--spacing-5);
+  width: 3px;
+}
+
+.resume-card--secondary {
+  background: var(--color-surface-subtle);
+  border-color: var(--color-border-bg);
+}
+
+.resume-card--secondary::before {
+  opacity: 0.55;
+}
+
+.resume-card:focus-within {
+  border-color: var(--color-accent-border);
+  box-shadow: var(--shadow-lg);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .resume-card:hover {
+    border-color: var(--color-accent-border);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(var(--lift-sm));
+  }
+}
+
+.resume-card-header {
+  align-items: flex-start;
+  display: flex;
+  gap: var(--spacing-4);
+  justify-content: space-between;
+  margin-bottom: var(--spacing-3);
+}
+
+.resume-card-header .daterange,
+.resume-card-header time {
+  flex-shrink: 0;
+}
+
+.resume-card-title a {
+  color: var(--color-fg-bold);
+  text-decoration: none;
+}
+
+.resume-card-title a:hover {
+  color: var(--color-accent);
+}
+
+.experience .resume-card + .resume-card,
+.education .resume-card + .resume-card {
+  margin-top: var(--spacing-4);
+}
+
+@media (max-width: 736px) {
+  .resume-card {
+    padding: var(--spacing-5);
+  }
+
+  .resume-card-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+}
+
+/* ========================================
+   JOB CARDS
+   ======================================== */
+
+.jobs-container {
+  margin: 0;
+}
+
+.jobs-container .resume-card-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-black);
+}
+
+.jobs-container .role {
+  display: block;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-fg);
+  font-size: var(--text-md);
+  margin-top: 0.25rem;
+}
+
+.jobs-container .points {
+  margin-top: 1rem;
+}
+
+.jobs-container .points li {
+  font-size: var(--text-base);
+  line-height: 1.7;
+  margin-bottom: 0.6rem;
+  padding: 0;
+  color: var(--color-fg-light);
+}
+
+.job-subsection {
+  margin-top: var(--spacing-6);
+}
+
+.job-subsection-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-2) var(--spacing-4);
+}
+
+.job-subsection-header h4 {
+  color: var(--color-fg-bold);
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.job-subsection-header .daterange {
+  margin: 0;
+}
+
+.resume-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-4);
+}
+
+.resume-actions a,
+.resume-actions .lightbox-gallery-trigger {
+  appearance: none;
+  padding: 0.4rem 0.75rem;
+  color: var(--color-accent);
+  background: var(--color-accent-subtle);
+  border: 1px solid var(--color-accent-border);
+  border-left: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: inherit;
+  margin: 0;
+  text-decoration: none;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.resume-actions a:hover,
+.resume-actions .lightbox-gallery-trigger:hover {
+  color: var(--color-fg-bold);
+  background: var(--color-surface-hover);
+  border-color: var(--color-accent);
+}
+
+.resume-actions a:focus-visible,
+.resume-actions .lightbox-gallery-trigger:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.daterange {
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-fg-light);
+  margin-bottom: 0.5em;
+}
+
+.summary {
+  font-size: var(--text-md);
+  margin-bottom: 0.5em;
+}
+
+.summary code,
+.summary pre {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.summary pre code {
+  display: inline;
+  line-height: inherit;
+}
+
+/* ========================================
+   EDUCATION CARDS
+   ======================================== */
+
+.degree-container {
+  margin: 0;
+}
+
+.degree-container .degree {
+  margin-bottom: var(--spacing-1);
+  text-transform: none;
+}
+
+.degree-container .school {
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-normal);
+  color: var(--color-fg-light);
+  margin-bottom: 0.5em;
+  padding-top: 0.2em;
+  text-transform: none;
+}
+
+.degree-detail {
+  color: var(--color-fg-light);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  margin: 0.35rem 0 0;
+}
+
+.degree-detail strong {
+  color: var(--color-fg);
+}
+
+.degree-detail cite {
+  font-style: italic;
+}
+
+.degree-thesis {
+  margin-top: var(--spacing-3);
+}
+
+/* ========================================
+   PUBLICATION CARDS
+   ======================================== */
+
+.publication-list {
+  display: grid;
+  gap: var(--spacing-4);
+}
+
+.publication-card {
+  margin: 0;
+}
+
+.publication-card-header {
+  gap: var(--spacing-3);
+}
+
+/* Only the wide, row layout vertically centers the tags and the year - the
+   stacked mobile layout follows .resume-card-header and stays left aligned */
+@media (min-width: 737px) {
+  .publication-card-header {
+    align-items: center;
+  }
+}
+
+.publication-card-header time,
+.publication-type {
+  color: var(--color-fg-light);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.publication-types {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.publication-type {
+  background: var(--color-accent-subtle);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-full);
+  color: var(--color-accent);
+  padding: 0.25rem 0.65rem;
+}
+
+.publication-card .resume-card-title {
+  margin-bottom: var(--spacing-2);
+}
+
+.publication-card .resume-card-title cite {
+  font-style: normal;
+}
+
+.publication-authors,
+.publication-venue {
+  color: var(--color-fg-light);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.publication-authors strong {
+  color: var(--color-fg-bold);
+}
+
+.publication-venue {
+  font-style: italic;
+  margin-top: var(--spacing-1);
+}
+
+.publication-presentation-note {
+  color: var(--color-fg);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  margin: var(--spacing-2) 0 0;
+}
+
+.publication-links {
+  gap: var(--spacing-2) var(--spacing-4);
+}
+
+.publication-doi {
+  color: var(--color-fg-light);
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}
+
+/* ========================================
+   HONOR AND AWARD CARDS
+   ======================================== */
+
+.honors-list {
+  display: grid;
+  gap: var(--spacing-4);
+}
+
+.honor-card {
+  margin: 0;
+}
+
+.honor-card-header {
+  margin-bottom: var(--spacing-3);
+}
+
+.honor-card .resume-card-title {
+  margin: 0;
+}
+
+.honor-card time {
+  color: var(--color-fg-light);
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.honor-issuer {
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  margin: var(--spacing-1) 0 0;
+}
+
+.honor-description,
+.honor-note {
+  color: var(--color-fg-light);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.honor-note {
+  font-size: var(--text-sm);
+  font-style: italic;
+  margin-top: var(--spacing-2);
+}
+
+/* ========================================
+   CERTIFICATE CARDS
+   ======================================== */
+
+.certificate-list {
+  display: grid;
+  gap: var(--spacing-4);
+}
+
+.certificate-card {
+  margin: 0;
+}
+
+.certificate-card-header {
+  margin-bottom: var(--spacing-3);
+}
+
+.certificate-card .resume-card-title {
+  margin: 0;
+}
+
+.certificate-card time {
+  color: var(--color-fg-light);
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.certificate-issuer {
+  color: var(--color-fg-light);
+  font-size: var(--text-sm);
+  margin: var(--spacing-1) 0 0;
+}
+
+.certificate-courses {
+  color: var(--color-fg-light);
+  display: grid;
+  font-size: var(--text-sm);
+  gap: var(--spacing-1);
+  line-height: 1.6;
+  margin: 0 0 var(--spacing-4);
+  padding-left: var(--spacing-5);
+}
+
+.certificate-achievement {
+  color: var(--color-fg);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  margin: 0 0 var(--spacing-3);
+}

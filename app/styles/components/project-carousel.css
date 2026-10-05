@@ -1,0 +1,86 @@
+.project-carousel-footer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.carousel-indicators.project-carousel-indicators {
+  gap: 0;
+  margin-top: var(--spacing-2);
+  max-width: none;
+  overflow: visible;
+  width: auto;
+}
+
+.carousel-indicator.project-carousel-indicator {
+  flex-basis: 36px;
+  height: 40px;
+  width: 36px;
+}
+
+.carousel-indicator-mark.project-carousel-indicator-mark {
+  height: 8px;
+  width: 8px;
+  transition:
+    width 180ms var(--ease-out),
+    background-color 180ms ease,
+    opacity 180ms ease;
+}
+
+.carousel-indicator.is-active .project-carousel-indicator-mark {
+  width: 20px;
+}
+
+.project-carousel-position {
+  color: var(--color-fg-light);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.project-carousel-range-controls {
+  align-items: center;
+  display: flex;
+  gap: var(--spacing-5);
+  justify-content: center;
+  margin-top: var(--spacing-3);
+}
+
+.project-carousel-range-controls button {
+  align-items: center;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-fg-bold);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: var(--text-lg);
+  height: 40px;
+  justify-content: center;
+  padding: 0;
+  width: 40px;
+}
+
+.project-carousel-range-controls button:hover:not(:disabled) {
+  background: var(--color-accent-light);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.project-carousel-range-controls button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.project-carousel-range-controls button:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-carousel-indicator-mark {
+    transition: none;
+  }
+}

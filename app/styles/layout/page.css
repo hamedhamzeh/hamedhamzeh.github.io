@@ -1,0 +1,91 @@
+/* ========================================
+   PAGE LAYOUT
+   Page containers and section layouts
+   ======================================== */
+
+/* Page container - flex column for sticky footer */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Main content area */
+.page-main {
+  flex: 1;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.page-main--wide {
+  max-width: 56rem;
+}
+
+@media screen and (min-width: 736px) {
+  .page-main {
+    padding: 3rem 2rem;
+  }
+}
+
+/* Shared editorial heading roles */
+.page-header {
+  margin-bottom: var(--spacing-8);
+  text-align: left;
+}
+
+.page-title {
+  color: var(--color-fg-bold);
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  font-weight: var(--font-weight-black);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0 0 var(--spacing-3);
+  text-align: left;
+  text-wrap: balance;
+}
+
+.page-subtitle {
+  font-size: var(--text-lg);
+  color: var(--color-fg-light);
+  margin: 0;
+  max-width: 42rem;
+}
+
+.section-title {
+  color: var(--color-fg-bold);
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.3vw, 1.85rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  line-height: var(--leading-heading);
+  margin: 0 auto var(--spacing-6);
+  padding-bottom: var(--heading-rule-gap);
+  position: relative;
+  text-align: center;
+  width: fit-content;
+}
+
+/* The accent rule spans the full width of the heading text */
+.section-title::after {
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+  bottom: 0;
+  content: '';
+  height: 3px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.resume-card-title {
+  color: var(--color-fg-bold);
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.35;
+  margin: 0;
+}

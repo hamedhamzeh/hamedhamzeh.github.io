@@ -1,0 +1,181 @@
+import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+
+import DetailContent from '../../Portfolio/DetailContent';
+
+const image = {
+  src: '/images/projects/robot.webp',
+  alt: 'Robot prototype',
+  width: 1200,
+  height: 800,
+  caption: 'Prototype view',
+};
+
+describe('DetailContent', () => {
+  it('renders stable, unique heading anchors', () => {
+    render(<DetailContent content={'## Overview\n\n## Overview'} media={{}} />);
+    expect(
+      screen.getAllByRole('heading', { name: 'Overview' })[0],
+    ).toHaveAttribute('id', 'overview');
+    expect(
+      screen.getAllByRole('heading', { name: 'Overview' })[1],
+    ).toHaveAttribute('id', 'overview-2');
+    const nav = screen.getByRole('navigation', { name: 'Page sections' });
+    expect(nav).toHaveClass('section-nav');
+    expect(nav.querySelectorAll('a')).toHaveLength(2);
+    expect(nav.querySelectorAll('a')[0]).toHaveAttribute('href', '#overview');
+    expect(nav.querySelectorAll('a')[1]).toHaveAttribute('href', '#overview-2');
+    expect(screen.getAllByRole('heading', { name: 'Overview' })[0]).toHaveClass(
+      'section-title',
+    );
+  });
+
+  it('links only real second-level sections and accounts for other heading ids', () => {
+    render(
+      <DetailContent
+        content={'### Overview\n\n## Overview\n\n```md\n## Code sample\n```'}
+        media={{}}
+        sectionNavLabel="Publication sections"
+      />,
+    );
+    const nav = screen.getByRole('navigation', {
+      name: 'Publication sections',
+    });
+    expect(nav.querySelectorAll('a')).toHaveLength(1);
+    expect(nav.querySelector('a')).toHaveAttribute('href', '#overview-2');
+    expect(screen.getByRole('heading', { level: 2 })).toHaveAttribute(
+      'id',
+      'overview-2',
+    );
+  });
+
+  it('renders named images with alt text and captions', () => {
+    render(
+      <DetailContent
+        content={'<ImageBlock id="prototype" />'}
+        media={{ images: { prototype: image } }}
+      />,
+    );
+    expect(
+      screen.getByRole('img', { name: 'Robot prototype' }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Prototype view')).toBeInTheDocument();
+  });
+
+  it('renders a named gallery as thumbnails that open the lightbox', () => {
+    render(
+      <DetailContent
+        content={'<Gallery id="prototype" />'}
+        media={{
+          galleries: {
+            prototype: [
+              image,
+              {
+                ...image,
+                src: '/images/projects/robot-side.webp',
+                alt: 'Robot side view',
+              },
+            ],
+          },
+        }}
+      />,
+    );
+    fireEvent.click(
+      screen.getByRole('button', { name: 'View image 2: Robot side view' }),
+    );
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(
+      screen.getByRole('img', { name: 'Robot side view' }),
+    ).toBeInTheDocument();
+  });
+
+  it('moves gallery captions into the lightbox when requested', () => {
+    render(
+      <DetailContent
+        content={'<Gallery id="prototype" showCaptions="false" />'}
+        media={{ galleries: { prototype: [image] } }}
+      />,
+    );
+
+    expect(screen.queryByText('Prototype view')).not.toBeInTheDocument();
+    fireEvent.click(
+      screen.getByRole('button', { name: 'View image 1: Robot prototype' }),
+    );
+    expect(screen.getByText('Prototype view')).toBeInTheDocument();
+  });
+
+  it('renders a named image as a lightbox card', () => {
+    render(
+      <DetailContent
+        content={'<ImageBlock id="prototype" display="card" />'}
+        media={{ images: { prototype: image } }}
+      />,
+    );
+
+    expect(screen.queryByText('Prototype view')).not.toBeInTheDocument();
+    fireEvent.click(
+      screen.getByRole('button', { name: 'View image 1: Robot prototype' }),
+    );
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(screen.getByText('Prototype view')).toBeInTheDocument();
+  });
+
+  it('hides a gallery title when requested while retaining the video name', () => {
+    render(
+      <DetailContent
+        content={'<VideoGallery id="demonstrations" showTitle="false" />'}
+        media={{
+          videoGalleries: {
+            demonstrations: [
+              {
+                src: '/videos/puppet-robot/demo.mp4',
+                poster: '/videos/puppet-robot/posters/demo.webp',
+                title: 'Puppet robot demonstration 1',
+                width: 1280,
+                height: 720,
+              },
+            ],
+          },
+        }}
+      />,
+    );
+    expect(
+      screen.queryByRole('heading', { name: 'Puppet robot demonstration 1' }),
+    ).toBeNull();
+    expect(
+      screen.getByLabelText('Puppet robot demonstration 1', {
+        selector: 'video',
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it('preserves an authored semantic research flow', () => {
+    const { container } = render(
+      <DetailContent
+        content={`<ol className="research-flow" aria-label="Control pipeline">
+  <li><strong>Detection</strong><span>Find the keypoints.</span></li>
+</ol>`}
+        media={{}}
+      />,
+    );
+    expect(container.querySelector('.research-flow')).toHaveAttribute(
+      'aria-label',
+      'Control pipeline',
+    );
+  });
+
+  it('preserves an authored metrics table', () => {
+    render(
+      <DetailContent
+        content={`<div className="publication-metrics-table" role="region" aria-label="Model evaluation metrics" tabIndex="0">
+  <table><tbody><tr><td>Overall Accuracy</td><td>91.4%</td></tr></tbody></table>
+</div>`}
+        media={{}}
+      />,
+    );
+    expect(
+      screen.getByRole('region', { name: 'Model evaluation metrics' }),
+    ).toHaveClass('publication-metrics-table');
+    expect(screen.getByRole('cell', { name: '91.4%' })).toBeInTheDocument();
+  });
+});

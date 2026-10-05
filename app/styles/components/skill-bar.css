@@ -1,0 +1,86 @@
+/* ========================================
+   SKILL CONTROLS
+   Filter buttons and skill layout helpers
+   ======================================== */
+
+@layer components {
+  /* Skill buttons - modern pill style */
+  .skillbutton {
+    appearance: none;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    color: var(--color-fg);
+    cursor: pointer;
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    letter-spacing: var(--tracking-normal);
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0.5em 1em;
+    text-transform: none;
+    transition:
+      background-color var(--duration-fast) ease,
+      border-color var(--duration-fast) ease,
+      box-shadow var(--duration-fast) ease,
+      color var(--duration-fast) ease;
+  }
+
+  .skillbutton:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: var(--color-accent-light);
+  }
+
+  .skillbutton:focus-visible {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px var(--color-accent-light);
+    color: var(--color-accent);
+    outline: none;
+  }
+
+  /* Selected filter - uses the hover treatment so the active choice stays
+     clearly marked instead of blending in with the other buttons */
+  .skillbutton-active {
+    background-color: var(--color-accent-light);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    font-weight: var(--font-weight-bold);
+    box-shadow: 0 0 0 2px var(--color-accent-light);
+  }
+
+  /* Skill section containers */
+  .skill-button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    justify-content: center;
+    margin-bottom: 2em;
+  }
+
+  @media (max-width: 736px) {
+    .skill-button-container {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      margin-left: calc(-1 * var(--spacing-2));
+      margin-right: calc(-1 * var(--spacing-2));
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      padding: 0 var(--spacing-2) var(--spacing-2);
+      scroll-padding-inline: var(--spacing-2);
+      scrollbar-width: none;
+    }
+
+    .skill-button-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .skillbutton {
+      font-size: 0.8125rem;
+    }
+  }
+}

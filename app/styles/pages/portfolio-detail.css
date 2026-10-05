@@ -1,0 +1,278 @@
+.portfolio-detail-page {
+  max-width: 1056px;
+  margin: 0 auto;
+}
+
+.portfolio-detail-header {
+  margin-bottom: var(--spacing-6);
+}
+
+.portfolio-detail-header h1 {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
+.portfolio-detail-header p {
+  color: var(--color-fg-muted);
+  margin: 0.4rem 0;
+}
+
+.portfolio-detail-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.portfolio-detail-prose {
+  padding-top: var(--spacing-10);
+}
+
+.portfolio-detail-content .section-title {
+  color: var(--color-fg-bold);
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.3vw, 1.85rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  line-height: var(--leading-heading);
+  margin: var(--spacing-16) auto var(--spacing-6);
+  padding-bottom: var(--heading-rule-gap);
+  text-align: center;
+  width: fit-content;
+}
+
+.portfolio-detail-prose .section-title:first-child {
+  margin-top: 0;
+}
+
+.portfolio-detail-content [id] {
+  scroll-margin-top: calc(var(--header-height) + var(--scroll-offset-resume) + var(--spacing-4));
+}
+
+.portfolio-detail-content.has-dense-section-nav [id] {
+  scroll-margin-top: calc(var(--header-height) + var(--spacing-24) + var(--spacing-16));
+}
+
+@media (max-width: 736px) {
+  .portfolio-detail-prose {
+    padding-top: var(--spacing-8);
+  }
+
+  .portfolio-detail-content [id] {
+    scroll-margin-top: calc(var(--header-height-mobile) + var(--scroll-offset-resume));
+  }
+
+  .portfolio-detail-content.has-dense-section-nav [id] {
+    scroll-margin-top: calc(var(--header-height-mobile) + var(--scroll-offset-resume));
+  }
+}
+
+.portfolio-detail-figure {
+  margin: 2rem 0;
+}
+
+.portfolio-detail-figure img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.portfolio-detail-figure figcaption,
+.portfolio-gallery-thumbnail span {
+  display: block;
+  color: var(--color-fg-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  margin-top: 0.5rem;
+}
+
+.portfolio-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.portfolio-gallery-grid.is-single {
+  max-width: 24rem;
+  margin-inline: auto;
+}
+
+.portfolio-gallery-thumbnail {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.portfolio-gallery-thumbnail:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.portfolio-gallery-thumbnail img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  margin: 0;
+}
+
+.portfolio-detail-prose .research-flow {
+  counter-reset: research-step;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  justify-content: center;
+  gap: var(--spacing-3);
+  margin: var(--spacing-8) auto;
+  padding: 0;
+}
+
+.portfolio-detail-prose .research-flow > li {
+  counter-increment: research-step;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  column-gap: var(--spacing-3);
+  margin: 0;
+  padding: var(--spacing-5);
+  list-style: none;
+}
+
+.portfolio-detail-prose .research-flow > li::before {
+  align-items: center;
+  background: var(--color-accent-light);
+  border-radius: var(--radius-full);
+  color: var(--color-accent);
+  content: counter(research-step);
+  display: inline-flex;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+  grid-row: 1 / span 2;
+  height: 1.75rem;
+  justify-content: center;
+  width: 1.75rem;
+}
+
+.portfolio-detail-prose .research-flow strong,
+.portfolio-detail-prose .research-flow span {
+  display: block;
+}
+
+.portfolio-detail-prose .research-flow strong {
+  color: var(--color-fg-bold);
+  line-height: 1.4;
+  margin-bottom: var(--spacing-2);
+}
+
+.portfolio-detail-prose .research-flow span {
+  color: var(--color-fg-light);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+
+.publication-metrics-table {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin: var(--spacing-8) auto;
+  max-width: 38rem;
+  overflow-x: auto;
+}
+
+.publication-metrics-table:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.publication-metrics-table table {
+  border-collapse: collapse;
+  margin: 0;
+  width: 100%;
+}
+
+.publication-metrics-table th,
+.publication-metrics-table td {
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--text-sm);
+  padding: var(--spacing-2) var(--spacing-3);
+  text-align: left;
+}
+
+.publication-metrics-table th {
+  background: var(--color-accent-light);
+  color: var(--color-fg-bold);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+}
+
+.publication-metrics-table td:last-child {
+  color: var(--color-fg-bold);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+.publication-metrics-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+@media (min-width: 901px) {
+  .portfolio-detail-prose .research-flow--four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    max-width: 47rem;
+  }
+
+  .portfolio-detail-prose .research-flow > li {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    max-width: 11rem;
+    min-height: 13rem;
+    padding: var(--spacing-4);
+    width: 100%;
+  }
+
+  .portfolio-detail-prose .research-flow > li::before {
+    align-self: center;
+    box-shadow: 0 0 0 4px var(--color-accent-subtle);
+    flex: 0 0 auto;
+    height: 2rem;
+    width: 2rem;
+  }
+
+  .portfolio-detail-prose .research-flow > li > strong {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: calc(var(--spacing-3) / 2) 0 0;
+    min-height: 2.4em;
+    text-align: center;
+  }
+
+  .portfolio-detail-prose .research-flow > li > span {
+    border-top: 1px solid var(--color-border);
+    margin-top: var(--spacing-2);
+    padding-top: var(--spacing-2);
+  }
+}
+
+@media (max-width: 900px) {
+  .portfolio-detail-prose .research-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px) {
+  .portfolio-detail-prose .research-flow {
+    grid-template-columns: 1fr;
+  }
+}

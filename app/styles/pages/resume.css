@@ -1,0 +1,81 @@
+/* ========================================
+   RESUME PAGE STYLES
+   ======================================== */
+
+.resume-page .link-container {
+  padding-top: 1em;
+}
+
+.resume-page .link-container h4 {
+  border-bottom: none;
+  display: inline-flex;
+  text-decoration: none;
+}
+
+.resume-page .link-container h4 a {
+  margin: 0;
+  padding: 0 0.5em;
+}
+
+.resume-page .skills {
+  margin-top: 0;
+}
+
+.resume-page .references {
+  margin: var(--spacing-8) 0;
+}
+
+/* Resume page specific */
+.resume-page {
+  max-width: 1056px;
+  margin: 0 auto;
+}
+
+.resume-header {
+  margin-bottom: var(--spacing-6);
+}
+
+/* Keep the title-to-summary gap in line with the heading-to-content gap used
+   on the other pages (see .page-header). */
+.resume-header .page-title {
+  margin-bottom: var(--spacing-8);
+}
+
+.resume-summary {
+  color: var(--color-fg);
+  font-size: clamp(1.05rem, 1vw + 0.85rem, 1.2rem);
+  line-height: 1.75;
+  margin: 0;
+  max-width: 55rem;
+  text-align: left;
+  text-wrap: pretty;
+}
+
+.resume-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  padding-top: var(--spacing-10);
+}
+
+.resume-section {
+  border-top: 2px solid var(--color-border);
+  padding-top: var(--spacing-10);
+  scroll-margin-top: calc(var(--header-height) + var(--scroll-offset-resume));
+}
+
+.resume-section:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+@media (max-width: 736px) {
+  .resume-content {
+    gap: var(--spacing-12);
+    padding-top: var(--spacing-8);
+  }
+
+  .resume-section {
+    scroll-margin-top: calc(var(--header-height-mobile) + var(--scroll-offset-resume));
+  }
+}

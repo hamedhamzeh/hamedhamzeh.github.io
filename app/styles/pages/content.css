@@ -1,0 +1,382 @@
+/* ========================================
+   CONTENT PAGE STYLES
+   About, Contact, Stats, and Not Found pages
+   ======================================== */
+
+/* ========================================
+   ABOUT PAGE
+   ======================================== */
+
+.about-page {
+  max-width: 62rem;
+  margin: 0 auto;
+}
+
+.about-header {
+  margin-bottom: var(--spacing-8);
+}
+
+.about-header .page-title {
+  margin-bottom: 0;
+}
+
+.about-content {
+  max-width: 55rem;
+  line-height: 1.85;
+}
+
+.about-section {
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--spacing-12);
+  padding-top: var(--spacing-5);
+}
+
+.about-section h2 {
+  scroll-margin-top: calc(var(--header-height) + var(--scroll-offset-resume));
+}
+
+.about-content p {
+  margin: 0 0 var(--spacing-5);
+  color: var(--color-fg);
+  text-wrap: pretty;
+}
+
+.about-content p:last-child {
+  margin-bottom: 0;
+}
+
+.about-intro p {
+  max-width: 55rem;
+  font-size: clamp(1.05rem, 1vw + 0.85rem, 1.2rem);
+  line-height: 1.75;
+  color: var(--color-fg);
+  text-align: left;
+  text-wrap: pretty;
+}
+
+.about-content ul {
+  margin: var(--spacing-4) 0 var(--spacing-6);
+  padding-left: 1.1rem;
+}
+
+.about-content li {
+  margin-bottom: 0.65rem;
+  color: var(--color-fg);
+  line-height: 1.75;
+  text-wrap: pretty;
+}
+
+.about-content li::marker {
+  color: var(--color-fg-muted);
+}
+
+.about-content a:not(.section-nav-link) {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--color-border-alt);
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  transition:
+    text-decoration-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.about-content a:not(.section-nav-link):hover {
+  text-decoration-color: var(--color-accent-underline-strong);
+  color: var(--color-fg-bold);
+}
+
+.contact-page {
+  max-width: 1056px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0 auto;
+}
+
+.contact-header {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.contact-header .page-title {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.contact-content {
+  text-align: center;
+}
+
+/* Email CTA block */
+.contact-email-block {
+  margin-bottom: 2.5rem;
+}
+
+.contact-email-container {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.contact-email-link {
+  display: inline-flex;
+  align-items: baseline;
+  padding: 0.75rem 1.5rem;
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+  background: var(--color-accent-light);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.contact-email-link:hover {
+  background: color-mix(in srgb, var(--color-accent-light) 70%, var(--color-accent) 30%);
+  transform: translateY(var(--lift-sm));
+  box-shadow: var(--shadow-md);
+}
+
+.contact-email-prefix {
+  color: var(--color-accent);
+}
+
+.contact-email-domain {
+  color: var(--color-fg-bold);
+}
+
+/* Invalid email state - grayed out */
+.contact-email-link--invalid {
+  background: var(--color-border-bg);
+  cursor: default;
+}
+
+.contact-email-link--invalid:hover {
+  background: var(--color-border-bg);
+  transform: none;
+  box-shadow: none;
+}
+
+.contact-email-link--invalid .contact-email-prefix,
+.contact-email-link--invalid .contact-email-domain {
+  color: var(--color-fg-light);
+}
+
+.contact-hint {
+  font-size: var(--text-sm);
+  color: var(--color-fg-light);
+  margin: 0;
+}
+
+/* Divider */
+.contact-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-fg-light);
+  font-size: var(--text-sm);
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-divider::before,
+.contact-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* Social icons - inline style */
+.contact-content > .icons {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 0;
+}
+
+.contact-content > .icons li {
+  padding: 0;
+}
+
+.contact-content > .icons li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  color: var(--color-fg-light);
+  background: transparent;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.contact-content > .icons li a:hover {
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+}
+
+@media (max-width: 736px) {
+  .about-section {
+    padding-top: var(--spacing-4);
+  }
+
+  .about-section h2 {
+    scroll-margin-top: calc(var(--header-height-mobile) + var(--scroll-offset-resume));
+  }
+
+  .contact-page {
+    min-height: 0;
+  }
+
+  .contact-email-link {
+    font-size: var(--text-md);
+    padding: 0.625rem 1.25rem;
+  }
+}
+
+@media (min-width: 736px) {
+  .about-section--compact ul {
+    columns: 2;
+    column-gap: var(--spacing-10);
+  }
+
+  .about-section--compact li {
+    break-inside: avoid;
+  }
+
+  .about-section--links ul {
+    columns: 3;
+    column-gap: var(--spacing-8);
+  }
+
+  .about-section--links li {
+    margin-bottom: 0.5rem;
+    break-inside: avoid;
+  }
+}
+
+@media (min-width: 980px) {
+  .about-section {
+    margin-top: var(--spacing-16);
+  }
+
+  .about-section h2 {
+    margin-bottom: var(--spacing-5);
+  }
+}
+
+/* ========================================
+   NOT FOUND PAGE (404)
+   ======================================== */
+
+.not-found-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - var(--header-height) - 4rem);
+  padding: 2rem;
+  text-align: center;
+}
+
+.not-found-content {
+  max-width: 480px;
+}
+
+.not-found-code {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: clamp(6rem, 20vw, 10rem);
+  font-weight: var(--font-weight-black);
+  line-height: 1;
+  background: linear-gradient(
+    135deg,
+    var(--color-accent) 0%,
+    color-mix(in srgb, var(--color-accent) 60%, var(--color-fg)) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+}
+
+.not-found-title {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-fg-bold);
+  margin-bottom: 0.75rem;
+  letter-spacing: var(--tracking-tight);
+}
+
+.not-found-message {
+  font-size: var(--text-lg);
+  color: var(--color-fg-light);
+  line-height: var(--leading-normal);
+  margin-bottom: 2rem;
+}
+
+.not-found-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.not-found-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2.25rem;
+  font-size: var(--text-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  background: var(--color-accent);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  box-shadow: var(--shadow-md);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.not-found-button:hover {
+  background: var(--color-fg-bold);
+  transform: translateY(var(--lift-sm));
+  box-shadow: var(--shadow-lg);
+}
+
+/* Secondary button style for Contact Me */
+.not-found-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2.25rem;
+  font-size: var(--text-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-fg);
+  background: transparent;
+  border: 2px solid var(--color-border-alt);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.not-found-link:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
+  transform: translateY(var(--lift-sm));
+}
