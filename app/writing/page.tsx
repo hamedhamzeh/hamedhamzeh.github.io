@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { SchemaGraph } from '@/components/Schema';
 import PageWrapper from '@/components/Template/PageWrapper';
 import { createPageMetadata } from '@/lib/metadata';
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
     description: WRITING_DESCRIPTION,
     path: '/writing/',
   }),
+  robots: { index: getAllPosts().length > 0, follow: true },
 };
 
 interface UnifiedItem {
@@ -47,6 +49,7 @@ function WritingItem({ item }: { item: UnifiedItem }) {
 
 export default function WritingPage() {
   const internalPosts = getAllPosts();
+  if (internalPosts.length === 0) notFound();
   const posts: UnifiedItem[] = internalPosts.map((post) => ({
     title: post.title,
     url: `/writing/${post.slug}`,

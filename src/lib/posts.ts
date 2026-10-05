@@ -42,6 +42,9 @@ export function getPostBySlug(slug: string): Post | null {
   const { data, content } = matter(fileContents);
   const frontmatter = data as PostFrontmatter;
 
+  // Drafts are available for local authoring only, including direct detail URLs.
+  if (frontmatter.draft && process.env.NODE_ENV !== 'development') return null;
+
   return {
     slug,
     title: frontmatter.title,
@@ -57,7 +60,6 @@ export function getAllPosts(): Post[] {
   const posts = slugs
     .map((slug) => getPostBySlug(slug))
     .filter((post): post is Post => post !== null)
-    .filter((post) => !post.draft || process.env.NODE_ENV === 'development')
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return posts;

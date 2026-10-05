@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { SchemaGraph } from '@/components/Schema';
 import PageWrapper from '@/components/Template/PageWrapper';
 import PostContent from '@/components/Writing/PostContent';
-import { getPostBySlug, getPostSlugs } from '@/lib/posts';
+import { getAllPosts, getPostBySlug } from '@/lib/posts';
 import {
   blogPostingNode,
   breadcrumbNode,
@@ -17,8 +17,10 @@ interface PageProps {
 }
 
 export function generateStaticParams() {
-  const slugs = getPostSlugs();
-  return slugs.map((slug) => ({ slug }));
+  const slugs = getAllPosts().map((post) => post.slug);
+  // Static export requires a generated parameter even before the first post.
+  // The sentinel renders notFound and never includes draft content.
+  return (slugs.length ? slugs : ['_unpublished']).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -30,6 +32,7 @@ export async function generateMetadata({
   if (!post) {
     return {
       title: 'Post Not Found',
+      robots: { index: false, follow: true },
     };
   }
 

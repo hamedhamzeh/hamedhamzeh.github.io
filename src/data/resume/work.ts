@@ -78,7 +78,10 @@ const work: Position[] = [
             label: 'Read paper',
             url: 'https://ieeexplore.ieee.org/document/10903519',
           },
-          { label: 'Watch demo', url: '/about' },
+          {
+            label: 'Watch demo',
+            url: '/publications/puppet-robot-pose-detection/#demonstrations',
+          },
           // { label: 'View project', url: '/about' },
         ],
       },
@@ -95,7 +98,10 @@ const work: Position[] = [
             label: 'Read paper',
             url: 'https://ieeexplore.ieee.org/document/11551324',
           },
-          { label: 'Watch demo', url: '/about' },
+          {
+            label: 'Watch demo',
+            url: '/publications/wormlike-robot-ferromagnetic-surface-inspection/#demonstrations',
+          },
           // { label: 'View project', url: '/about' },
         ],
       },
