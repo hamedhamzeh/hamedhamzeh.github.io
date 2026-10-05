@@ -23,6 +23,32 @@ update the canvas color. Frames, observers, and event listeners are cleaned up
 when navigating away. Distant connections are rejected with squared-distance
 checks before computing their lengths.
 
+## Initial page loading
+
+The favicon SVG embeds a 192px optimized PNG rather than the original 1254px
+image. Keep the approved transparent HMZ artwork when regenerating it.
+`ThemePortrait` serves 160px, 320px, and 640px WebP derivatives using `srcSet`;
+the hero's `sizes` matches its 112px mobile and 160px desktop presentation. The
+original JPEG remains available. Regenerate the derivatives when replacing it.
+Only the hero portrait uses high fetch priority; the footer portrait loads lazily.
+
+Shared navigation, footer, mobile-menu, and hero links disable automatic Next.js
+prefetching so other routes do not compete with the initial page load. Clicking
+still uses client navigation, but destination downloads begin on navigation.
+
+Filled buttons use a separate foreground token for readable text in each theme,
+with a visible keyboard outline. Footer section labels are level-two headings;
+the repeated profile name is ordinary text and retains its existing styling.
+
+The shared layout applies the persisted theme using a native inline head script
+before hydration. Do not move this bootstrap into `next/script`: its queued
+execution can leave the light palette visible until the Next.js runtime loads.
+The root canvas uses the same background token as the body. Check saved dark
+mode with a light system preference, the inverse, and slow JavaScript downloads
+on both initial loads and full-document navigation. A static preview must serve
+Next.js `.txt` route payloads as `text/plain`; an incorrect content type can cause
+client navigation to fall back to full page loads.
+
 ## Verification
 
 Run formatting, lint, TypeScript, `npm test`, and `npm run build` before committing.

@@ -29,10 +29,14 @@ export default function Hero() {
         </div>
 
         <div className="hero-cta">
-          <Link href="/about" className="button">
+          <Link href="/about" prefetch={false} className="button">
             About Me
           </Link>
-          <Link href="/resume" className="button button-secondary">
+          <Link
+            href="/resume"
+            prefetch={false}
+            className="button button-secondary"
+          >
             My Resume
           </Link>
         </div>

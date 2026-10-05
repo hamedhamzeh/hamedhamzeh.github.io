@@ -12,11 +12,11 @@ export default function Footer() {
     <footer className="site-footer-new">
       <div className="footer-content">
         <div className="footer-identity">
-          <Link href="/" className="footer-avatar">
+          <Link href="/" prefetch={false} className="footer-avatar">
             <ThemePortrait width={80} height={80} />
           </Link>
           <div className="footer-info">
-            <h3>Hamed Hamzeh</h3>
+            <p className="footer-name">Hamed Hamzeh</p>
             <p className="footer-role">{currentRole}</p>
             <p className="footer-copyright">
               &copy; {new Date().getFullYear()}
@@ -26,15 +26,25 @@ export default function Footer() {
 
         <div className="footer-right">
           <nav className="footer-links" aria-labelledby="footer-links-heading">
-            <h4 id="footer-links-heading" className="footer-links-label">
+            <h2 id="footer-links-heading" className="footer-links-label">
               Explore
-            </h4>
+            </h2>
             <div className="footer-links-grid">
-              <Link href="/about">About</Link>
-              <Link href="/resume">Resume</Link>
-              <Link href="/publications">Publications</Link>
-              <Link href="/projects">Projects</Link>
-              <Link href="/contact">Contact</Link>
+              <Link href="/about" prefetch={false}>
+                About
+              </Link>
+              <Link href="/resume" prefetch={false}>
+                Resume
+              </Link>
+              <Link href="/publications" prefetch={false}>
+                Publications
+              </Link>
+              <Link href="/projects" prefetch={false}>
+                Projects
+              </Link>
+              <Link href="/contact" prefetch={false}>
+                Contact
+              </Link>
             </div>
           </nav>
 
@@ -42,9 +52,9 @@ export default function Footer() {
             className="footer-social"
             aria-labelledby="footer-social-heading"
           >
-            <h4 id="footer-social-heading" className="footer-social-label">
+            <h2 id="footer-social-heading" className="footer-social-label">
               Connect
-            </h4>
+            </h2>
             <ContactIcons />
           </div>
         </div>

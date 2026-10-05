@@ -18,7 +18,7 @@ export default function Navigation() {
 
   return (
     <header className="site-header">
-      <Link href="/" className="site-logo">
+      <Link href="/" prefetch={false} className="site-logo">
         <span className="logo-text">HMZ</span>
       </Link>
 
@@ -29,6 +29,7 @@ export default function Navigation() {
             <Link
               key={l.label}
               href={l.path}
+              prefetch={false}
               className={`nav-link ${isActive(l.path) ? 'active' : ''}`}
               aria-current={isActive(l.path) ? 'page' : undefined}
             >

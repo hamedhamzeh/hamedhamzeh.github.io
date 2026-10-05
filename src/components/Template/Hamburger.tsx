@@ -25,7 +25,7 @@ export default function Hamburger() {
       <ul className="hamburger-ul">
         {routes.map((l) => (
           <li key={l.label}>
-            <Link href={l.path} onClick={closeMenu}>
+            <Link href={l.path} prefetch={false} onClick={closeMenu}>
               <h3 className={l.index ? 'index-li' : undefined}>{l.label}</h3>
             </Link>
           </li>

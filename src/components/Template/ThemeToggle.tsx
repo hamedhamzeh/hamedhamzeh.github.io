@@ -8,7 +8,12 @@ export default function ThemeToggle() {
   const [isDark, setIsDark] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const stored = window.localStorage.getItem('theme');
+    let stored: string | null = null;
+    try {
+      stored = window.localStorage.getItem('theme');
+    } catch {
+      // Storage can be unavailable in restricted browser contexts.
+    }
     if (stored === 'light' || stored === 'dark') {
       setIsDark(stored === 'dark');
     } else {
@@ -22,7 +27,12 @@ export default function ThemeToggle() {
       'data-theme',
       isDark ? 'dark' : 'light',
     );
-    window.localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+    try {
+      window.localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    } catch {
+      // Keep the toggle usable even when the preference cannot be persisted.
+    }
   }, [isDark]);
 
   const toggle = useCallback(() => {

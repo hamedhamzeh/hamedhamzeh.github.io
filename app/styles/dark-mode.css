@@ -13,6 +13,7 @@
   --color-fg-bold: #ffffff;
   --color-fg-light: #b0b0b5;
   --color-white: #fff;
+  --color-button-fg: #0a0a0a;
 
   /* Overlay colors for dark mode */
   --color-overlay-light: rgba(255, 255, 255, 0.1);

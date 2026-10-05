@@ -59,6 +59,23 @@ describe('Footer', () => {
     expect(screen.getByText('Connect')).toBeInTheDocument();
   });
 
+  it('provides section headings and a named navigation landmark', () => {
+    render(<Footer />);
+
+    expect(
+      screen.getByRole('heading', { name: 'Explore', level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Connect', level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('navigation', { name: 'Explore' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('heading', { name: 'Hamed Hamzeh' }),
+    ).not.toBeInTheDocument();
+  });
+
   it('has link to home from avatar', () => {
     render(<Footer />);
 
