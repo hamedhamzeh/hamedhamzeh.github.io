@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { ExternalLinkIcon } from '@/components/Icons';
 
 import DetailContent from '@/components/Portfolio/DetailContent';
 import { SchemaGraph } from '@/components/Schema';
@@ -69,7 +70,7 @@ export default async function PublicationDetailPage({ params }: PageProps) {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {publication.linkLabel} <span aria-hidden="true">↗</span>
+                {publication.linkLabel} <ExternalLinkIcon />
               </a>
             )}
             {publication.doi && <span>DOI: {publication.doi}</span>}

@@ -4,6 +4,15 @@
    ======================================== */
 
 @layer components {
+  .external-link-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    vertical-align: -0.125em;
+    margin-inline-start: 0.25em;
+  }
+
   /* Icon list */
   .icons {
     cursor: default;

@@ -23,9 +23,8 @@ export default function HeroBackground() {
     const background = backgroundRef.current;
     const canvas = canvasRef.current;
     if (!background || !canvas) return;
-    const motion = window.matchMedia(
-      '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
-    );
+    // Input capability controls interaction, not whether the field animates.
+    const motion = window.matchMedia('(prefers-reduced-motion: no-preference)');
     let points: Point[] = [];
     let context: CanvasRenderingContext2D | null = null;
     let frame = 0;

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { MoonIcon, SunIcon } from '@/components/Icons';
+import { DEFAULT_THEME } from '@/lib/theme';
 
 export default function ThemeToggle() {
   const [isDark, setIsDark] = useState<boolean | null>(null);
@@ -17,7 +18,7 @@ export default function ThemeToggle() {
     if (stored === 'light' || stored === 'dark') {
       setIsDark(stored === 'dark');
     } else {
-      setIsDark(window.matchMedia('(prefers-color-scheme: dark)').matches);
+      setIsDark(DEFAULT_THEME === 'dark');
     }
   }, []);
 

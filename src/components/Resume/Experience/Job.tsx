@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 
+import { ExternalLinkIcon } from '@/components/Icons';
 import type {
   EvidenceLink,
   Position,
@@ -46,7 +47,7 @@ function EvidenceLinks({ links }: { links: EvidenceLink[] }) {
               : {})}
           >
             {link.label}
-            {isExternal ? <span aria-hidden="true"> ↗</span> : null}
+            {isExternal ? <ExternalLinkIcon /> : null}
           </a>
         );
       })}

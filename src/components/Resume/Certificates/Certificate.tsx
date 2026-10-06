@@ -1,3 +1,4 @@
+import { ExternalLinkIcon } from '@/components/Icons';
 import LightboxGallery from '@/components/Media/LightboxGallery';
 import type { Certificate as CertificateType } from '@/data/resume/certificates';
 
@@ -51,13 +52,13 @@ export default function Certificate({ data }: CertificateProps) {
             rel="noopener noreferrer"
           >
             View credential
-            <span aria-hidden="true"> ↗</span>
+            <ExternalLinkIcon />
           </a>
         )}
         {data.projectUrl && (
           <a href={data.projectUrl} target="_blank" rel="noopener noreferrer">
             View project on GitHub
-            <span aria-hidden="true"> ↗</span>
+            <ExternalLinkIcon />
           </a>
         )}
       </div>

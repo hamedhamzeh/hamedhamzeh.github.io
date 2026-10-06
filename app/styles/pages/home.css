@@ -171,7 +171,7 @@
   color: var(--color-accent);
 }
 
-/* Static fallback for touch, reduced motion, no JavaScript, or unavailable canvas. */
+/* Static fallback for reduced motion, no JavaScript, or unavailable canvas. */
 .hero-vision-fallback {
   background-image: radial-gradient(var(--color-accent) 1px, transparent 1.5px);
   background-size: 28px 28px;
