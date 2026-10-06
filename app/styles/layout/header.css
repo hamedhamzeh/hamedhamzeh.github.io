@@ -67,6 +67,7 @@
 .slide-menu-overlay--open {
   opacity: 1;
   pointer-events: auto;
+  touch-action: none;
 }
 
 /* Slide menu panel */
@@ -77,6 +78,7 @@
   font-size: 1.15em;
   max-width: 80vw;
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 2.5em 1.5em 0;
   position: fixed;
   top: 0;

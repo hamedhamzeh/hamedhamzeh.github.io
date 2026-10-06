@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
 /**
  * Scrolls to top on route changes.
@@ -11,7 +11,7 @@ export default function ScrollToTop() {
   const pathname = usePathname();
   const isFirstRender = useRef(true);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Skip initial render to avoid unnecessary scroll on page load
     if (isFirstRender.current) {
       isFirstRender.current = false;

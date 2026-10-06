@@ -81,7 +81,13 @@ export default function HeroBackground() {
     };
     const draw = (time: number) => {
       frame = 0;
-      if (!context || !motion.matches || document.hidden || !visible) return;
+      if (!motion.matches) {
+        // Keep the static fallback in sync even if a browser delays the media event.
+        background.dataset.animated = 'false';
+        pointer = null;
+        return;
+      }
+      if (!context || document.hidden || !visible) return;
       if (lastTime && time - lastTime < 32) {
         frame = requestAnimationFrame(draw);
         return;
