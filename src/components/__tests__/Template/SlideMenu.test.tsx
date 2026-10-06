@@ -94,17 +94,50 @@ describe('SlideMenu', () => {
   it('locks body scroll when open', () => {
     render(<SlideMenu {...defaultProps} isOpen />);
 
-    expect(document.body.style.position).toBe('fixed');
+    expect(document.body.style.overflow).toBe('');
+    expect(document.documentElement.style.overflow).toBe('hidden');
+    expect(document.body.style.position).toBe('');
   });
 
   it('unlocks body scroll when closed', () => {
     const { rerender } = render(<SlideMenu {...defaultProps} isOpen />);
 
-    expect(document.body.style.position).toBe('fixed');
+    expect(document.documentElement.style.overflow).toBe('hidden');
 
     rerender(<SlideMenu {...defaultProps} isOpen={false} />);
 
-    expect(document.body.style.position).toBe('');
+    expect(document.body.style.overflow).toBe('');
+    expect(document.documentElement.style.overflow).toBe('');
+  });
+
+  it('restores pre-existing scroll styles without issuing a scroll command', () => {
+    document.body.style.overflow = 'auto';
+    document.documentElement.style.overflow = 'scroll';
+    const scroll = vi.mocked(window.scrollTo);
+    scroll.mockClear();
+    const { unmount } = render(<SlideMenu {...defaultProps} isOpen />);
+    unmount();
+    expect(document.body.style.overflow).toBe('auto');
+    expect(document.documentElement.style.overflow).toBe('scroll');
+    expect(scroll).not.toHaveBeenCalled();
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+  });
+
+  it('blocks background touch movement but allows gestures inside the menu', () => {
+    render(<SlideMenu {...defaultProps} isOpen />);
+    const backgroundTouch = new Event('touchmove', {
+      bubbles: true,
+      cancelable: true,
+    });
+    fireEvent(document.body, backgroundTouch);
+    expect(backgroundTouch.defaultPrevented).toBe(true);
+    const menuTouch = new Event('touchmove', {
+      bubbles: true,
+      cancelable: true,
+    });
+    fireEvent(screen.getByText('Link 1'), menuTouch);
+    expect(menuTouch.defaultPrevented).toBe(false);
   });
 
   it('focuses first focusable element when opened', () => {

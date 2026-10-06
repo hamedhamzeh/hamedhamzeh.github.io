@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { ExternalLinkIcon } from '@/components/Icons';
 
 import type { Publication } from '@/data/resume/publications';
 import { PROJECT_IMAGE } from '@/lib/utils';
@@ -83,7 +84,7 @@ export default function PublicationCard({ data }: PublicationCardProps) {
               {data.url && data.linkLabel ? (
                 <a href={data.url} target="_blank" rel="noopener noreferrer">
                   {data.linkLabel}
-                  <span aria-hidden="true"> ↗</span>
+                  <ExternalLinkIcon />
                 </a>
               ) : null}
 

@@ -171,7 +171,7 @@
   color: var(--color-accent);
 }
 
-/* Static fallback for touch, reduced motion, no JavaScript, or unavailable canvas. */
+/* Static fallback for reduced motion, no JavaScript, or unavailable canvas. */
 .hero-vision-fallback {
   background-image: radial-gradient(var(--color-accent) 1px, transparent 1.5px);
   background-size: 28px 28px;
@@ -236,6 +236,20 @@ body:has(.hero-bg) .site-footer-new {
   .hero-chip {
     font-size: var(--text-xs);
     padding: 0.4rem 0.875rem;
+  }
+
+  .hero-cta {
+    gap: var(--spacing-3);
+  }
+
+  .hero-cta .button {
+    flex: 0 0 auto;
+    min-width: 7rem;
+    min-height: 2.75rem;
+    height: auto;
+    padding: var(--spacing-2) var(--spacing-4);
+    font-size: var(--text-sm);
+    line-height: var(--leading-tight);
   }
 }
 

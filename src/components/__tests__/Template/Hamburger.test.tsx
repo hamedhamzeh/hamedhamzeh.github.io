@@ -1,9 +1,36 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { usePathname } from 'next/navigation';
+import type { AnchorHTMLAttributes } from 'react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import Hamburger from '../../Template/Hamburger';
 
+vi.mock('next/navigation', () => ({ usePathname: vi.fn(() => '/resume/') }));
+vi.mock('next/link', () => ({
+  default: ({
+    onNavigate,
+    prefetch: _prefetch,
+    scroll: _scroll,
+    ...props
+  }: AnchorHTMLAttributes<HTMLAnchorElement> & {
+    onNavigate?: () => void;
+    prefetch?: boolean;
+    scroll?: boolean;
+  }) => (
+    <a
+      {...props}
+      onClick={(event) => {
+        event.preventDefault();
+        onNavigate?.();
+      }}
+    />
+  ),
+}));
+
 describe('Hamburger', () => {
+  beforeEach(() => {
+    vi.mocked(usePathname).mockReturnValue('/resume/');
+  });
   it('renders the hamburger button', () => {
     render(<Hamburger />);
 
@@ -76,8 +103,8 @@ describe('Hamburger', () => {
     expect(screen.getByRole('link', { name: /contact/i })).toBeInTheDocument();
   });
 
-  it('closes menu when a link is clicked', () => {
-    render(<Hamburger />);
+  it('keeps the menu open while a destination is loading and closes on route commit', () => {
+    const { rerender } = render(<Hamburger />);
 
     // Open the menu
     const button = screen.getByRole('button');
@@ -88,7 +115,20 @@ describe('Hamburger', () => {
     const aboutLink = screen.getByRole('link', { name: /about/i });
     fireEvent.click(aboutLink);
 
-    // Menu should be closed
+    expect(button).toHaveAttribute('aria-expanded', 'true');
+    vi.mocked(usePathname).mockReturnValue('/about/');
+    rerender(<Hamburger />);
+    expect(button).toHaveAttribute('aria-expanded', 'false');
+    vi.mocked(usePathname).mockReturnValue('/resume/');
+    rerender(<Hamburger />);
+    expect(button).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('closes immediately when choosing the current page', () => {
+    render(<Hamburger />);
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
+    fireEvent.click(screen.getByRole('link', { name: 'Resume' }));
     expect(button).toHaveAttribute('aria-expanded', 'false');
   });
 });

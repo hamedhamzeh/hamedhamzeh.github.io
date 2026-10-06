@@ -129,7 +129,27 @@ describe('HeroBackground', () => {
     expect(context.arc).toHaveBeenCalledTimes(250);
   });
 
-  it('does not initialize canvas for reduced motion or touch-only input', () => {
+  it('animates on touch-only devices without treating touch as pointer repulsion', () => {
+    vi.mocked(window.matchMedia).mockImplementation((query: string) =>
+      query === '(prefers-reduced-motion: no-preference)'
+        ? (media as unknown as MediaQueryList)
+        : ({ ...media, matches: false } as unknown as MediaQueryList),
+    );
+    setWidth(390);
+    render(<HeroBackground />);
+    const touch = new MouseEvent('pointermove', { clientX: 150, clientY: 400 });
+    Object.defineProperty(touch, 'pointerType', { value: 'touch' });
+    fireEvent(document, touch);
+    step(40);
+    expect(document.querySelector('.hero-bg')).toHaveAttribute(
+      'data-animated',
+      'true',
+    );
+    expect(context.arc).toHaveBeenCalledTimes(150);
+    expect(context.lineTo).not.toHaveBeenCalled();
+  });
+
+  it('does not initialize canvas for reduced motion', () => {
     media.matches = false;
     render(
       <section>

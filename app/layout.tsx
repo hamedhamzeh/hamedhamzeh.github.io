@@ -5,7 +5,7 @@ import { SiteSchema } from '@/components/Schema';
 import GoogleAnalytics from '@/components/Template/GoogleAnalytics';
 import Navigation from '@/components/Template/Navigation';
 import ScrollToTop from '@/components/Template/ScrollToTop';
-import { THEME_INIT_SCRIPT } from '@/lib/theme';
+import { DEFAULT_THEME, THEME_INIT_SCRIPT } from '@/lib/theme';
 import {
   AUTHOR_NAME,
   SITE_DESCRIPTION,
@@ -95,6 +95,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-theme={DEFAULT_THEME}
       className={`${sourceSans.variable} ${raleway.variable}`}
       suppressHydrationWarning
     >

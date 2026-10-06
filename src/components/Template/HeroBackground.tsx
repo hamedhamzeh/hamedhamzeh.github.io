@@ -23,9 +23,8 @@ export default function HeroBackground() {
     const background = backgroundRef.current;
     const canvas = canvasRef.current;
     if (!background || !canvas) return;
-    const motion = window.matchMedia(
-      '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
-    );
+    // Input capability controls interaction, not whether the field animates.
+    const motion = window.matchMedia('(prefers-reduced-motion: no-preference)');
     let points: Point[] = [];
     let context: CanvasRenderingContext2D | null = null;
     let frame = 0;
@@ -82,7 +81,13 @@ export default function HeroBackground() {
     };
     const draw = (time: number) => {
       frame = 0;
-      if (!context || !motion.matches || document.hidden || !visible) return;
+      if (!motion.matches) {
+        // Keep the static fallback in sync even if a browser delays the media event.
+        background.dataset.animated = 'false';
+        pointer = null;
+        return;
+      }
+      if (!context || document.hidden || !visible) return;
       if (lastTime && time - lastTime < 32) {
         frame = requestAnimationFrame(draw);
         return;

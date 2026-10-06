@@ -11,7 +11,10 @@ API calls, or server requirements and works with the existing GitHub Pages expor
 - Slow drift, gentle pointer repulsion, and short connections near the pointer.
 - A tracking box fades in and out for 2.5 seconds every approximately 4.44 seconds.
 - Existing accent tokens supply colors in both themes; points behind hero content are faded.
-- Touch-only devices and reduced-motion preferences use the static CSS fallback.
+- Desktop and touch-only devices share the drifting field and tracking boxes.
+  Pointer repulsion and nearby connections respond only to mouse/pen input;
+  touch scrolling never drives the field.
+- Reduced-motion preferences use the static CSS fallback.
 - The background is decorative, hidden from assistive technology, and never intercepts input.
 
 ## Performance and lifecycle
@@ -41,7 +44,9 @@ with a visible keyboard outline. Footer section labels are level-two headings;
 the repeated profile name is ordinary text and retains its existing styling.
 
 The shared layout applies the persisted theme using a native inline head script
-before hydration. Do not move this bootstrap into `next/script`: its queued
+before hydration. First visits default to dark on every device; a saved light
+or dark choice takes priority. The static HTML also defaults to dark.
+Do not move this bootstrap into `next/script`: its queued
 execution can leave the light palette visible until the Next.js runtime loads.
 The root canvas uses the same background token as the body. Check saved dark
 mode with a light system preference, the inverse, and slow JavaScript downloads
@@ -59,6 +64,7 @@ and static rendering.
 Check the exported homepage at 390px, 800px, and 1280px. Move the pointer in the
 outer background, wait for a tracking box, switch themes, and navigate to About
 and back. Confirm that the background does not block links or appear on other
-routes. With reduced motion or touch-only input, confirm the static fallback.
+routes. On touch-only input, confirm drift and tracking boxes continue while
+scrolling remains unaffected. With reduced motion, confirm the static fallback.
 Use a production preview for performance measurements; the development server
 includes tooling that is absent from the static export.

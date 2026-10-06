@@ -1,3 +1,4 @@
+import { ExternalLinkIcon } from '@/components/Icons';
 import LightboxGallery from '@/components/Media/LightboxGallery';
 import type { Publication as PublicationType } from '@/data/resume/publications';
 
@@ -72,7 +73,7 @@ export default function Publication({ data }: PublicationProps) {
           {data.url && data.linkLabel ? (
             <a href={data.url} target="_blank" rel="noopener noreferrer">
               {data.linkLabel}
-              <span aria-hidden="true"> ↗</span>
+              <ExternalLinkIcon />
             </a>
           ) : null}
           {data.presentation ? (

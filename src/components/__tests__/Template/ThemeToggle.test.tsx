@@ -26,7 +26,7 @@ describe('ThemeToggle', () => {
     });
   });
 
-  it('uses dark mode when system prefers dark', async () => {
+  it('defaults to dark mode when system prefers dark', async () => {
     render(<ThemeToggle />);
 
     await waitFor(() => {
@@ -37,7 +37,7 @@ describe('ThemeToggle', () => {
     });
   });
 
-  it('uses light mode when system prefers light', async () => {
+  it('defaults to dark mode even when system prefers light', async () => {
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: vi.fn().mockImplementation(() => ({
@@ -53,7 +53,7 @@ describe('ThemeToggle', () => {
     await waitFor(() => {
       expect(screen.getByRole('button')).toHaveAttribute(
         'aria-label',
-        'Switch to dark mode',
+        'Switch to light mode',
       );
     });
   });

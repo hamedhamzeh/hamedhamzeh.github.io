@@ -1,6 +1,13 @@
 'use client';
 
-import { type ReactNode, useCallback, useEffect, useRef } from 'react';
+import {
+  type ReactNode,
+  type RefObject,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+} from 'react';
 
 // Selector for focusable elements within the menu
 const FOCUSABLE_SELECTOR =
@@ -12,12 +19,13 @@ interface SlideMenuProps {
   onClose: () => void;
   children: ReactNode;
   position?: 'left' | 'right';
+  returnFocusRef?: RefObject<HTMLElement | null>;
 }
 
 /**
  * Accessible slide-out menu panel.
  * Features: focus trapping, focus restoration, escape-to-close,
- * body scroll lock (iOS-safe), reduced-motion support via CSS.
+ * scroll locking without moving the page, reduced-motion support via CSS.
  */
 export default function SlideMenu({
   id,
@@ -25,28 +33,31 @@ export default function SlideMenu({
   onClose,
   children,
   position = 'right',
+  returnFocusRef,
 }: SlideMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   const previousActiveElement = useRef<HTMLElement | null>(null);
 
-  // Save scroll position and lock body scroll (iOS-safe)
-  useEffect(() => {
+  // Preserve the body's layout and sticky elements while blocking background scroll.
+  useLayoutEffect(() => {
     if (!isOpen) return;
 
-    const scrollY = window.scrollY;
-    const { body } = document;
+    const { documentElement } = document;
+    const rootOverflow = documentElement.style.overflow;
+    documentElement.style.overflow = 'hidden';
 
-    body.style.position = 'fixed';
-    body.style.top = `-${scrollY}px`;
-    body.style.left = '0';
-    body.style.right = '0';
+    // Also block background touch gestures on Safari, without blocking menu scroll.
+    const blockBackgroundTouch = (event: TouchEvent) => {
+      if (!menuRef.current?.contains(event.target as Node))
+        event.preventDefault();
+    };
+    document.addEventListener('touchmove', blockBackgroundTouch, {
+      passive: false,
+    });
 
     return () => {
-      body.style.position = '';
-      body.style.top = '';
-      body.style.left = '';
-      body.style.right = '';
-      window.scrollTo(0, scrollY);
+      documentElement.style.overflow = rootOverflow;
+      document.removeEventListener('touchmove', blockBackgroundTouch);
     };
   }, [isOpen]);
 
@@ -69,20 +80,21 @@ export default function SlideMenu({
   useEffect(() => {
     if (isOpen) {
       // Save currently focused element
-      previousActiveElement.current = document.activeElement as HTMLElement;
+      previousActiveElement.current =
+        returnFocusRef?.current ?? (document.activeElement as HTMLElement);
 
       // Focus first focusable element in menu
       const focusableElements =
         menuRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
       if (focusableElements?.length) {
-        focusableElements[0].focus();
+        focusableElements[0].focus({ preventScroll: true });
       }
     } else if (previousActiveElement.current) {
       // Restore focus when closing
-      previousActiveElement.current.focus();
+      previousActiveElement.current.focus({ preventScroll: true });
       previousActiveElement.current = null;
     }
-  }, [isOpen]);
+  }, [isOpen, returnFocusRef]);
 
   // Focus trapping
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -98,10 +110,10 @@ export default function SlideMenu({
 
     if (e.shiftKey && document.activeElement === firstElement) {
       e.preventDefault();
-      lastElement.focus();
+      lastElement.focus({ preventScroll: true });
     } else if (!e.shiftKey && document.activeElement === lastElement) {
       e.preventDefault();
-      firstElement.focus();
+      firstElement.focus({ preventScroll: true });
     }
   }, []);
 
