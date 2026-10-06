@@ -237,6 +237,20 @@ body:has(.hero-bg) .site-footer-new {
     font-size: var(--text-xs);
     padding: 0.4rem 0.875rem;
   }
+
+  .hero-cta {
+    gap: var(--spacing-3);
+  }
+
+  .hero-cta .button {
+    flex: 0 0 auto;
+    min-width: 7rem;
+    min-height: 2.75rem;
+    height: auto;
+    padding: var(--spacing-2) var(--spacing-4);
+    font-size: var(--text-sm);
+    line-height: var(--leading-tight);
+  }
 }
 
 /* ========================================
