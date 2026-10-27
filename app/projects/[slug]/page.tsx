@@ -26,11 +26,18 @@ export async function generateMetadata({
   const project = getProjectBySlug(slug);
   if (!project) return { title: 'Project Not Found' };
 
-  return createPageMetadata({
+  const metadata = createPageMetadata({
     title: project.title,
     description: project.desc,
     path: project.link as `/${string}`,
   });
+  if (project.image) {
+    metadata.openGraph = {
+      ...metadata.openGraph,
+      images: [{ url: project.image, alt: project.title }],
+    };
+  }
+  return metadata;
 }
 
 export default async function ProjectDetailPage({ params }: PageProps) {

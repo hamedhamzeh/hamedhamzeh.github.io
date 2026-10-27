@@ -71,6 +71,20 @@ with Ctrl+C when finished.
 
 ### Current coverage
 
+- Check the AISoccerCoach project card and category filtering, detail-page
+  navigation, share metadata, scrollable results tables, and all four Ball Mapping demos
+  in both themes. Run its playback checks with a single worker so browser
+  windows do not compete for foreground visibility (the player intentionally
+  pauses when its page becomes hidden):
+
+  ```bash
+  npm run test:e2e -- e2e/project-detail.spec.ts --workers=1
+  ```
+
+  Video sources keep `preload="none"`. WebKit may request a small file-header
+  range before Play; the test allows probes below 4 KB and rejects full-video
+  downloads at that stage.
+
 - Open/dismiss the hamburger from Resume Skills without changing scroll,
   content width, heading position, or sticky section-navigation position.
 - Keep Resume still during a deliberately delayed destination load; reset

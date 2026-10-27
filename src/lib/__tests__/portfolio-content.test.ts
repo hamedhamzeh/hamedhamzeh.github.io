@@ -8,6 +8,7 @@ import {
   getAllProjects,
   getDetailSlugs,
   getProjectBySlug,
+  getProjectShowcaseEntries,
   getPublicationBySlug,
 } from '../portfolio-content';
 
@@ -151,6 +152,67 @@ date: '2026-02-31'
 `,
     );
     expect(() => getProjectBySlug('invalid-date')).toThrow(/valid YYYY-MM-DD/);
+  });
+
+  it('replaces a placeholder with a real card without duplicating or sending article data', () => {
+    const cards = getProjectShowcaseEntries();
+    expect(cards).toHaveLength(11);
+    expect(
+      cards.filter((card) => card.category === 'Computer Vision'),
+    ).toHaveLength(5);
+    expect(cards[0]).toMatchObject({
+      title: 'Contact-Anchored Ball Mapping',
+      label: 'AISoccerCoach · Computer Vision',
+      desc: 'Estimating a 2D ball path from soccer broadcasts using contact detection and player tracking.',
+      link: '/projects/contact-anchored-soccer-ball-mapping/',
+    });
+    expect(cards[0]).not.toHaveProperty('subtitle');
+    expect(cards[0]).not.toHaveProperty('tech');
+    const project = getProjectBySlug('contact-anchored-soccer-ball-mapping');
+    expect(project?.title).toBe('AISoccerCoach: Contact-Anchored Ball Mapping');
+    expect(project?.subtitle).toBe(
+      'Estimating a 2D ball path from single-camera soccer broadcasts.',
+    );
+    expect(project?.tech).toHaveLength(4);
+    expect(cards[0]).not.toHaveProperty('number');
+    expect(cards[0]).not.toHaveProperty('content');
+    expect(cards[0]).not.toHaveProperty('media');
+  });
+
+  it('rejects replacement slots belonging to another category', () => {
+    useTemporaryContent(
+      'projects',
+      'wrong-category',
+      `---
+title: Test
+description: Test
+category: Robotics
+replaces: computer-vision-01
+---
+`,
+    );
+    expect(() => getProjectShowcaseEntries()).toThrow(
+      /placeholder in its category/,
+    );
+  });
+
+  it('allows an undated project and validates all its demonstration files', () => {
+    const project = getProjectBySlug('contact-anchored-soccer-ball-mapping');
+    expect(project?.date).toBeUndefined();
+    const videos = Object.values(project?.media.videoGalleries ?? {}).flat();
+    expect(videos).toHaveLength(4);
+    expect(
+      project?.media.videoGalleries?.['trajectory-candidates'],
+    ).toHaveLength(1);
+    expect(project?.content).not.toMatch(/repository|notebook|colab/i);
+    expect(project?.content).toContain('to discuss access');
+    for (const video of videos ?? []) {
+      for (const file of [video.src, video.poster]) {
+        expect(fs.existsSync(path.join(process.cwd(), 'public', file))).toBe(
+          true,
+        );
+      }
+    }
   });
 
   it('rejects a missing gallery reference', () => {

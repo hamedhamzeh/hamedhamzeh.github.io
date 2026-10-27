@@ -224,6 +224,36 @@
   border-bottom: 0;
 }
 
+.project-metrics-table {
+  max-width: 100%;
+}
+
+.project-stage-video .video-gallery--single {
+  width: min(calc(100% - 2 * var(--spacing-4)), 45rem);
+}
+
+.project-metrics-table table {
+  min-width: 32rem;
+}
+
+.portfolio-detail-disclosure {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin: var(--spacing-6) 0;
+  padding: var(--spacing-4);
+}
+
+.portfolio-detail-disclosure summary {
+  color: var(--color-fg-bold);
+  cursor: pointer;
+  font-weight: var(--font-weight-semibold);
+}
+
+.portfolio-detail-disclosure summary:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
 @media (min-width: 901px) {
   .portfolio-detail-prose .research-flow--four {
     grid-template-columns: repeat(4, minmax(0, 1fr));
