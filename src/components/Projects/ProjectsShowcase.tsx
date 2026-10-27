@@ -3,14 +3,21 @@
 import { useEffect, useRef, useState } from 'react';
 
 import CategoryButton from '@/components/Resume/Skills/CategoryButton';
-import projects, { projectCategories } from '@/data/projects';
+import placeholders, {
+  type ProjectShowcaseEntry,
+  projectCategories,
+} from '@/data/projects';
 
 import ProjectCarousel from './ProjectCarousel';
 
 const filters = ['All', ...projectCategories] as const;
 type ProjectFilter = (typeof filters)[number];
 
-export default function ProjectsShowcase() {
+export default function ProjectsShowcase({
+  projects = placeholders,
+}: {
+  projects?: ProjectShowcaseEntry[];
+}) {
   const [activeCategory, setActiveCategory] = useState<ProjectFilter>('All');
   const controlsRef = useRef<HTMLDivElement>(null);
   const visibleProjects =
@@ -55,7 +62,10 @@ export default function ProjectsShowcase() {
       </div>
       <div className="projects-category-heading" aria-live="polite">
         <h2>{activeCategory === 'All' ? 'All projects' : activeCategory}</h2>
-        <span>{visibleProjects.length} placeholders</span>
+        <span>
+          {visibleProjects.length}{' '}
+          {visibleProjects.length === 1 ? 'project' : 'projects'}
+        </span>
       </div>
       <ProjectCarousel
         key={activeCategory}

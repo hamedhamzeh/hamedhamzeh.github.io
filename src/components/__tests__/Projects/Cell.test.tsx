@@ -18,6 +18,18 @@ describe('Cell', () => {
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('href', mockProject.link);
     expect(link).toHaveClass('project-card-link');
+    expect(link).toContainElement(screen.getByText('Explore project'));
+    expect(screen.queryByRole('button')).toBeNull();
+  });
+
+  it('omits tags and keeps the explore action only on linked cards', () => {
+    const { container, rerender } = render(
+      <Cell data={{ ...mockProject, tech: ['Python', 'OpenCV'] }} />,
+    );
+    expect(container.querySelector('.project-card-tech')).toBeNull();
+    rerender(<Cell data={{ ...mockProject, link: undefined }} />);
+    expect(screen.queryByRole('link')).toBeNull();
+    expect(screen.queryByText('Explore project')).toBeNull();
   });
 
   it('renders project description', () => {

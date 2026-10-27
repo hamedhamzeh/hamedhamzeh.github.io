@@ -1,3 +1,9 @@
+export interface ProjectCardSummary {
+  title: string;
+  description: string;
+  label?: string;
+}
+
 export interface Project {
   title: string;
   subtitle?: string;
@@ -7,6 +13,9 @@ export interface Project {
   desc: string;
   tech?: string[];
   featured?: boolean;
+  category?: ProjectCategory;
+  replaces?: string;
+  card?: ProjectCardSummary;
 }
 
 export const projectCategories = [
@@ -26,6 +35,14 @@ export interface ProjectPlaceholder {
   title: string;
   desc: string;
 }
+
+export interface ProjectCard extends Project {
+  id: string;
+  category: ProjectCategory;
+  label?: string;
+}
+
+export type ProjectShowcaseEntry = ProjectPlaceholder | ProjectCard;
 
 const placeholderCounts: Record<ProjectCategory, number> = {
   'Computer Vision': 5,
