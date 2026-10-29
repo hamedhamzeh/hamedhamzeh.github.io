@@ -2,6 +2,8 @@ export interface Thesis {
   title: string;
   grade: string;
   supervisor: string;
+  context?: string;
+  projectUrl?: string;
 }
 
 export interface Degree {
@@ -25,10 +27,12 @@ const degrees: Degree[] = [
     location: 'Tehran, Iran',
     gpa: 'Last two years: 3.48/4',
     thesis: {
-      title:
-        'Design and Development of a Whole-Body Continuous Passive Motion Device for Neurorehabilitation',
+      title: 'Design of the Knee and Shoulder Joint Physiotherapy Device',
       grade: '18.50/20',
       supervisor: 'Dr. Alireza Daneshmehr',
+      context:
+        'Part of a collaborative whole-body rehabilitation device project; my contribution focused on mechanical design and analysis.',
+      projectUrl: '/projects/whole-body-rehabilitation-device/',
     },
   },
 ];

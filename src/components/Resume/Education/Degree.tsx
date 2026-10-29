@@ -27,12 +27,20 @@ export default function Degree({ data }: DegreeProps) {
             <strong>Undergraduate thesis:</strong>{' '}
             <cite>{data.thesis.title}</cite>
           </p>
+          {data.thesis.context ? (
+            <p className="degree-detail">{data.thesis.context}</p>
+          ) : null}
           <p className="degree-detail">
             <strong>Thesis grade:</strong> {data.thesis.grade}
           </p>
           <p className="degree-detail">
             <strong>Supervisor:</strong> {data.thesis.supervisor}
           </p>
+          {data.thesis.projectUrl ? (
+            <div className="resume-actions" aria-label="Related evidence">
+              <a href={data.thesis.projectUrl}>View thesis project</a>
+            </div>
+          ) : null}
         </div>
       ) : null}
     </article>

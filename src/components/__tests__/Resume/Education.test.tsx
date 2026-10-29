@@ -109,4 +109,32 @@ describe('Degree', () => {
     const article = document.querySelector('article.degree-container');
     expect(article).toHaveClass('resume-card');
   });
+
+  it('shows optional thesis context and an internal project action', () => {
+    const context = 'Part of a collaborative rehabilitation device project.';
+    const projectUrl = '/projects/whole-body-rehabilitation-device/';
+    render(
+      <Degree
+        data={{
+          ...mockDegree,
+          thesis: { ...mockDegree.thesis, context, projectUrl },
+        }}
+      />,
+    );
+    expect(screen.getByText(context)).toBeInTheDocument();
+    const link = screen.getByRole('link', { name: 'View thesis project' });
+    expect(link).toHaveAttribute('href', projectUrl);
+    expect(link).not.toHaveAttribute('target');
+  });
+
+  it('keeps thesis evidence optional and supports degrees without a thesis', () => {
+    const { rerender } = render(<Degree data={mockDegree} />);
+    expect(
+      screen.queryByRole('link', { name: 'View thesis project' }),
+    ).not.toBeInTheDocument();
+    expect(document.querySelector('.resume-actions')).not.toBeInTheDocument();
+    rerender(<Degree data={mockDegrees[0]} />);
+    expect(document.querySelector('.degree-thesis')).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3 })).toBeInTheDocument();
+  });
 });
