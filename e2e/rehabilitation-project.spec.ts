@@ -16,7 +16,7 @@ for (const theme of ['dark', 'light'] as const) {
     await page.goto('/projects/');
     await expect(page.locator('.theme-toggle')).toBeVisible();
     await page.getByRole('button', { name: 'Robotics', exact: true }).click();
-    await expect(page.locator('.project-carousel-slide')).toHaveCount(2);
+    await expect(page.locator('.project-carousel-slide')).toHaveCount(3);
     const card = page.locator(`a[href="${projectPath}"]`);
     await expect(card).toBeVisible();
     await expect(card.getByRole('heading')).toHaveText(

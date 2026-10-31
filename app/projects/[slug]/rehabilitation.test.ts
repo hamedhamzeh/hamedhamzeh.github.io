@@ -18,10 +18,10 @@ describe('rehabilitation project integration', () => {
   it('replaces one Robotics slot and connects Education to the same article', () => {
     const cards = getProjectShowcaseEntries();
     const robotics = cards.filter((card) => card.category === 'Robotics');
-    expect(cards).toHaveLength(placeholders.length);
-    expect(robotics).toHaveLength(2);
-    expect(robotics.filter((card) => 'number' in card)).toHaveLength(1);
-    expect(robotics.filter((card) => 'link' in card)).toHaveLength(1);
+    expect(cards).toHaveLength(placeholders.length + 1);
+    expect(robotics).toHaveLength(3);
+    expect(robotics.filter((card) => 'number' in card)).toHaveLength(0);
+    expect(robotics.filter((card) => 'link' in card)).toHaveLength(3);
     expect(robotics[0]).toMatchObject({
       title: 'Whole-Body Rehabilitation Device',
       label: 'Bachelor’s project · Mechanical design',

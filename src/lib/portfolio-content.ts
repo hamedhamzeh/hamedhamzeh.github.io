@@ -4,7 +4,9 @@ import path from 'node:path';
 import matter from 'gray-matter';
 
 import placeholders, {
+  linkedProjects,
   type Project,
+  type ProjectCard,
   type ProjectCategory,
   type ProjectShowcaseEntry,
   projectCategories,
@@ -478,26 +480,29 @@ export function getAllProjects(): Project[] {
 }
 
 export function getProjectShowcaseEntries(): ProjectShowcaseEntry[] {
-  const cards = getDetailSlugs('projects').map((slug) => {
-    const project = getProjectBySlug(slug);
-    if (!project?.category) {
-      throw new Error(
-        `Project ${slug} needs a category for the Projects index`,
-      );
-    }
-    // Pass only card fields to the client carousel, not the full article/media.
-    return {
-      id: slug,
-      category: project.category,
-      title: project.card?.title ?? project.title,
-      label: project.card?.label ?? project.category,
-      desc: project.card?.description ?? project.desc,
-      image: project.image,
-      link: project.link,
-      date: project.date,
-      replaces: project.replaces,
-    };
-  });
+  const cards: ProjectCard[] = [
+    ...linkedProjects,
+    ...getDetailSlugs('projects').map((slug) => {
+      const project = getProjectBySlug(slug);
+      if (!project?.category) {
+        throw new Error(
+          `Project ${slug} needs a category for the Projects index`,
+        );
+      }
+      // Pass only card fields to the client carousel, not the full article/media.
+      return {
+        id: slug,
+        category: project.category,
+        title: project.card?.title ?? project.title,
+        label: project.card?.label ?? project.category,
+        desc: project.card?.description ?? project.desc,
+        image: project.image,
+        link: project.link,
+        date: project.date,
+        replaces: project.replaces,
+      };
+    }),
+  ];
   const replacements = new Map<string, (typeof cards)[number]>();
   for (const card of cards) {
     if (!card.replaces) continue;

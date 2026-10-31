@@ -44,6 +44,29 @@ export interface ProjectCard extends Project {
 
 export type ProjectShowcaseEntry = ProjectPlaceholder | ProjectCard;
 
+// Project cards can also introduce work documented on an existing publication page.
+export const linkedProjects: ProjectCard[] = [
+  {
+    id: 'vision-controlled-puppet-robot',
+    title: 'Vision-Controlled Puppet Robot',
+    desc: 'A modular puppet robot combining mechanical design, embedded control, and vision-based movement.',
+    category: 'Robotics',
+    label: 'Robotics · Research project',
+    replaces: 'robotics-02',
+    link: '/publications/puppet-robot-pose-detection/',
+    image: '/videos/puppet-robot/posters/puppet-demo-1.webp',
+  },
+  {
+    id: 'wormlike-surface-inspection-robot',
+    title: 'Wormlike Surface-Inspection Robot',
+    desc: 'A bio-inspired robotic platform designed for movement on ferromagnetic surfaces.',
+    category: 'Robotics',
+    label: 'Robotics · Research project',
+    link: '/publications/wormlike-robot-ferromagnetic-surface-inspection/',
+    image: '/images/assets/wormlike-robot-poster.webp',
+  },
+];
+
 const placeholderCounts: Record<ProjectCategory, number> = {
   'Computer Vision': 5,
   Robotics: 2,
