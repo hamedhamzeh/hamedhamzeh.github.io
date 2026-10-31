@@ -67,6 +67,13 @@ export default function ProjectsShowcase({
           {visibleProjects.length === 1 ? 'project' : 'projects'}
         </span>
       </div>
+      {activeCategory === 'Front-end' && (
+        <p className="projects-category-note">
+          These projects are a little time capsule from my front-end learning
+          days, before AI made coding much easier. Back then, one stubborn CSS
+          bug could keep me company all evening. Have a click around!
+        </p>
+      )}
       <ProjectCarousel
         key={activeCategory}
         projects={visibleProjects}

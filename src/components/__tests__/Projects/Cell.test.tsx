@@ -18,8 +18,26 @@ describe('Cell', () => {
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('href', mockProject.link);
     expect(link).toHaveClass('project-card-link');
+    expect(link).not.toHaveAttribute('target');
     expect(link).toContainElement(screen.getByText('Explore project'));
     expect(screen.queryByRole('button')).toBeNull();
+  });
+
+  it('opens an opted-in project in a separate tab and announces it', () => {
+    render(
+      <Cell
+        data={{
+          ...mockProject,
+          openInNewTab: true,
+          actionLabel: 'Visit website',
+        }}
+      />,
+    );
+    const link = screen.getByRole('link');
+    expect(link).toHaveAttribute('target', '_blank');
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+    expect(link).toHaveAccessibleName(/opens in a new tab/);
+    expect(screen.getByText('Visit website')).toBeVisible();
   });
 
   it('omits tags and keeps the explore action only on linked cards', () => {

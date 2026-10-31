@@ -25,6 +25,7 @@ export default function Cell({ data }: CellProps) {
     featured,
     category,
     label,
+    openInNewTab,
   } = data;
 
   const hasLink = Boolean(link);
@@ -76,10 +77,19 @@ export default function Cell({ data }: CellProps) {
       className={`project-card ${featured ? 'project-card--featured' : ''} ${hasLink ? 'project-card--linked' : 'project-card--static'}`}
     >
       {hasLink ? (
-        <a href={link} className="project-card-link" draggable={false}>
+        <a
+          href={link}
+          target={openInNewTab ? '_blank' : undefined}
+          rel={openInNewTab ? 'noopener noreferrer' : undefined}
+          className="project-card-link"
+          draggable={false}
+        >
           {cardContent}
           <span className="project-card-action">
-            Explore project
+            {data.actionLabel ?? 'Explore project'}
+            {openInNewTab && (
+              <span className="sr-only"> (opens in a new tab)</span>
+            )}
             <svg
               width="1em"
               height="1em"

@@ -16,6 +16,8 @@ export interface Project {
   category?: ProjectCategory;
   replaces?: string;
   card?: ProjectCardSummary;
+  openInNewTab?: boolean;
+  actionLabel?: string;
 }
 
 export const projectCategories = [
@@ -43,6 +45,32 @@ export interface ProjectCard extends Project {
 }
 
 export type ProjectShowcaseEntry = ProjectPlaceholder | ProjectCard;
+
+// Front-end course projects are maintained and deployed in their own repositories.
+export const frontendProjects: ProjectCard[] = [
+  {
+    id: 'game-hub',
+    title: 'Game Hub',
+    desc: 'Search for games, filter by genre or platform, sort the results, and explore individual game pages. Built with React and TypeScript.',
+    category: 'Front-end',
+    replaces: 'front-end-01',
+    link: 'https://hamedhamzeh.github.io/my-game-hub/',
+    openInNewTab: true,
+    actionLabel: 'Visit website',
+    image: '/images/projects/frontend/game-hub.webp',
+  },
+  {
+    id: 'hosting-landing-page',
+    title: 'Hosting Landing Page',
+    desc: 'Explore a responsive hosting interface built with HTML, CSS, and a little JavaScript.',
+    category: 'Front-end',
+    replaces: 'front-end-02',
+    link: 'https://hamedhamzeh.github.io/my-front-project/',
+    openInNewTab: true,
+    actionLabel: 'Visit website',
+    image: '/images/projects/frontend/hosting-landing-page.webp',
+  },
+];
 
 // Project cards can also introduce work documented on an existing publication page.
 export const linkedProjects: ProjectCard[] = [
