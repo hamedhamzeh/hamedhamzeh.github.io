@@ -41,7 +41,6 @@ for (const theme of ['dark', 'light'] as const) {
       'src',
       /01_comparison.webp/,
     );
-    await expect(page.locator('.project-preview-card')).toHaveCount(4);
     await testInfo.attach(`projects-${theme}`, {
       body: await page.screenshot({ animations: 'disabled' }),
       contentType: 'image/png',

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-
 import { SITE_URL } from '@/lib/utils';
+import sitemap from '../../sitemap';
 import { generateMetadata, generateStaticParams } from './page';
 
 describe('project detail page', () => {
@@ -21,5 +21,25 @@ describe('project detail page', () => {
         alt: 'AISoccerCoach: Contact-Anchored Ball Mapping',
       },
     ]);
+  });
+
+  it('exports the assignment route with its own share image and includes both projects in the sitemap', async () => {
+    const assignmentSlug = 'soccer-team-role-assignment';
+    expect(generateStaticParams()).toContainEqual({ slug: assignmentSlug });
+    const metadata = await generateMetadata({
+      params: Promise.resolve({ slug: assignmentSlug }),
+    });
+    const url = `${SITE_URL}/projects/${assignmentSlug}/`;
+    expect(metadata.alternates?.canonical).toBe(url);
+    expect(metadata.openGraph?.url).toBe(url);
+    expect(metadata.openGraph?.images).toEqual([
+      {
+        url: '/videos/aisoccercoach-team-assignment/posters/01_showcase.webp',
+        alt: 'AISoccerCoach: Team & Role Assignment',
+      },
+    ]);
+    const urls = sitemap().map((entry) => entry.url);
+    expect(urls).toContain(url);
+    expect(urls).toContain(`${SITE_URL}/projects/${slug}/`);
   });
 });

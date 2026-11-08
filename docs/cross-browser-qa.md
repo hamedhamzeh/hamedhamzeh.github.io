@@ -72,18 +72,21 @@ with Ctrl+C when finished.
 ### Current coverage
 
 - Check the AISoccerCoach project card and category filtering, detail-page
-  navigation, share metadata, scrollable results tables, and all four Ball Mapping demos
-  in both themes. Run its playback checks with a single worker so browser
-  windows do not compete for foreground visibility (the player intentionally
-  pauses when its page becomes hidden):
+  navigation, share metadata, scrollable results tables, and all demos on both
+  project pages in both themes. Run playback checks with a single worker because
+  the player pauses when its page becomes hidden:
 
   ```bash
-  npm run test:e2e -- e2e/project-detail.spec.ts --workers=1
+  npm run test:e2e -- e2e/project-detail.spec.ts e2e/team-assignment.spec.ts --workers=1
   ```
 
   Video sources keep `preload="none"`. WebKit may request a small file-header
   range before Play; the test allows probes below 4 KB and rejects full-video
   downloads at that stage.
+
+- On Team & Role Assignment, check the complete training and benchmark disclosures,
+  four figure lightboxes, and the showcase, inference, and training videos. Check
+  keyboard selection, pause on video changes, and responsive layout.
 
 - Open/dismiss the hamburger from Resume Skills without changing scroll,
   content width, heading position, or sticky section-navigation position.

@@ -177,6 +177,92 @@ date: '2026-02-31'
     expect(cards[0]).not.toHaveProperty('number');
     expect(cards[0]).not.toHaveProperty('content');
     expect(cards[0]).not.toHaveProperty('media');
+    expect(cards[1]).toMatchObject({
+      title: 'Team & Role Assignment',
+      label: 'AISoccerCoach · Computer Vision',
+      link: '/projects/soccer-team-role-assignment/',
+      replaces: 'computer-vision-02',
+    });
+    const visionCards = cards.filter(
+      (card) => card.category === 'Computer Vision',
+    );
+    expect(visionCards).toHaveLength(5);
+  });
+
+  it('separates assignment development results from independent evaluation and supplies accessible media', () => {
+    const project = getProjectBySlug('soccer-team-role-assignment');
+    expect(project?.date).toBeUndefined();
+    expect(project?.content).toContain(
+      'Independent match-level evaluation is pending.',
+    );
+    expect(project?.content).toContain('### Implementation');
+    expect(project?.content.match(/^## /gm)).toHaveLength(8);
+    expect(project?.content).not.toMatch(/^## Implementation$/m);
+    expect(project?.content).toContain('to discuss access');
+    const images = Object.values(project?.media.images ?? {});
+    expect(images).toHaveLength(4);
+    for (const image of images) {
+      expect(fs.existsSync(path.join(process.cwd(), 'public', image.src))).toBe(
+        true,
+      );
+    }
+    const videos = project?.media.videoGalleries?.demonstrations ?? [];
+    expect(videos.map((video) => video.title)).toEqual([
+      'Results showcase',
+      'Inference walkthrough',
+      'Training walkthrough',
+    ]);
+    expect(project?.image).toBe(videos[0]?.poster);
+    for (const video of videos) {
+      expect(video.transcript).toBeTruthy();
+      for (const file of [video.src, video.poster]) {
+        expect(fs.existsSync(path.join(process.cwd(), 'public', file))).toBe(
+          true,
+        );
+      }
+    }
+  });
+
+  it('publishes the three selection tradeoffs and complete histories with consistent denominators', () => {
+    const project = getProjectBySlug('soccer-team-role-assignment');
+    const markup = document.createElement('div');
+    markup.innerHTML = project?.content ?? '';
+    const tableRows = (label: string) =>
+      Array.from(
+        markup.querySelectorAll(`[aria-label="${label}"] tbody tr`),
+        (row) =>
+          Array.from(
+            row.querySelectorAll('th, td'),
+            (cell) => cell.textContent,
+          ),
+      );
+    const candidates = tableRows(
+      'Three model-selection candidates on the development benchmark',
+    );
+    expect(candidates).toEqual([
+      ['MobileNet V12', '97.31%', '97.06%', '76.61%', '5,417 / 5,581'],
+      ['ResNet V6', '95.91%', '97.04%', '71.43%', '5,416 / 5,581'],
+      ['MobileNet V9', '95.05%', '94.84%', '82.71%', '5,293 / 5,581'],
+    ]);
+    for (const row of candidates) {
+      const [correct, total] = (row[4] ?? '')
+        .replaceAll(',', '')
+        .split(' / ')
+        .map(Number);
+      expect(`${((correct / total) * 100).toFixed(2)}%`).toBe(row[2]);
+    }
+    const benchmark = tableRows(
+      'All 15 models on the common development benchmark',
+    );
+    expect(benchmark).toHaveLength(15);
+    expect(new Set(benchmark.map((row) => row[0])).size).toBe(15);
+    expect(benchmark.some((row) => row[0] === 'MobileNet V0')).toBe(false);
+    const configurations = tableRows('All 19 archived training configurations');
+    expect(configurations).toHaveLength(19);
+    expect(new Set(configurations.map((row) => row[0])).size).toBe(19);
+    expect(configurations.find((row) => row[0] === 'ResNet V2')).toContain('—');
+    expect(markup.querySelectorAll('details')).toHaveLength(2);
+    expect(markup.querySelectorAll('details[open]')).toHaveLength(0);
   });
 
   it('rejects replacement slots belonging to another category', () => {
