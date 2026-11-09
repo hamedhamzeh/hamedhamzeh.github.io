@@ -87,14 +87,6 @@ Use local `/images/` paths, meaningful alt text, and the actual image dimensions
 
 A `videoGalleries` entry with one video uses the shared player in a centered, content-width frame, with no carousel, selectors, or drag behavior. Entries with two or more videos retain the peek carousel. Add `transcript` to describe visual-only demonstrations accessibly.
 
-## Rendering the Stage 1 trajectory demo
-
-`scripts/render-trajectory-demo.py` is a dev-only renderer using OpenCV, Pillow, and FFmpeg. It accepts `--shot` and `--header` source MP4 paths and produces the dark/teal 1080p, 25fps silent demo and WebP poster. Private source clips are not bundled with the website. The renderer uses normal speed, 0.5× around each contact, a three-second hold on the visually selected post-contact frame, and then normal speed. It verifies decoded frame count/FPS and unchanged source hashes. Use `--review-dir test-results/stage1-render` for review frames and a timing manifest; `--overwrite` permits regenerating an existing output. Font paths can be overridden with `--font` and `--bold-font`.
-
 ## Maintaining the team assignment page
 
 The second AISoccerCoach project is defined in [the Team & Role Assignment entry](../content/projects/soccer-team-role-assignment.md). Use the [cross-browser QA guide](./cross-browser-qa.md) to verify its media and layout.
-
-## Extracting figures from a paper
-
-`scripts/extract-wormlike-figures.py` is a dev-only helper that crops the wormlike paper's figures out of `public/journals/wormlike-robot.pdf` into `public/images/publications/wormlike-robot/`. It is not part of the site build and is not wired into `package.json`; run it manually after a one-time `python -m pip install pymupdf`. Copy the script's printed pixel dimensions into the Markdown frontmatter.
