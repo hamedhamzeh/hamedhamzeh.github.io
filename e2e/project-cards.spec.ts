@@ -1,5 +1,38 @@
 import { expect, test } from './fixtures';
 
+test('the hydrogen storage project and award link directly to GitHub', async ({
+  page,
+}) => {
+  const repository =
+    'https://github.com/hamedhamzeh/MOF-Hydrogen-Storage-prediction';
+  await page.goto('/projects/');
+  await page.getByRole('button', { name: 'ML Projects', exact: true }).click();
+  const carousel = page.getByRole('region', { name: 'ML Projects projects' });
+  await expect(carousel.locator('.project-carousel-slide')).toHaveCount(1);
+  const card = carousel.getByRole('link', { name: /View on GitHub/ });
+  await expect(card.getByRole('heading')).toHaveText(
+    'Predicting Hydrogen Storage in MOFs',
+  );
+  await expect(card.locator('time')).toHaveText('2024');
+  const poster = card.getByRole('img');
+  await expect(poster).toHaveJSProperty('complete', true);
+  expect(
+    await poster.evaluate((image: HTMLImageElement) => image.naturalWidth),
+  ).toBeGreaterThan(0);
+  await expect(card).toHaveAttribute('href', repository);
+  await expect(card).toHaveAttribute('target', '_blank');
+
+  await page.goto('/resume/#honors');
+  const honor = page.locator('#honors article').filter({
+    has: page.getByRole('heading', {
+      name: 'Winner, Third National Competition',
+    }),
+  });
+  const awardLink = honor.getByRole('link', { name: /View project on GitHub/ });
+  await expect(awardLink).toHaveAttribute('href', repository);
+  await expect(awardLink).toHaveAttribute('target', '_blank');
+});
+
 test('GitHub project cards show their years above the repository action', async ({
   page,
 }) => {

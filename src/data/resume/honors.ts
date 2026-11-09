@@ -1,9 +1,12 @@
+import { MOF_HYDROGEN_STORAGE_REPO_URL } from '@/data/projects';
+
 export interface Honor {
   title: string;
   issuer: string;
   year: number;
   description: string;
   note?: string;
+  githubUrl?: string;
 }
 
 const honors: Honor[] = [
@@ -21,6 +24,7 @@ const honors: Honor[] = [
     year: 2024,
     description:
       'Recognized for developing a machine-learning model to identify and recommend suitable hydrogen adsorbent materials.',
+    githubUrl: MOF_HYDROGEN_STORAGE_REPO_URL,
   },
   {
     title: 'Top 2% Nationwide',

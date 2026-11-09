@@ -72,6 +72,9 @@ export const frontendProjects: ProjectCard[] = [
   },
 ];
 
+export const MOF_HYDROGEN_STORAGE_REPO_URL =
+  'https://github.com/hamedhamzeh/MOF-Hydrogen-Storage-prediction';
+
 export const githubProjects: ProjectCard[] = [
   {
     id: 'virtual-fence',
@@ -96,6 +99,19 @@ export const githubProjects: ProjectCard[] = [
     openInNewTab: true,
     actionLabel: 'View on GitHub',
     image: '/images/projects/computer-vision/bone-age-estimation.webp',
+  },
+  {
+    id: 'mof-hydrogen-storage',
+    title: 'Predicting Hydrogen Storage in MOFs',
+    desc: 'Used machine learning to estimate how much usable hydrogen different metal–organic frameworks could store and help shortlist promising materials.',
+    category: 'ML Projects',
+    label: 'ML Projects · Competition winner',
+    replaces: 'ml-projects-01',
+    date: '2024',
+    link: MOF_HYDROGEN_STORAGE_REPO_URL,
+    openInNewTab: true,
+    actionLabel: 'View on GitHub',
+    image: '/images/projects/mof-hydrogen-storage.svg',
   },
 ];
 
