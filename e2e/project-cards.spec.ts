@@ -1,5 +1,54 @@
 import { expect, test } from './fixtures';
 
+test('GitHub project cards show their years above the repository action', async ({
+  page,
+}) => {
+  await page.goto('/projects/');
+  await page
+    .getByRole('button', { name: 'Computer Vision', exact: true })
+    .click();
+  const carousel = page.getByRole('region', {
+    name: 'Computer Vision projects',
+  });
+  const selectors = carousel
+    .getByRole('group', { name: 'Choose visible projects' })
+    .getByRole('button');
+  const viewportWidth = await page.evaluate(() => window.innerWidth);
+  const cardsPerView = viewportWidth >= 1000 ? 3 : viewportWidth >= 600 ? 2 : 1;
+  const lastSelector = 5 - cardsPerView;
+  await expect(selectors).toHaveCount(lastSelector + 1);
+
+  for (const [slot, repository, year] of [
+    [2, 'virtual-fence', '2025'],
+    [3, 'xception-bone-age-prediction', '2024'],
+  ] as const) {
+    await selectors.nth(Math.min(slot, lastSelector)).click();
+    const slide = carousel.locator('.project-carousel-slide').nth(slot);
+    await expect(slide).toHaveAttribute('aria-hidden', 'false');
+    const card = slide.getByRole('link');
+    await expect(card).toHaveAttribute(
+      'href',
+      `https://github.com/hamedhamzeh/${repository}`,
+    );
+    await expect(card).toHaveAttribute('target', '_blank');
+    const action = card.locator('.project-card-action');
+    await expect(action).toContainText('View on GitHub');
+    const date = card.locator('time');
+    await expect(date).toHaveText(year);
+    await expect(card.getByRole('img')).toHaveJSProperty('complete', true);
+    expect(
+      await card
+        .getByRole('img')
+        .evaluate((image: HTMLImageElement) => image.naturalWidth),
+    ).toBeGreaterThan(0);
+
+    const dateBox = (await date.boundingBox())!;
+    const actionBox = (await action.boundingBox())!;
+    expect(dateBox.y + dateBox.height).toBeLessThan(actionBox.y);
+    expect(dateBox.x).toBeGreaterThan(actionBox.x + actionBox.width / 2);
+  }
+});
+
 for (const theme of ['dark', 'light'] as const) {
   test(`project cards have one clear action and unclipped hover in ${theme}`, async ({
     page,

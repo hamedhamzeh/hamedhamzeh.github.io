@@ -5,6 +5,7 @@ import matter from 'gray-matter';
 
 import placeholders, {
   frontendProjects,
+  githubProjects,
   linkedProjects,
   type Project,
   type ProjectCard,
@@ -483,6 +484,7 @@ export function getAllProjects(): Project[] {
 export function getProjectShowcaseEntries(): ProjectShowcaseEntry[] {
   const cards: ProjectCard[] = [
     ...frontendProjects,
+    ...githubProjects,
     ...linkedProjects,
     ...getDetailSlugs('projects').map((slug) => {
       const project = getProjectBySlug(slug);

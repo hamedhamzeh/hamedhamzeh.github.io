@@ -72,6 +72,33 @@ export const frontendProjects: ProjectCard[] = [
   },
 ];
 
+export const githubProjects: ProjectCard[] = [
+  {
+    id: 'virtual-fence',
+    title: 'Virtual Fence & Person Tracking',
+    desc: 'Detects and tracks people in video using YOLOv8 and SimpleSORT, then counts entries into a defined zone.',
+    category: 'Computer Vision',
+    replaces: 'computer-vision-03',
+    date: '2025-12-27',
+    link: 'https://github.com/hamedhamzeh/virtual-fence',
+    openInNewTab: true,
+    actionLabel: 'View on GitHub',
+    image: '/images/projects/computer-vision/virtual-fence.webp',
+  },
+  {
+    id: 'xception-bone-age-prediction',
+    title: 'Bone Age Estimation from Hand X-rays',
+    desc: 'An Xception model trained on the RSNA Pediatric Bone Age dataset to estimate bone age from hand X-rays.',
+    category: 'Computer Vision',
+    replaces: 'computer-vision-04',
+    date: '2024-08-24',
+    link: 'https://github.com/hamedhamzeh/xception-bone-age-prediction',
+    openInNewTab: true,
+    actionLabel: 'View on GitHub',
+    image: '/images/projects/computer-vision/bone-age-estimation.webp',
+  },
+];
+
 // Project cards can also introduce work documented on an existing publication page.
 export const linkedProjects: ProjectCard[] = [
   {

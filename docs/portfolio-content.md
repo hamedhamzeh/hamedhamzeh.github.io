@@ -93,7 +93,7 @@ A `videoGalleries` entry with one video uses the shared player in a centered, co
 
 ## Maintaining the team assignment page
 
-For the second AISoccerCoach project, see [Team and role assignment project](./team-assignment-project.md) for media, benchmark evidence, and verification commands.
+The second AISoccerCoach project is defined in [the Team & Role Assignment entry](../content/projects/soccer-team-role-assignment.md). Use the [cross-browser QA guide](./cross-browser-qa.md) to verify its media and layout.
 
 ## Extracting figures from a paper
 
