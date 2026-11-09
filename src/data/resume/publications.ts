@@ -32,6 +32,7 @@ const publications: Publication[] = [
   {
     title:
       'Advancing Sustainable Pavement Design: A Data-Driven ML Framework for Predicting the Rheological Performance of Sasobit-Modified Binders',
+    image: '/images/projects/sasobit-binder-stiffness/sasobit-pellets.webp',
     authors: [
       {
         name: 'Hamed Hamzeh',
@@ -46,6 +47,7 @@ const publications: Publication[] = [
     ],
     type: 'Journal manuscript',
     status: 'Under Review',
+    detailPath: '/projects/sasobit-binder-stiffness/',
   },
 ];
 

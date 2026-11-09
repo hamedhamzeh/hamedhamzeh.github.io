@@ -60,20 +60,10 @@ export default function PublicationCard({ data }: PublicationCardProps) {
                 data.title
               )}
             </h3>
-            {data.venue ? (
-              <p className="project-card-subtitle">{data.venue}</p>
-            ) : null}
+            <p className="project-card-subtitle">{data.venue ?? data.status}</p>
           </header>
 
           <p className="project-card-desc">{authors}</p>
-
-          {/* A manuscript without a venue states its review status below the
-              author line, where it reads as the citation's closing detail. */}
-          {!data.venue ? (
-            <p className="project-card-status">
-              <span className="publication-type">{data.status}</span>
-            </p>
-          ) : null}
 
           {hasActionRow ? (
             <div className="resume-actions">

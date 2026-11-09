@@ -44,6 +44,7 @@ describe('publications data', () => {
     expect(pavementManuscript).toMatchObject({
       type: 'Journal manuscript',
       status: 'Under Review',
+      detailPath: '/projects/sasobit-binder-stiffness/',
     });
   });
 

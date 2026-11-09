@@ -41,18 +41,23 @@ const mockPublication = {
 };
 
 describe('Publications', () => {
-  it('keeps the puppet paper certificate action after loading Markdown', () => {
-    const puppetPaper = getAllPublications().find((publication) =>
-      publication.title.startsWith('Design of a Remote Controlled Puppet'),
-    );
-    expect(puppetPaper).toBeDefined();
-    render(<Publications data={[puppetPaper!]} />);
+  it('links to the detail pages and keeps the puppet paper certificate action', () => {
+    render(<Publications data={getAllPublications()} />);
     expect(
       screen.getByRole('button', { name: 'View presentation certificate' }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('link', { name: /view on ieee xplore/i }),
-    ).toHaveAttribute('href', 'https://ieeexplore.ieee.org/document/10903519');
+      screen
+        .getAllByRole('link', { name: 'Publication page' })
+        .map((link) => link.getAttribute('href')),
+    ).toEqual([
+      '/publications/wormlike-robot-ferromagnetic-surface-inspection/',
+      '/publications/puppet-robot-pose-detection/',
+      '/projects/sasobit-binder-stiffness/',
+    ]);
+    expect(
+      screen.queryByRole('link', { name: /view on ieee xplore/i }),
+    ).not.toBeInTheDocument();
   });
 
   it('renders the section title, anchor, and publications', () => {

@@ -42,4 +42,34 @@ describe('project detail page', () => {
     expect(urls).toContain(url);
     expect(urls).toContain(`${SITE_URL}/projects/${slug}/`);
   });
+
+  it.each([
+    {
+      slug: 'airbnb-availability-prediction',
+      title: 'Airbnb Availability Prediction Pipeline',
+      poster: 'airbnb-pipeline.webp',
+    },
+    {
+      slug: 'semantic-text-search-api',
+      title: 'Semantic Text Search API',
+      poster: 'semantic-search.webp',
+    },
+  ])('exports $slug with its own share image and sitemap URL', async ({
+    slug,
+    title,
+    poster,
+  }) => {
+    const url = `${SITE_URL}/projects/${slug}/`;
+    expect(generateStaticParams()).toContainEqual({ slug });
+    const metadata = await generateMetadata({
+      params: Promise.resolve({ slug }),
+    });
+
+    expect(metadata.alternates?.canonical).toBe(url);
+    expect(metadata.openGraph?.url).toBe(url);
+    expect(metadata.openGraph?.images).toEqual([
+      { url: `/images/projects/mlops/${poster}`, alt: title },
+    ]);
+    expect(sitemap().map((entry) => entry.url)).toContain(url);
+  });
 });

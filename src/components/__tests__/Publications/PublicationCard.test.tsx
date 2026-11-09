@@ -117,18 +117,20 @@ describe('PublicationCard', () => {
     expect(screen.queryByText(/certificate/i)).not.toBeInTheDocument();
   });
 
-  it('shows the review status as a badge when there is no venue', () => {
+  it('shows the review status under the title when there is no venue', () => {
     const { container } = render(
       <PublicationCard
         data={{ ...mockPublication, venue: undefined, status: 'Under Review' }}
       />,
     );
 
-    const badge = container.querySelector(
-      '.project-card-status .publication-type',
-    );
-    expect(badge).toBeInTheDocument();
-    expect(badge).toHaveTextContent('Under Review');
+    const title = screen.getByRole('heading', { name: mockPublication.title });
+    const status = screen.getByText('Under Review');
+    expect(title.nextElementSibling).toBe(status);
+    expect(status).toHaveClass('project-card-subtitle');
+    expect(
+      container.querySelector('.publication-type'),
+    ).not.toBeInTheDocument();
   });
 
   it('renders an under-review manuscript without controls', () => {
@@ -149,7 +151,9 @@ describe('PublicationCard', () => {
       />,
     );
 
-    expect(screen.getByText('Under Review')).toHaveClass('publication-type');
+    expect(screen.getByText('Under Review')).toHaveClass(
+      'project-card-subtitle',
+    );
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
     expect(screen.queryByRole('time')).not.toBeInTheDocument();

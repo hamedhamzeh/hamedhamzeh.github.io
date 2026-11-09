@@ -3,6 +3,7 @@ title: 'AISoccerCoach: Contact-Anchored Ball Mapping'
 subtitle: 'Estimating a 2D ball path from single-camera soccer broadcasts.'
 description: 'A computer-vision pipeline combining trajectory analysis, vision-language contact classification, and geometric player identification to estimate a 2D ball path.'
 category: Computer Vision
+date: '2026-10-12'
 replaces: computer-vision-01
 card:
   label: AISoccerCoach · Computer Vision

@@ -1,3 +1,4 @@
+import { ExternalLinkIcon } from '@/components/Icons';
 import type { Honor as HonorType } from '@/data/resume/honors';
 
 interface HonorProps {
@@ -16,6 +17,15 @@ export default function Honor({ data }: HonorProps) {
       </header>
       <p className="honor-description">{data.description}</p>
       {data.note ? <p className="honor-note">{data.note}</p> : null}
+      {data.githubUrl && (
+        <div className="resume-actions">
+          <a href={data.githubUrl} target="_blank" rel="noopener noreferrer">
+            View project on GitHub
+            <ExternalLinkIcon />
+            <span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        </div>
+      )}
     </article>
   );
 }

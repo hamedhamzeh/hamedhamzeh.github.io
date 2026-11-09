@@ -3,6 +3,7 @@ title: 'AISoccerCoach: Team & Role Assignment'
 subtitle: 'Learning appearance features to group soccer players by team and role.'
 description: 'Developing soccer team and role assignment through triplet learning, 19 archived model versions, and a 15-model development benchmark.'
 category: Computer Vision
+date: '2025-09-28'
 replaces: computer-vision-02
 card:
   label: AISoccerCoach · Computer Vision

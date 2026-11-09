@@ -139,7 +139,8 @@
   margin-inline: auto;
 }
 
-.team-assignment-figure .portfolio-gallery-grid.is-single {
+:is(.team-assignment-figure, .project-technical-figures--compact)
+  .portfolio-gallery-grid.is-single {
   width: min(30rem, calc(100% - 2 * var(--spacing-4)));
   max-width: none;
 }
@@ -149,7 +150,7 @@
   width: calc((min(30rem, 100% - 2 * var(--spacing-4)) - 1rem - 2px) * 2 / 3 + 1rem + 2px);
 }
 
-.team-assignment-figure .portfolio-gallery-thumbnail img {
+:is(.team-assignment-figure, .project-technical-figures--compact) .portfolio-gallery-thumbnail img {
   aspect-ratio: auto;
   margin-inline: auto;
   max-width: 100%;
