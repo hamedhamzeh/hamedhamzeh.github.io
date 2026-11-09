@@ -4,7 +4,7 @@ import projects from '../projects';
 
 describe('project placeholders', () => {
   it('provides the requested category counts without project claims', () => {
-    expect(projects).toHaveLength(11);
+    expect(projects).toHaveLength(12);
     expect(
       Object.fromEntries(
         [
@@ -22,7 +22,7 @@ describe('project placeholders', () => {
       'Computer Vision': 5,
       Robotics: 2,
       'Front-end': 2,
-      MLOps: 1,
+      MLOps: 2,
       'ML Projects': 1,
     });
 

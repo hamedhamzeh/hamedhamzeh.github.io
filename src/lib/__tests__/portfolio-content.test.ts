@@ -156,7 +156,7 @@ date: '2026-02-31'
 
   it('replaces a placeholder with a real card without duplicating or sending article data', () => {
     const cards = getProjectShowcaseEntries();
-    expect(cards).toHaveLength(12);
+    expect(cards).toHaveLength(13);
     expect(
       cards.filter((card) => card.category === 'Computer Vision'),
     ).toHaveLength(5);
@@ -187,6 +187,27 @@ date: '2026-02-31'
       (card) => card.category === 'Computer Vision',
     );
     expect(visionCards).toHaveLength(5);
+  });
+
+  it('places the two linked MLOps cards together with Airbnb first', () => {
+    const cards = getProjectShowcaseEntries();
+    const mlopsCards = cards.filter((card) => card.category === 'MLOps');
+    expect(mlopsCards).toMatchObject([
+      {
+        title: 'Airbnb Availability Prediction Pipeline',
+        label: 'MLOps · Quera Minicamp',
+        link: '/projects/airbnb-availability-prediction/',
+        replaces: 'mlops-01',
+      },
+      {
+        title: 'Semantic Text Search API',
+        label: 'MLOps · Quera Minicamp',
+        link: '/projects/semantic-text-search-api/',
+        replaces: 'mlops-02',
+      },
+    ]);
+    const firstIndex = cards.findIndex((card) => card.category === 'MLOps');
+    expect(cards.slice(firstIndex, firstIndex + 2)).toEqual(mlopsCards);
   });
 
   it('separates assignment development results from independent evaluation and supplies accessible media', () => {

@@ -20,11 +20,11 @@ describe('Robotics publication project cards', () => {
     expect(
       robotics.every((entry) => 'link' in entry && !('number' in entry)),
     ).toBe(true);
-    expect(entries).toHaveLength(12);
+    expect(entries).toHaveLength(13);
     for (const [category, count] of [
       ['Computer Vision', 5],
       ['Front-end', 2],
-      ['MLOps', 1],
+      ['MLOps', 2],
       ['ML Projects', 1],
     ] as const) {
       expect(

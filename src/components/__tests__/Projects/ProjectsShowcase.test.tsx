@@ -40,22 +40,22 @@ describe('ProjectsShowcase', () => {
     expect(
       screen.queryByRole('group', { name: 'Choose visible projects' }),
     ).toBeNull();
-    expect(screen.getByText('1 of 11')).toBeVisible();
+    expect(screen.getByText('1 of 12')).toBeVisible();
     expect(
       screen.getByRole('button', { name: 'Previous projects' }),
     ).toBeDisabled();
     fireEvent.click(screen.getByRole('button', { name: 'Next projects' }));
-    expect(screen.getByText('2 of 11')).toBeVisible();
+    expect(screen.getByText('2 of 12')).toBeVisible();
 
     resizeTo(1280);
-    expect(screen.getByText('2–4 of 11')).toBeVisible();
+    expect(screen.getByText('2–4 of 12')).toBeVisible();
   });
 
   it('filters the requested placeholder categories', () => {
     resizeTo(1280);
     const { container } = render(<ProjectsShowcase />);
     expect(container.querySelectorAll('.project-carousel-slide')).toHaveLength(
-      11,
+      12,
     );
 
     const controls = screen.getByRole('group', { name: 'Project categories' });
@@ -63,7 +63,7 @@ describe('ProjectsShowcase', () => {
       ['Computer Vision', 5],
       ['Robotics', 2],
       ['Front-end', 2],
-      ['MLOps', 1],
+      ['MLOps', 2],
       ['ML Projects', 1],
     ] as const) {
       fireEvent.click(within(controls).getByRole('button', { name: category }));

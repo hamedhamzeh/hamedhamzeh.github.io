@@ -142,7 +142,7 @@ const placeholderCounts: Record<ProjectCategory, number> = {
   'Computer Vision': 5,
   Robotics: 2,
   'Front-end': 2,
-  MLOps: 1,
+  MLOps: 2,
   'ML Projects': 1,
 };
 
