@@ -3,7 +3,16 @@ import path from 'node:path';
 
 import matter from 'gray-matter';
 
-import type { Project } from '@/data/projects';
+import placeholders, {
+  frontendProjects,
+  githubProjects,
+  linkedProjects,
+  type Project,
+  type ProjectCard,
+  type ProjectCategory,
+  type ProjectShowcaseEntry,
+  projectCategories,
+} from '@/data/projects';
 import legacyPublications, {
   type Publication,
   type PublicationAuthor,
@@ -419,16 +428,45 @@ export function getProjectBySlug(slug: string): ProjectDetail | null {
   if (featured != null && typeof featured !== 'boolean') {
     throw new Error(`${source}: featured must be a boolean`);
   }
+  const cardData =
+    data.card == null ? undefined : record(data.card, 'card', source);
+  const card = cardData
+    ? {
+        title: readString(cardData.title, 'card.title', source),
+        description: readString(
+          cardData.description,
+          'card.description',
+          source,
+        ),
+        label: optionalString(cardData.label, 'card.label', source),
+      }
+    : undefined;
+  const category = optionalString(data.category, 'category', source);
+  if (category && !projectCategories.includes(category as ProjectCategory)) {
+    throw new Error(`${source}: category must be a known project category`);
+  }
+  const replaces = optionalString(data.replaces, 'replaces', source);
+  if (replaces) {
+    const placeholder = placeholders.find((item) => item.id === replaces);
+    if (!placeholder || placeholder.category !== category) {
+      throw new Error(
+        `${source}: replaces must match a placeholder in its category`,
+      );
+    }
+  }
 
   return {
     slug,
     title: readString(data.title, 'title', source),
     desc: readString(data.description, 'description', source),
     subtitle: optionalString(data.subtitle, 'subtitle', source),
-    date: readDate(data.date, source),
+    date: data.date == null ? undefined : readDate(data.date, source),
+    category: category as ProjectCategory | undefined,
+    replaces,
     image: optionalString(data.image, 'image', source) ?? '',
     tech: tech as string[] | undefined,
     featured: featured as boolean | undefined,
+    card,
     link: `/projects/${slug}/`,
     content,
     media: readMedia(data.media, content, source),
@@ -441,4 +479,46 @@ export function getAllProjects(): Project[] {
     if (!project) throw new Error(`Missing project: ${slug}`);
     return project;
   });
+}
+
+export function getProjectShowcaseEntries(): ProjectShowcaseEntry[] {
+  const cards: ProjectCard[] = [
+    ...frontendProjects,
+    ...githubProjects,
+    ...linkedProjects,
+    ...getDetailSlugs('projects').map((slug) => {
+      const project = getProjectBySlug(slug);
+      if (!project?.category) {
+        throw new Error(
+          `Project ${slug} needs a category for the Projects index`,
+        );
+      }
+      // Pass only card fields to the client carousel, not the full article/media.
+      return {
+        id: slug,
+        category: project.category,
+        title: project.card?.title ?? project.title,
+        label: project.card?.label ?? project.category,
+        desc: project.card?.description ?? project.desc,
+        image: project.image,
+        link: project.link,
+        date: project.date,
+        replaces: project.replaces,
+      };
+    }),
+  ];
+  const replacements = new Map<string, (typeof cards)[number]>();
+  for (const card of cards) {
+    if (!card.replaces) continue;
+    if (replacements.has(card.replaces)) {
+      throw new Error(`Multiple projects replace ${card.replaces}`);
+    }
+    replacements.set(card.replaces, card);
+  }
+  return [
+    ...placeholders.map(
+      (placeholder) => replacements.get(placeholder.id) ?? placeholder,
+    ),
+    ...cards.filter((card) => !card.replaces),
+  ];
 }

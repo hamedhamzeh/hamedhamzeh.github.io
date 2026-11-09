@@ -7,6 +7,7 @@ import { PROJECT_IMAGE } from '@/lib/utils';
 export type ProjectCardData = Omit<Project, 'date' | 'image'> & {
   date?: string;
   image?: string;
+  label?: string;
 };
 
 interface CellProps {
@@ -14,7 +15,18 @@ interface CellProps {
 }
 
 export default function Cell({ data }: CellProps) {
-  const { title, subtitle, link, image, date, desc, tech, featured } = data;
+  const {
+    title,
+    subtitle,
+    link,
+    image,
+    date,
+    desc,
+    featured,
+    category,
+    label,
+    openInNewTab,
+  } = data;
 
   const hasLink = Boolean(link);
 
@@ -28,6 +40,7 @@ export default function Cell({ data }: CellProps) {
             width={PROJECT_IMAGE.width}
             height={PROJECT_IMAGE.height}
             sizes="(max-width: 600px) 100vw, 50vw"
+            draggable={false}
           />
         </div>
       ) : (
@@ -41,21 +54,14 @@ export default function Cell({ data }: CellProps) {
 
       <div className="project-card-content">
         <header className="project-card-header">
+          {(label ?? category) && (
+            <p className="project-preview-label">{label ?? category}</p>
+          )}
           <h3 className="project-card-title">{title}</h3>
           {subtitle && <p className="project-card-subtitle">{subtitle}</p>}
         </header>
 
         <p className="project-card-desc">{desc}</p>
-
-        {tech && tech.length > 0 && (
-          <div className="project-card-tech">
-            {tech.map((t) => (
-              <span key={t} className="tech-tag">
-                {t}
-              </span>
-            ))}
-          </div>
-        )}
 
         {date && (
           <time className="project-card-date" dateTime={date}>
@@ -71,8 +77,34 @@ export default function Cell({ data }: CellProps) {
       className={`project-card ${featured ? 'project-card--featured' : ''} ${hasLink ? 'project-card--linked' : 'project-card--static'}`}
     >
       {hasLink ? (
-        <a href={link} className="project-card-link">
+        <a
+          href={link}
+          target={openInNewTab ? '_blank' : undefined}
+          rel={openInNewTab ? 'noopener noreferrer' : undefined}
+          className="project-card-link"
+          draggable={false}
+        >
           {cardContent}
+          <span className="project-card-action">
+            {data.actionLabel ?? 'Explore project'}
+            {openInNewTab && (
+              <span className="sr-only"> (opens in a new tab)</span>
+            )}
+            <svg
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M5 12h14m-6-6 6 6-6 6" />
+            </svg>
+          </span>
         </a>
       ) : (
         <div className="project-card-static">{cardContent}</div>

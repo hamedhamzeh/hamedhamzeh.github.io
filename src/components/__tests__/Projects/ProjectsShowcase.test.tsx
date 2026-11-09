@@ -74,6 +74,38 @@ describe('ProjectsShowcase', () => {
     }
   });
 
+  it('keeps real cards linked under their category and placeholders static', () => {
+    render(
+      <ProjectsShowcase
+        projects={[
+          {
+            id: 'ball-mapping',
+            title: 'Ball mapping',
+            category: 'Computer Vision',
+            desc: 'An estimated 2D ball path.',
+            link: '/projects/ball-mapping/',
+          },
+          {
+            id: 'robotics-01',
+            title: 'Project 01',
+            category: 'Robotics',
+            number: '01',
+            desc: 'Project details will be added here.',
+          },
+        ]}
+      />,
+    );
+    expect(screen.getByRole('link', { name: /Ball mapping/ })).toHaveAttribute(
+      'href',
+      '/projects/ball-mapping/',
+    );
+    expect(screen.getByText('Explore project')).toBeVisible();
+    fireEvent.click(screen.getByRole('button', { name: 'Robotics' }));
+    expect(screen.queryByRole('link')).toBeNull();
+    expect(screen.queryByText('Explore project')).toBeNull();
+    expect(screen.getByText('1 project')).toBeVisible();
+  });
+
   it('shows three, two, then one card as the viewport narrows', () => {
     resizeTo(1280);
     const { container } = render(<ProjectsShowcase />);

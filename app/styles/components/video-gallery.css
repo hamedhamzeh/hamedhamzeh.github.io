@@ -6,6 +6,13 @@
   transform: translateX(-50%);
 }
 
+.video-gallery--single {
+  left: auto;
+  width: 100%;
+  margin-inline: auto;
+  transform: none;
+}
+
 .video-gallery:focus-visible,
 .video-gallery-select:focus-visible,
 .carousel-indicator:focus-visible {

@@ -4,6 +4,7 @@ import ProjectsShowcase from '@/components/Projects/ProjectsShowcase';
 import { SchemaGraph } from '@/components/Schema';
 import PageWrapper from '@/components/Template/PageWrapper';
 import { createPageMetadata } from '@/lib/metadata';
+import { getProjectShowcaseEntries } from '@/lib/portfolio-content';
 import {
   breadcrumbNode,
   collectionPageNode,
@@ -13,7 +14,8 @@ import {
 
 const PROJECTS_URL = `${SITE_URL}/projects/`;
 
-const PROJECTS_DESCRIPTION = 'A preview of Hamed Hamzeh’s project portfolio.';
+const PROJECTS_DESCRIPTION =
+  'Computer vision, robotics, and software projects by Hamed Hamzeh, with demonstrations, methods, and results.';
 
 export const metadata: Metadata = createPageMetadata({
   title: 'Projects',
@@ -41,9 +43,12 @@ export default function ProjectsPage() {
       <section className="projects-page">
         <header className="page-header projects-header">
           <h1 className="page-title">Projects</h1>
-          <p className="projects-intro">Project stories are being prepared.</p>
+          <p className="projects-intro">
+            Explore project demonstrations, methods, and results. More project
+            stories are being prepared.
+          </p>
         </header>
-        <ProjectsShowcase />
+        <ProjectsShowcase projects={getProjectShowcaseEntries()} />
       </section>
     </PageWrapper>
   );

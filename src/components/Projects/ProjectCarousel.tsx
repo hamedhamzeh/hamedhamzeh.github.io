@@ -3,13 +3,13 @@
 import { useEffect, useRef, useState } from 'react';
 
 import CarouselIndicators from '@/components/Media/CarouselIndicators';
-import type { ProjectPlaceholder } from '@/data/projects';
+import type { ProjectShowcaseEntry } from '@/data/projects';
 import { useCarouselGestures } from '@/hooks/useCarouselGestures';
-
+import Cell from './Cell';
 import PlaceholderCard from './PlaceholderCard';
 
 interface ProjectCarouselProps {
-  projects: ProjectPlaceholder[];
+  projects: ProjectShowcaseEntry[];
   category: string;
 }
 
@@ -117,7 +117,11 @@ export default function ProjectCarousel({
                 aria-hidden={!visible}
                 inert={!visible}
               >
-                <PlaceholderCard data={project} />
+                {'number' in project ? (
+                  <PlaceholderCard data={project} />
+                ) : (
+                  <Cell data={project} />
+                )}
               </div>
             );
           })}

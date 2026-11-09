@@ -137,13 +137,21 @@ describe('VideoPlayer', () => {
   });
 
   it('can omit the visible title without removing the accessible video name', () => {
-    render(
+    const { container } = render(
       <VideoGallery label="Robot demos" videos={[video]} showTitle={false} />,
     );
     expect(screen.queryByRole('heading', { name: video.title })).toBeNull();
     expect(
       screen.getByLabelText(video.title, { selector: 'video' }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole('region', { name: 'Robot demos' }),
+    ).not.toHaveAttribute('aria-roledescription');
+    expect(container.querySelector('.video-gallery-viewport')).toBeNull();
+    expect(screen.queryByRole('group', { name: 'Choose a video' })).toBeNull();
+    expect(
+      screen.getByRole('button', { name: `Play ${video.title}` }),
+    ).toBeVisible();
   });
 
   it('includes every video source in server-rendered HTML', () => {

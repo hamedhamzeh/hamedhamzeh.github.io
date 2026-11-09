@@ -44,6 +44,14 @@
   min-width: 0;
 }
 
+.projects-category-note {
+  color: var(--color-fg-light);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  margin: 0 0 var(--spacing-6);
+  max-width: 48rem;
+}
+
 .projects-category-controls {
   margin-bottom: var(--spacing-8);
 }

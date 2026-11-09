@@ -5,6 +5,82 @@
   gap: var(--spacing-1);
 }
 
+/* Keep the lift, focus ring, and shadow inside the carousel's clipping area. */
+.project-carousel-viewport {
+  margin: calc(-1 * var(--spacing-5)) calc(-1 * var(--spacing-2));
+  padding: var(--spacing-5) var(--spacing-2);
+}
+
+.project-carousel-slide .project-card,
+.project-carousel-slide .project-card-link,
+.project-carousel-slide .project-card-static {
+  height: 100%;
+}
+
+.project-carousel-slide .project-card-link,
+.project-carousel-slide .project-card-static {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-carousel-slide .project-card-image {
+  flex-shrink: 0;
+}
+
+.project-carousel-slide .project-card-image,
+.project-carousel-slide .project-preview-art {
+  aspect-ratio: 16 / 9;
+}
+
+.project-carousel-slide .project-card-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: var(--spacing-5);
+}
+
+.project-carousel-slide .project-card-date {
+  align-self: flex-end;
+  margin-top: auto;
+  padding-top: var(--spacing-2);
+}
+
+.project-carousel-slide .project-card-desc {
+  font-size: var(--text-sm);
+  margin-bottom: 0;
+}
+
+.project-carousel-slide .project-card-header {
+  margin-bottom: var(--spacing-3);
+}
+
+.project-carousel-slide .project-card-title {
+  font-size: var(--text-lg);
+  line-height: var(--leading-tight);
+}
+
+.project-card-action {
+  align-items: center;
+  background: var(--color-accent-light);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-accent);
+  display: flex;
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  gap: var(--spacing-2);
+  justify-content: space-between;
+  min-height: 44px;
+  padding: var(--spacing-3) var(--spacing-5);
+  width: 100%;
+}
+
+.project-card--linked:hover .project-card-action,
+.project-card:has(.project-card-link:focus-visible) .project-card-action {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
 .carousel-indicators.project-carousel-indicators {
   gap: 0;
   margin-top: var(--spacing-2);

@@ -4,7 +4,7 @@ Add a Markdown file named for its URL slug in `content/publications/` or `conten
 
 The file needs the required frontmatter below. The card and page appear during local development; the published static site gets them on its next build and deployment.
 
-If its title matches an existing TypeScript card, the Markdown entry upgrades that card instead of adding a duplicate. For a publication, any existing presentation-certificate data remains attached; the Markdown frontmatter supplies the shared citation and page fields.
+Use a project's `replaces` field to upgrade a neutral placeholder without adding a duplicate. For publications, matching titles upgrade existing TypeScript entries, and existing presentation-certificate data remains attached.
 
 ## Project frontmatter
 
@@ -12,8 +12,10 @@ If its title matches an existing TypeScript card, the Markdown entry upgrades th
 ---
 title: My Robot
 description: A short, factual summary for the card and search metadata.
+category: Robotics
+replaces: robotics-01
 date: '2026-09-23'
-subtitle: Optional card subtitle
+subtitle: Optional page subtitle
 image: /images/projects/my-robot.webp
 tech:
   - Python
@@ -26,7 +28,18 @@ featured: false
 Write the project story here.
 ```
 
-`title`, `description`, and `date` are required. `subtitle`, `image`, `tech`, and `featured` are optional. The route and card link come from the filename. The current Projects index places `featured: true` entries in its featured group and all other entries in its second group.
+`title` and `description` are required; a known `category` is required for the Projects index. Categories are Computer Vision, Robotics, Front-end, MLOps, and ML Projects. `date` is optional and should only be supplied when verified. `subtitle`, `image`, `tech`, and `featured` are optional. The route and card link come from the filename. Card images may use an existing video poster; named image blocks still require `/images/` paths.
+
+The Projects index uses a category-filtered carousel. Set `replaces` to an existing placeholder ID (for example, `computer-vision-01`) in the same category to replace that slot. Omit it to append another project. Duplicate replacements and category mismatches fail validation. Markdown is the single source for the real card and detail page; only card fields are passed to the client carousel. Remaining placeholders stay static.
+
+For a compact card, add optional `card` frontmatter with `title`, `description`, and optional `label`. These override only the index card; the full page title, subtitle, description, technologies, and body stay intact. Index cards omit the subtitle and tags and show a full-width **Explore project** footer inside the card's single link. Their media frame is 16:9, while the carousel keeps three, two, or one cards at its existing breakpoints. The carousel reserves padding for the hover lift, shadow, and keyboard focus ring. For example:
+
+```yaml
+card:
+  label: AISoccerCoach · Computer Vision
+  title: Contact-Anchored Ball Mapping
+  description: Estimating a 2D ball path from soccer broadcasts using contact detection and player tracking.
+```
 
 ## Publication frontmatter
 
@@ -71,6 +84,16 @@ media:
 ```
 
 Use local `/images/` paths, meaningful alt text, and the actual image dimensions. A gallery needs at least two images. It displays thumbnails that open the existing lightbox. Standard Markdown headings receive stable URL anchors. `<ImageBlock id="…" display="card" />` renders a single image as a lightbox card, `showCaptions="false"` hides gallery thumbnails' captions, and `<VideoGallery id="…" showTitle="false" />` renders a named `videoGalleries` entry.
+
+A `videoGalleries` entry with one video uses the shared player in a centered, content-width frame, with no carousel, selectors, or drag behavior. Entries with two or more videos retain the peek carousel. Add `transcript` to describe visual-only demonstrations accessibly.
+
+## Rendering the Stage 1 trajectory demo
+
+`scripts/render-trajectory-demo.py` is a dev-only renderer using OpenCV, Pillow, and FFmpeg. It accepts `--shot` and `--header` source MP4 paths and produces the dark/teal 1080p, 25fps silent demo and WebP poster. Private source clips are not bundled with the website. The renderer uses normal speed, 0.5× around each contact, a three-second hold on the visually selected post-contact frame, and then normal speed. It verifies decoded frame count/FPS and unchanged source hashes. Use `--review-dir test-results/stage1-render` for review frames and a timing manifest; `--overwrite` permits regenerating an existing output. Font paths can be overridden with `--font` and `--bold-font`.
+
+## Maintaining the team assignment page
+
+The second AISoccerCoach project is defined in [the Team & Role Assignment entry](../content/projects/soccer-team-role-assignment.md). Use the [cross-browser QA guide](./cross-browser-qa.md) to verify its media and layout.
 
 ## Extracting figures from a paper
 

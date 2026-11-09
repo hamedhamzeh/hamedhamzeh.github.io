@@ -124,6 +124,46 @@
   margin: 0;
 }
 
+/* Keep complete diagrams and legends visible in technical figure previews. */
+.project-technical-figures .portfolio-gallery-thumbnail img {
+  object-fit: contain;
+}
+
+.rehabilitation-figure figcaption,
+.project-technical-figures .portfolio-gallery-thumbnail span {
+  text-align: center;
+}
+
+.rehabilitation-figure .portfolio-detail-figure {
+  width: min(calc(100% - 2 * var(--spacing-4)), 45rem);
+  margin-inline: auto;
+}
+
+.team-assignment-figure .portfolio-gallery-grid.is-single {
+  width: min(30rem, calc(100% - 2 * var(--spacing-4)));
+  max-width: none;
+}
+
+.team-assignment-figure--loss .portfolio-gallery-grid.is-single {
+  /* Scale the image area while retaining the card's 18px padding and border. */
+  width: calc((min(30rem, 100% - 2 * var(--spacing-4)) - 1rem - 2px) * 2 / 3 + 1rem + 2px);
+}
+
+.team-assignment-figure .portfolio-gallery-thumbnail img {
+  aspect-ratio: auto;
+  margin-inline: auto;
+  max-width: 100%;
+  width: auto;
+}
+
+@media (min-width: 737px) {
+  .project-technical-figures--pair .portfolio-gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: calc((200% - 1rem) / 3);
+    margin-inline: auto;
+  }
+}
+
 .portfolio-detail-prose .research-flow {
   counter-reset: research-step;
   display: grid;
@@ -222,6 +262,36 @@
 
 .publication-metrics-table tbody tr:last-child td {
   border-bottom: 0;
+}
+
+.project-metrics-table {
+  max-width: 100%;
+}
+
+.project-stage-video .video-gallery--single {
+  width: min(calc(100% - 2 * var(--spacing-4)), 45rem);
+}
+
+.project-metrics-table table {
+  min-width: 32rem;
+}
+
+.portfolio-detail-disclosure {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin: var(--spacing-6) 0;
+  padding: var(--spacing-4);
+}
+
+.portfolio-detail-disclosure summary {
+  color: var(--color-fg-bold);
+  cursor: pointer;
+  font-weight: var(--font-weight-semibold);
+}
+
+.portfolio-detail-disclosure summary:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
 }
 
 @media (min-width: 901px) {

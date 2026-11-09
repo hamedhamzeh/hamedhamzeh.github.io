@@ -51,6 +51,22 @@ export default function VideoGallery({
 
   if (count === 0) return null;
 
+  if (count === 1) {
+    return (
+      <section
+        className="video-gallery video-gallery--single"
+        aria-label={label}
+      >
+        {showTitle && (
+          <div className="video-gallery-heading">
+            <h3 className="video-gallery-title">{videos[0].title}</h3>
+          </div>
+        )}
+        <VideoPlayer video={videos[0]} />
+      </section>
+    );
+  }
+
   return (
     <section
       ref={galleryRef}
