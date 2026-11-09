@@ -156,7 +156,7 @@ date: '2026-02-31'
 
   it('replaces a placeholder with a real card without duplicating or sending article data', () => {
     const cards = getProjectShowcaseEntries();
-    expect(cards).toHaveLength(13);
+    expect(cards).toHaveLength(14);
     expect(
       cards.filter((card) => card.category === 'Computer Vision'),
     ).toHaveLength(5);

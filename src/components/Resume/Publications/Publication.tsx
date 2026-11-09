@@ -68,9 +68,11 @@ export default function Publication({ data }: PublicationProps) {
         </p>
       ) : null}
 
-      {data.url || data.doi || data.presentation ? (
+      {data.detailPath || data.url || data.doi || data.presentation ? (
         <div className="resume-actions publication-links">
-          {data.url && data.linkLabel ? (
+          {data.detailPath ? (
+            <a href={data.detailPath}>Publication page</a>
+          ) : data.url && data.linkLabel ? (
             <a href={data.url} target="_blank" rel="noopener noreferrer">
               {data.linkLabel}
               <ExternalLinkIcon />

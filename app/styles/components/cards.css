@@ -283,23 +283,6 @@
   margin-bottom: 0;
 }
 
-/* A manuscript without a venue states its review status as a badge below the
-   author line. It borrows the action row's own top spacing, so the badge sits
-   where the buttons sit on the other cards. */
-.publications-grid .project-card-status {
-  margin-bottom: 0;
-  margin-top: var(--spacing-4);
-}
-
-/* The badge adopts the action pills' exact sizing and padding, so the two sit on
-   the same control scale instead of the badge looking roomier. */
-.publications-grid .project-card-status .publication-type {
-  display: inline-block;
-  font-size: 0.8125rem;
-  line-height: 1.4;
-  padding: 0.25rem 0.55rem;
-}
-
 .publications-grid .project-card-header {
   margin-bottom: var(--spacing-3);
 }
@@ -350,7 +333,6 @@
 
   .publications-grid .project-card-header,
   .publications-grid .project-card-desc,
-  .publications-grid .project-card-status,
   .publications-grid .resume-actions {
     flex-basis: 100%;
   }
@@ -360,18 +342,12 @@
     font-size: 0.75rem;
     padding: 0.25rem 0.5rem;
   }
-
-  /* The badge tracks the pills' mobile sizing. */
-  .publications-grid .project-card-status .publication-type {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-  }
 }
 
 @media screen and (min-width: 737px) {
   /* The card hugs its citation instead of filling a fixed 13.25rem box, which
      is what distributed ~9px of empty space above the title and below the
-     badges. min-height keeps the media column from collapsing. */
+     actions. min-height keeps the media column from collapsing. */
   .publications-grid .project-card-link,
   .publications-grid .project-card-static {
     display: grid;
