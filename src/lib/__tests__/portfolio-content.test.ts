@@ -212,7 +212,7 @@ date: '2026-02-31'
 
   it('separates assignment development results from independent evaluation and supplies accessible media', () => {
     const project = getProjectBySlug('soccer-team-role-assignment');
-    expect(project?.date).toBeUndefined();
+    expect(project?.date).toBe('2025-09-28');
     expect(project?.content).toContain(
       'Independent match-level evaluation is pending.',
     );
@@ -303,9 +303,9 @@ replaces: computer-vision-01
     );
   });
 
-  it('allows an undated project and validates all its demonstration files', () => {
+  it('loads the ball mapping project date and validates its demonstration files', () => {
     const project = getProjectBySlug('contact-anchored-soccer-ball-mapping');
-    expect(project?.date).toBeUndefined();
+    expect(project?.date).toBe('2026-10-12');
     const videos = Object.values(project?.media.videoGalleries ?? {}).flat();
     expect(videos).toHaveLength(4);
     expect(

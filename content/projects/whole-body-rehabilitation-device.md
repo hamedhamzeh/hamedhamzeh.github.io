@@ -3,6 +3,7 @@ title: Whole-Body Rehabilitation Device
 subtitle: Mechanical design of a collaborative rehabilitation platform
 description: Mechanical design and analysis for a collaborative whole-body rehabilitation platform, with an undergraduate thesis focused on the knee-and-shoulder accessory and design contributions incorporated into a commercial product.
 category: Robotics
+date: '2023-01-24'
 replaces: robotics-01
 card:
   title: Whole-Body Rehabilitation Device
