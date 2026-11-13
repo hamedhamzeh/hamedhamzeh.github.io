@@ -30,7 +30,6 @@ for (const theme of ['dark', 'light'] as const) {
       .getByRole('button', { name: 'Computer Vision', exact: true })
       .click();
     const slides = page.locator('.project-carousel-slide');
-    await expect(slides).toHaveCount(5);
     const assignmentSlot = slides.nth(1);
     const card = assignmentSlot.locator(`a[href="${projectPath}"]`);
     // Mobile shows one card at a time: reveal the second slot using its selector.

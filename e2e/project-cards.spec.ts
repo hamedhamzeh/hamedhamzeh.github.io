@@ -102,7 +102,7 @@ test('GitHub project cards show their years above the repository action', async 
     .getByRole('button');
   const viewportWidth = await page.evaluate(() => window.innerWidth);
   const cardsPerView = viewportWidth >= 1000 ? 3 : viewportWidth >= 600 ? 2 : 1;
-  const lastSelector = 5 - cardsPerView;
+  const lastSelector = 6 - cardsPerView;
   await expect(selectors).toHaveCount(lastSelector + 1);
 
   for (const [slot, repository, year] of [
