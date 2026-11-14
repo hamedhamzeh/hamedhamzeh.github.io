@@ -66,14 +66,15 @@ test('opening and dismissing the menu preserves the Skills layout and scroll', a
     .toBe(before.scrollY);
 });
 
-test('switching pages keeps Resume still until the destination appears', async ({
+test('the menu closes without covering the current page before About commits', async ({
   page,
 }) => {
   const before = await visitSkills(page);
   await page.getByRole('button', { name: 'Open navigation menu' }).click();
   // Simulate a slow destination to expose movement before the route commits.
+  const gate = Promise.withResolvers<void>();
   await page.route('**/about/**', async (route) => {
-    await new Promise((resolve) => setTimeout(resolve, 700));
+    await gate.promise;
     await route.continue();
   });
   await page.evaluate(() => {
@@ -88,15 +89,34 @@ test('switching pages keeps Resume still until the destination appears', async (
     };
     sample();
   });
-  await test.step('Choose About and wait for the new page', async () => {
+  try {
     await page
       .getByRole('dialog')
       .getByRole('link', { name: 'About', exact: true })
       .click();
+    await expect(page.getByRole('dialog')).toBeHidden();
     await expect(
-      page.getByRole('heading', { level: 1, name: 'About', exact: true }),
+      page.getByRole('status').filter({ hasText: 'Loading About' }),
+    ).toHaveText('Loading About');
+    await expect(page.locator('.route-skeleton')).toHaveCount(0);
+    await expect(page.locator('#skills h2')).toBeInViewport();
+    await expect(
+      page.getByRole('heading', { name: 'Resume', level: 1 }),
     ).toBeVisible();
+    await expect
+      .poll(() => page.evaluate(() => document.documentElement.style.overflow))
+      .not.toBe('hidden');
+  } finally {
+    gate.resolve();
+  }
+  const heading = page.getByRole('heading', {
+    level: 1,
+    name: 'About',
+    exact: true,
   });
+  await expect(heading).toBeVisible();
+  await expect(heading).toBeFocused();
+  await expect(page.locator('.route-skeleton')).toHaveCount(0);
   const samples = await page.evaluate(
     () =>
       (window as Window & { navigationScrollSamples?: number[] })
@@ -120,6 +140,69 @@ test('switching pages keeps Resume still until the destination appears', async (
   await expect(page.getByRole('dialog')).toBeHidden();
 });
 
+test('desktop navigation marks the latest destination while a route is delayed', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 844 });
+  await page.goto('/');
+  const gate = Promise.withResolvers<void>();
+  const projectsGate = Promise.withResolvers<void>();
+  await page.route('**/resume/**', async (route) => {
+    await gate.promise;
+    await route.continue().catch(() => undefined);
+  });
+  await page.route('**/projects/**', async (route) => {
+    await projectsGate.promise;
+    await route.continue().catch(() => undefined);
+  });
+  const header = page.locator('.site-header');
+  const resume = header.getByRole('link', { name: 'Resume' });
+  const projects = header.getByRole('link', { name: 'Projects' });
+  try {
+    await resume.click();
+    await expect(page.locator('.site-wrapper > [role="status"]')).toHaveText(
+      'Loading Resume',
+    );
+    await expect(resume).toHaveAttribute('data-pending', 'true');
+    await expect(resume).not.toHaveAttribute('aria-current');
+    const indicator = await resume.evaluate(
+      (link) => getComputedStyle(link, '::before').animationName,
+    );
+    expect(indicator).toBe('nav-loading-spin');
+    await expect(page.locator('.route-skeleton')).toHaveCount(0);
+    await projects.click();
+    await expect(resume).not.toHaveAttribute('data-pending');
+    await expect(projects).toHaveAttribute('data-pending', 'true');
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await expect
+      .poll(() =>
+        projects.evaluate(
+          (link) => getComputedStyle(link, '::before').animationName,
+        ),
+      )
+      .toBe('none');
+    projectsGate.resolve();
+    await expect(page).toHaveURL(/\/projects\/$/);
+    await expect(projects).toHaveAttribute('aria-current', 'page');
+    await expect(projects).not.toHaveAttribute('data-pending');
+    await expect(
+      page.getByRole('heading', { level: 1, name: 'Projects' }),
+    ).toBeFocused();
+  } finally {
+    gate.resolve();
+    projectsGate.resolve();
+  }
+  await expect(page.locator('.route-skeleton')).toHaveCount(0);
+  await page.goBack();
+  await expect(page).toHaveURL(/\/$/);
+  await page.goForward();
+  await expect(page).toHaveURL(/\/projects\/$/);
+  await expect(page.locator('.route-skeleton')).toHaveCount(0);
+  await projects.click();
+  await expect(projects).not.toHaveAttribute('data-pending');
+  await expect(page.locator('.route-skeleton')).toHaveCount(0);
+});
+
 test('choosing the current page closes the menu without losing Skills', async ({
   page,
 }) => {
@@ -133,4 +216,35 @@ test('choosing the current page closes the menu without losing Skills', async ({
   await expect
     .poll(() => page.evaluate(() => window.scrollY))
     .toBe(before.scrollY);
+});
+
+test('Back clears the loading announcement and restores the previous page', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 844 });
+  await page.goto('/');
+  const header = page.locator('.site-header');
+  await header.getByRole('link', { name: 'About' }).click();
+  await expect(page).toHaveURL(/\/about\/$/);
+
+  const gate = Promise.withResolvers<void>();
+  await page.route('**/contact/**', async (route) => {
+    await gate.promise;
+    await route.continue().catch(() => undefined);
+  });
+  try {
+    await header.getByRole('link', { name: 'Contact' }).click();
+    const contact = header.getByRole('link', { name: 'Contact' });
+    const status = page.locator('.site-wrapper > [role="status"]');
+    await expect(status).toHaveText('Loading Contact');
+    await expect(contact).toHaveAttribute('data-pending', 'true');
+    await expect(page.locator('.route-skeleton')).toHaveCount(0);
+    await page.goBack();
+    await expect(page).toHaveURL(/\/$/);
+    await expect(status).toBeEmpty();
+    await expect(contact).not.toHaveAttribute('data-pending');
+    await expect(page.locator('main h1')).toBeVisible();
+  } finally {
+    gate.resolve();
+  }
 });

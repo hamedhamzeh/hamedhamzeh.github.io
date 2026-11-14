@@ -1,0 +1,43 @@
+.card-poster[data-status='loading']::before {
+  background-color: var(--color-bg-offset);
+  animation: skeleton-pulse 1.6s ease-in-out infinite;
+}
+
+.card-poster {
+  background-color: var(--color-bg-alt);
+}
+
+.card-poster[data-status='loading']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.card-poster img {
+  position: relative;
+}
+
+.card-poster[data-status='error'] img {
+  visibility: hidden;
+}
+
+.card-poster-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--color-fg-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-poster[data-status='loading']::before {
+    animation: none;
+  }
+}
+
+@keyframes skeleton-pulse {
+  50% {
+    opacity: 0.45;
+  }
+}

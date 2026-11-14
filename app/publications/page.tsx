@@ -46,8 +46,12 @@ export default function PublicationsPage() {
         </header>
 
         <div className="projects-grid publications-grid">
-          {publications.map((publication) => (
-            <PublicationCard data={publication} key={publication.title} />
+          {publications.map((publication, index) => (
+            <PublicationCard
+              key={publication.title}
+              data={publication}
+              prioritizePoster={index === 0}
+            />
           ))}
         </div>
       </section>

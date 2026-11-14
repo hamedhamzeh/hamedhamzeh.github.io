@@ -3,8 +3,8 @@ import { Raleway, Source_Sans_3 } from 'next/font/google';
 
 import { SiteSchema } from '@/components/Schema';
 import GoogleAnalytics from '@/components/Template/GoogleAnalytics';
-import Navigation from '@/components/Template/Navigation';
 import ScrollToTop from '@/components/Template/ScrollToTop';
+import SiteShell from '@/components/Template/SiteShell';
 import { DEFAULT_THEME, THEME_INIT_SCRIPT } from '@/lib/theme';
 import {
   AUTHOR_NAME,
@@ -109,10 +109,7 @@ export default function RootLayout({
       </head>
       <body>
         <ScrollToTop />
-        <div className="site-wrapper">
-          <Navigation />
-          {children}
-        </div>
+        <SiteShell>{children}</SiteShell>
         <GoogleAnalytics />
       </body>
     </html>

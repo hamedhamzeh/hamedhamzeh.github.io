@@ -5,12 +5,16 @@ import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import routes from '../../data/routes';
+import routes, { type Route } from '../../data/routes';
 import SlideMenu from './SlideMenu';
 
 const MENU_ID = 'mobile-nav-menu';
 
-export default function Hamburger() {
+export default function Hamburger({
+  onRouteSelect,
+}: {
+  onRouteSelect: (route: Route) => void;
+}) {
   const pathname = usePathname();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [openPath, setOpenPath] = useState<string | null>(null);
@@ -46,11 +50,10 @@ export default function Hamburger() {
             <Link
               href={l.path}
               prefetch={false}
-              scroll={false}
-              onNavigate={() => {
-                // Keep the old page covered until the destination commits.
-                if (l.path.replace(/\/$/, '') === pathname?.replace(/\/$/, ''))
-                  closeMenu();
+              onNavigate={(event) => {
+                event.preventDefault();
+                closeMenu();
+                onRouteSelect(l.index ? { ...l, label: 'Home' } : l);
               }}
             >
               <h3 className={l.index ? 'index-li' : undefined}>{l.label}</h3>
