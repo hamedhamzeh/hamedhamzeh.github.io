@@ -13,6 +13,19 @@ import ProjectCarousel from './ProjectCarousel';
 const filters = ['All', ...projectCategories] as const;
 type ProjectFilter = (typeof filters)[number];
 
+const leadingProjects: Partial<Record<ProjectFilter, string[]>> = {
+  'Computer Vision': [
+    'contact-anchored-soccer-ball-mapping',
+    'soccer-action-detection',
+    'soccer-team-role-assignment',
+  ],
+  Robotics: ['whole-body-rehabilitation-device'],
+};
+
+function projectDate(project: ProjectShowcaseEntry): string {
+  return ('date' in project && project.date) || '';
+}
+
 export default function ProjectsShowcase({
   projects = placeholders,
 }: {
@@ -20,10 +33,16 @@ export default function ProjectsShowcase({
 }) {
   const [activeCategory, setActiveCategory] = useState<ProjectFilter>('All');
   const controlsRef = useRef<HTMLDivElement>(null);
-  const visibleProjects =
-    activeCategory === 'All'
-      ? projects
-      : projects.filter((project) => project.category === activeCategory);
+  const leading = leadingProjects[activeCategory] ?? [];
+  const visibleProjects = projects.filter(
+    (project) =>
+      activeCategory === 'All' || project.category === activeCategory,
+  );
+  visibleProjects.sort(
+    (a, b) =>
+      Number(leading.includes(b.id)) - Number(leading.includes(a.id)) ||
+      projectDate(b).localeCompare(projectDate(a)),
+  );
 
   useEffect(() => {
     const controls = controlsRef.current;

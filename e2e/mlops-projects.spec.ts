@@ -4,6 +4,13 @@ const repository = 'https://github.com/hamedhamzeh/mlops-bootcamp/tree/main';
 
 const projects = [
   {
+    title: 'Semantic Text Search API',
+    route: '/projects/semantic-text-search-api/',
+    poster: 'semantic-search.webp',
+    figures: 2,
+    folders: ['hw22_deployment/HW3_A', 'hw22_deployment/HW3_B'],
+  },
+  {
     title: 'Airbnb Availability Prediction Pipeline',
     route: '/projects/airbnb-availability-prediction/',
     poster: 'airbnb-pipeline.webp',
@@ -16,13 +23,6 @@ const projects = [
       'hw01_airbnd-ops',
       'hw02_sql-metabase',
     ],
-  },
-  {
-    title: 'Semantic Text Search API',
-    route: '/projects/semantic-text-search-api/',
-    poster: 'semantic-search.webp',
-    figures: 2,
-    folders: ['hw22_deployment/HW3_A', 'hw22_deployment/HW3_B'],
   },
 ] as const;
 
@@ -49,7 +49,9 @@ for (const theme of ['light', 'dark'] as const) {
       const slide = slides.nth(index);
 
       if (isNarrow && index === 1) {
-        await carousel.press('ArrowRight');
+        await carousel
+          .getByRole('button', { name: 'Show projects 2 to 2 of 2' })
+          .click();
       }
 
       const card = slide.getByRole('link', { name: /Explore project/ });

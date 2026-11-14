@@ -5,8 +5,8 @@ category: Computer Vision
 date: '2026-02-24'
 card:
   label: AISoccerCoach · Computer Vision
-  title: Player & Ball Action Detection
-  description: 'Classifying actions like kicking, receiving, and dribbling from short clips centered on players and the ball.'
+  title: Player Action & Ball Event Detection
+  description: Recognizing player actions such as kicking and dribbling, alongside ball events, from short clips of tracked soccer footage.
 image: /images/projects/computer-vision/soccer-action-detection.webp
 media:
   videoGalleries:

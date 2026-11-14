@@ -28,17 +28,17 @@ featured: false
 Write the project story here.
 ```
 
-`title` and `description` are required; a known `category` is required for the Projects index. Categories are Computer Vision, Robotics, Front-end, MLOps, and ML Projects. `date` is optional and should only be supplied when verified. `subtitle`, `image`, `tech`, and `featured` are optional. The route and card link come from the filename. Card images may use an existing video poster; named image blocks still require `/images/` paths.
+`title` and `description` are required; a known `category` is required for the Projects index. Categories are Computer Vision, Robotics, Front-end, MLOps, and ML Projects. `date` is optional and accepts `YYYY-MM-DD`, `YYYY-MM`, or `YYYY`, depending on what is known. `subtitle`, `image`, `tech`, and `featured` are optional. The route and card link come from the filename. Card images may use an existing video poster; named image blocks still require `/images/` paths.
 
-The Projects index uses a category-filtered carousel. Set `replaces` to an existing placeholder ID (for example, `computer-vision-01`) in the same category to replace that slot. Omit it to append another project. Duplicate replacements and category mismatches fail validation. Markdown is the single source for the real card and detail page; only card fields are passed to the client carousel. Remaining placeholders stay static.
+The Projects index sorts cards newest first and places undated entries last. In Computer Vision, AISoccerCoach cards lead, newest first. In Robotics, the rehabilitation device leads. Set `replaces` to an existing placeholder ID (for example, `computer-vision-01`) in the same category to replace it. Omit it to add another project. Duplicate replacements and category mismatches fail validation. Markdown supplies the card and detail page, and only card fields are passed to the client carousel. Remaining placeholders stay static.
 
 For a compact card, add optional `card` frontmatter with `title`, `description`, and optional `label`. These override only the index card; the full page title, subtitle, description, technologies, and body stay intact. Index cards omit the subtitle and tags and show a full-width **Explore project** footer inside the card's single link. Their media frame is 16:9, while the carousel keeps three, two, or one cards at its existing breakpoints. The carousel reserves padding for the hover lift, shadow, and keyboard focus ring. For example:
 
 ```yaml
 card:
   label: AISoccerCoach · Computer Vision
-  title: Contact-Anchored Ball Mapping
-  description: Estimating a 2D ball path from soccer broadcasts using contact detection and player tracking.
+  title: Ball Mapping from Soccer Broadcasts
+  description: Estimates a top-down view of the ball’s path from a single broadcast camera using player tracking and detected contacts.
 ```
 
 ## Publication frontmatter

@@ -28,7 +28,7 @@ for (const theme of ['dark', 'light'] as const) {
     const card = page.locator(`a[href="${projectPath}"]`);
     await expect(card).toBeVisible();
     await expect(card.getByRole('heading')).toHaveText(
-      'Contact-Anchored Ball Mapping',
+      'Ball Mapping from Soccer Broadcasts',
     );
     await expect(card.locator('.tech-tag')).toHaveCount(0);
     await expect(card.locator('.project-card-action')).toHaveText(

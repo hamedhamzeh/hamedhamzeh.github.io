@@ -15,7 +15,7 @@ describe('Robotics publication project cards', () => {
     expect(robotics.map((entry) => entry.title)).toEqual([
       'Whole-Body Rehabilitation Device',
       'Vision-Controlled Puppet Robot',
-      'Wormlike Surface-Inspection Robot',
+      'Wormlike Robot for Surface Inspection',
     ]);
     expect(
       robotics.every((entry) => 'link' in entry && !('number' in entry)),

@@ -8,7 +8,7 @@ replaces: computer-vision-01
 card:
   label: AISoccerCoach · Computer Vision
   title: Contact-Anchored Ball Mapping
-  description: Estimating a 2D ball path from soccer broadcasts using contact detection and player tracking.
+  description: Estimating a top-down view of the ball’s path from a single broadcast camera using player tracking and detected contacts.
 image: /videos/aisoccercoach-BallMapping/posters/01_comparison.webp
 tech:
   - Python

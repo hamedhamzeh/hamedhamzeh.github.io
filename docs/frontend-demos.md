@@ -1,10 +1,10 @@
 # Front-end project links
 
-The Game Hub and Hosting Landing Page cards replace the two Front-end placeholders
+The Game Hub and Web Hosting Landing Page cards replace the two Front-end placeholders
 and open each project's independent GitHub Pages deployment in a new tab:
 
 - Game Hub: https://hamedhamzeh.github.io/my-game-hub/
-- Hosting Landing Page: https://hamedhamzeh.github.io/my-front-project/
+- Web Hosting Landing Page: https://hamedhamzeh.github.io/my-front-project/
 
 The portfolio contains the cards, their two thumbnail assets, and the warm note
 shown only when Front-end is selected. It contains no imported application source,

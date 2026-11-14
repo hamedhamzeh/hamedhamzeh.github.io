@@ -8,7 +8,7 @@ replaces: mlops-02
 card:
   title: Semantic Text Search API
   label: MLOps · Quera Minicamp
-  description: Packaged a versioned text encoder and built a FastAPI service that finds similar texts with Qdrant and retrieves their records from PostgreSQL.
+  description: A FastAPI service that finds text by meaning using MiniLM and Qdrant, then retrieves the matching records from PostgreSQL.
 image: /images/projects/mlops/semantic-search.webp
 tech:
   - MiniLM

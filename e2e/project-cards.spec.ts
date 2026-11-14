@@ -1,5 +1,79 @@
 import { expect, test } from './fixtures';
 
+test('orders every project category by date with category-specific leaders', async ({
+  page,
+}) => {
+  await page.goto('/projects/');
+  const cardTitles = page.locator(
+    '.project-carousel-slide .project-card-title',
+  );
+  const categories = page.getByRole('group', { name: 'Project categories' });
+
+  for (const [category, titles] of [
+    [
+      'All',
+      [
+        'Ball Mapping from Soccer Broadcasts',
+        'Semantic Text Search API',
+        'Airbnb Availability Prediction Pipeline',
+        'Player Action & Ball Event Detection',
+        'CCTV Smoking & Phone Use Detection',
+        'Wormlike Robot for Surface Inspection',
+        'Virtual Fence & Person Tracking',
+        'Predicting Asphalt Binder Stiffness',
+        'Soccer Team & Role Assignment',
+        'Bone Age Estimation from Hand X-rays',
+        'Vision-Controlled Puppet Robot',
+        'Predicting Hydrogen Storage in MOFs',
+        'Game Hub',
+        'Web Hosting Landing Page',
+        'Whole-Body Rehabilitation Device',
+      ],
+    ],
+    [
+      'Computer Vision',
+      [
+        'Ball Mapping from Soccer Broadcasts',
+        'Player Action & Ball Event Detection',
+        'Soccer Team & Role Assignment',
+        'CCTV Smoking & Phone Use Detection',
+        'Virtual Fence & Person Tracking',
+        'Bone Age Estimation from Hand X-rays',
+      ],
+    ],
+    [
+      'Robotics',
+      [
+        'Whole-Body Rehabilitation Device',
+        'Wormlike Robot for Surface Inspection',
+        'Vision-Controlled Puppet Robot',
+      ],
+    ],
+    ['Front-end', ['Game Hub', 'Web Hosting Landing Page']],
+    [
+      'MLOps',
+      ['Semantic Text Search API', 'Airbnb Availability Prediction Pipeline'],
+    ],
+    [
+      'ML Projects',
+      [
+        'Predicting Asphalt Binder Stiffness',
+        'Predicting Hydrogen Storage in MOFs',
+      ],
+    ],
+  ] as const) {
+    await categories
+      .getByRole('button', { name: category, exact: true })
+      .click();
+    await expect(cardTitles).toHaveText([...titles]);
+  }
+
+  await categories.getByRole('button', { name: 'All', exact: true }).click();
+  await expect(cardTitles.first()).toHaveText(
+    'Ball Mapping from Soccer Broadcasts',
+  );
+});
+
 test('the hydrogen storage project and award link directly to GitHub', async ({
   page,
 }) => {
@@ -9,6 +83,11 @@ test('the hydrogen storage project and award link directly to GitHub', async ({
   await page.getByRole('button', { name: 'ML Projects', exact: true }).click();
   const carousel = page.getByRole('region', { name: 'ML Projects projects' });
   await expect(carousel.locator('.project-carousel-slide')).toHaveCount(2);
+  if (page.viewportSize()!.width < 600) {
+    await carousel
+      .getByRole('button', { name: 'Show projects 2 to 2 of 2' })
+      .click();
+  }
   const card = carousel.getByRole('link', { name: /View on GitHub/ });
   await expect(card.getByRole('heading')).toHaveText(
     'Predicting Hydrogen Storage in MOFs',
@@ -42,13 +121,10 @@ test('the Sasobit cards open the same manuscript preview', async ({ page }) => {
   await page.goto('/projects/');
   await page.getByRole('button', { name: 'ML Projects', exact: true }).click();
   const carousel = page.getByRole('region', { name: 'ML Projects projects' });
-  if (page.viewportSize()!.width < 600) {
-    await carousel.focus();
-    await page.keyboard.press('ArrowRight');
-  }
   const project = carousel.getByRole('link', {
     name: /Predicting Asphalt Binder Stiffness/,
   });
+  await expect(project.locator('time')).toHaveAttribute('datetime', '2025-12');
   await expect(project.getByRole('img')).toHaveAttribute('src', poster);
   await project.click();
   await expect(page).toHaveURL(new RegExp(`${path}$`));
@@ -106,8 +182,8 @@ test('GitHub project cards show their years above the repository action', async 
   await expect(selectors).toHaveCount(lastSelector + 1);
 
   for (const [slot, repository, year] of [
-    [2, 'virtual-fence', '2025'],
-    [3, 'xception-bone-age-prediction', '2024'],
+    [4, 'virtual-fence', '2025'],
+    [5, 'xception-bone-age-prediction', '2024'],
   ] as const) {
     await selectors.nth(Math.min(slot, lastSelector)).click();
     const slide = carousel.locator('.project-carousel-slide').nth(slot);
