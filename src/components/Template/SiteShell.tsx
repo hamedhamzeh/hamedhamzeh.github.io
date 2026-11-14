@@ -68,7 +68,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="site-wrapper">
-      <Navigation onRouteSelect={navigate} />
+      <Navigation onRouteSelect={navigate} pendingPath={pendingRoute?.path} />
       <div ref={contentRef}>{children}</div>
       <div className="sr-only" role="status">
         {pendingRoute ? `Loading ${pendingRoute.label}` : ''}

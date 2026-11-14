@@ -30,23 +30,6 @@
   color: var(--color-fg-muted);
 }
 
-@media (scripting: enabled) {
-  .project-card:has(.card-poster[data-status='loading']):not(:focus-within) .project-card-content {
-    --card-skeleton-line: linear-gradient(var(--color-bg-offset), var(--color-bg-offset));
-    background:
-      var(--card-skeleton-line) 0 0 / 52% 1rem,
-      var(--card-skeleton-line) 0 1.75rem / 92% 0.7rem,
-      var(--card-skeleton-line) 0 3rem / 70% 0.7rem;
-    background-origin: content-box;
-    background-repeat: no-repeat;
-  }
-
-  .project-card:has(.card-poster[data-status='loading']):not(:focus-within)
-    :is(.project-card-content > *, .project-card-action) {
-    opacity: 0;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .card-poster[data-status='loading']::before {
     animation: none;

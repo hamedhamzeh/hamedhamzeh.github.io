@@ -10,8 +10,10 @@ import ThemeToggle from './ThemeToggle';
 
 export default function Navigation({
   onRouteSelect,
+  pendingPath,
 }: {
   onRouteSelect: (route: Route) => void;
+  pendingPath?: string;
 }) {
   const pathname = usePathname();
 
@@ -26,6 +28,7 @@ export default function Navigation({
         href="/"
         prefetch={false}
         className="site-logo"
+        data-pending={pendingPath === '/' ? true : undefined}
         onNavigate={(event) => {
           event.preventDefault();
           onRouteSelect({ path: '/', label: 'Home' });
@@ -44,6 +47,7 @@ export default function Navigation({
               prefetch={false}
               className={`nav-link ${isActive(l.path) ? 'active' : ''}`}
               aria-current={isActive(l.path) ? 'page' : undefined}
+              data-pending={pendingPath === l.path ? true : undefined}
               onNavigate={(event) => {
                 event.preventDefault();
                 onRouteSelect(l);

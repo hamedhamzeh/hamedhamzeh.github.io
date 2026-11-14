@@ -6,6 +6,7 @@
 .site-logo {
   display: flex;
   align-items: center;
+  position: relative;
   text-decoration: none;
 }
 
@@ -163,6 +164,42 @@
 
 .nav-link:focus-visible::after {
   transform: scaleX(1);
+}
+
+.nav-link[data-pending] {
+  color: var(--color-accent);
+  box-shadow: inset 0 0 0 1px var(--color-accent-border);
+}
+
+.nav-link[data-pending]::before,
+.site-logo[data-pending]::before {
+  content: '';
+  position: absolute;
+  top: calc(50% - 0.25rem);
+  right: 0.35rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 1.5px solid var(--color-accent);
+  border-inline-end-color: transparent;
+  border-radius: var(--radius-full);
+  animation: nav-loading-spin 0.7s linear infinite;
+}
+
+.site-logo[data-pending]::before {
+  right: -0.85rem;
+}
+
+@keyframes nav-loading-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link[data-pending]::before,
+  .site-logo[data-pending]::before {
+    animation: none;
+  }
 }
 
 .nav-actions {

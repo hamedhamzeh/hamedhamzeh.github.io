@@ -27,7 +27,7 @@ for (const path of ['/projects/', '/publications/']) {
   });
 }
 
-test('publication card skeletons clear when a poster loads or fails', async ({
+test('publication card text is readable while poster skeletons are visible', async ({
   page,
 }) => {
   const gate = Promise.withResolvers<void>();
@@ -49,10 +49,11 @@ test('publication card skeletons clear when a poster loads or fails', async ({
     await expect(firstPoster).toHaveAttribute('data-status', 'loading');
     const header = first.locator('.project-card-header');
     const link = first.getByRole('link', { name: 'Publication page' });
-    await expect(header).toHaveCSS('opacity', '0');
+    await expect(header).toHaveCSS('opacity', '1');
+    await expect(first.locator('.project-card-desc')).toHaveCSS('opacity', '1');
+    await expect(first.locator('.resume-actions')).toHaveCSS('opacity', '1');
     await link.focus();
     await expect(link).toBeFocused();
-    await expect(header).toHaveCSS('opacity', '1');
     before = await firstPoster.boundingBox();
   } finally {
     gate.resolve();
@@ -65,7 +66,7 @@ test('publication card skeletons clear when a poster loads or fails', async ({
   expect(after?.height).toBe(before?.height);
 });
 
-test('Projects shows the page content while the cards load', async ({
+test('Projects shows page and card text while posters load', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
@@ -87,7 +88,15 @@ test('Projects shows the page content while the cards load', async ({
       page.getByRole('group', { name: 'Project categories' }),
     ).toBeVisible();
     await expect(poster).toHaveAttribute('data-status', 'loading');
-    await expect(header).toHaveCSS('opacity', '0');
+    await expect(header).toHaveCSS('opacity', '1');
+    await expect(firstCard.locator('.project-card-desc')).toHaveCSS(
+      'opacity',
+      '1',
+    );
+    await expect(firstCard.locator('.project-card-action')).toHaveCSS(
+      'opacity',
+      '1',
+    );
   } finally {
     gate.resolve();
   }
