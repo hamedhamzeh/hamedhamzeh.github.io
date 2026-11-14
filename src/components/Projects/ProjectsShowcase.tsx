@@ -13,6 +13,12 @@ import ProjectCarousel from './ProjectCarousel';
 const filters = ['All', ...projectCategories] as const;
 type ProjectFilter = (typeof filters)[number];
 
+function filterHash(category: ProjectFilter): string {
+  return category === 'All'
+    ? ''
+    : `#${category.toLowerCase().replaceAll(' ', '-')}`;
+}
+
 const leadingProjects: Partial<Record<ProjectFilter, string[]>> = {
   'Computer Vision': [
     'contact-anchored-soccer-ball-mapping',
@@ -45,6 +51,19 @@ export default function ProjectsShowcase({
   );
 
   useEffect(() => {
+    const selectLinkedCategory = () => {
+      const category = filters.find(
+        (filter) => filterHash(filter) === window.location.hash,
+      );
+      setActiveCategory(category ?? 'All');
+    };
+
+    selectLinkedCategory();
+    window.addEventListener('hashchange', selectLinkedCategory);
+    return () => window.removeEventListener('hashchange', selectLinkedCategory);
+  }, []);
+
+  useEffect(() => {
     const controls = controlsRef.current;
     const activeButton = controls?.querySelector<HTMLButtonElement>(
       '[aria-pressed="true"]',
@@ -75,7 +94,14 @@ export default function ProjectsShowcase({
             key={category}
             label={category}
             isActive={activeCategory === category}
-            handleClick={(label) => setActiveCategory(label as ProjectFilter)}
+            handleClick={() => {
+              setActiveCategory(category);
+              const url = new URL(window.location.href);
+              url.hash = filterHash(category);
+              if (url.hash !== window.location.hash) {
+                window.history.replaceState(window.history.state, '', url);
+              }
+            }}
           />
         ))}
       </div>

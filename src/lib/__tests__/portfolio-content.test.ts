@@ -158,9 +158,9 @@ date: '2026-02-31'
     const cards = getProjectShowcaseEntries();
     expect(cards).toHaveLength(15);
     expect(cards[0]).toMatchObject({
-      title: 'Ball Mapping from Soccer Broadcasts',
+      title: 'Contact-Anchored Ball Mapping',
       label: 'AISoccerCoach · Computer Vision',
-      desc: 'Estimates a top-down view of the ball’s path from a single broadcast camera using player tracking and detected contacts.',
+      desc: 'Estimating a top-down view of the ball’s path from a single broadcast camera using player tracking and detected contacts.',
       link: '/projects/contact-anchored-soccer-ball-mapping/',
     });
     expect(cards[0]).not.toHaveProperty('subtitle');

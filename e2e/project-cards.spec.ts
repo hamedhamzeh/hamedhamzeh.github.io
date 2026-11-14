@@ -1,5 +1,41 @@
 import { expect, test } from './fixtures';
 
+test('the AISoccer Coach resume card opens the Computer Vision filter', async ({
+  page,
+}) => {
+  await page.goto('/resume/#experience');
+  const job = page.locator('#experience article').filter({
+    has: page.getByRole('heading', {
+      name: 'AISoccer Coach - Computer Vision Developer',
+    }),
+  });
+  await expect(job.getByRole('listitem')).toHaveCount(3);
+  await expect(
+    job.getByRole('link', { name: /on the App Store/ }),
+  ).toHaveAttribute('target', '_blank');
+  await job
+    .getByRole('link', { name: 'View computer vision projects' })
+    .click();
+  await expect(page).toHaveURL(/\/projects\/#computer-vision$/);
+
+  const categories = page.getByRole('group', { name: 'Project categories' });
+  const computerVision = categories.getByRole('button', {
+    name: 'Computer Vision',
+    exact: true,
+  });
+  await expect(computerVision).toHaveAttribute('aria-pressed', 'true');
+  const cards = page.locator('.project-carousel-slide .project-card-title');
+  await expect(cards).toHaveCount(6);
+  await expect(cards.first()).toHaveText('Contact-Anchored Ball Mapping');
+
+  await page.reload();
+  await expect(computerVision).toHaveAttribute('aria-pressed', 'true');
+  const all = categories.getByRole('button', { name: 'All', exact: true });
+  await all.click();
+  await expect(all).toHaveAttribute('aria-pressed', 'true');
+  await expect(page).toHaveURL(/\/projects\/$/);
+});
+
 test('orders every project category by date with category-specific leaders', async ({
   page,
 }) => {
@@ -13,11 +49,11 @@ test('orders every project category by date with category-specific leaders', asy
     [
       'All',
       [
-        'Ball Mapping from Soccer Broadcasts',
+        'Contact-Anchored Ball Mapping',
         'Semantic Text Search API',
         'Airbnb Availability Prediction Pipeline',
         'Player Action & Ball Event Detection',
-        'CCTV Smoking & Phone Use Detection',
+        'Smoking & Phone Use Detection',
         'Wormlike Robot for Surface Inspection',
         'Virtual Fence & Person Tracking',
         'Predicting Asphalt Binder Stiffness',
@@ -33,10 +69,10 @@ test('orders every project category by date with category-specific leaders', asy
     [
       'Computer Vision',
       [
-        'Ball Mapping from Soccer Broadcasts',
+        'Contact-Anchored Ball Mapping',
         'Player Action & Ball Event Detection',
         'Soccer Team & Role Assignment',
-        'CCTV Smoking & Phone Use Detection',
+        'Smoking & Phone Use Detection',
         'Virtual Fence & Person Tracking',
         'Bone Age Estimation from Hand X-rays',
       ],
@@ -69,9 +105,7 @@ test('orders every project category by date with category-specific leaders', asy
   }
 
   await categories.getByRole('button', { name: 'All', exact: true }).click();
-  await expect(cardTitles.first()).toHaveText(
-    'Ball Mapping from Soccer Broadcasts',
-  );
+  await expect(cardTitles.first()).toHaveText('Contact-Anchored Ball Mapping');
 });
 
 test('the hydrogen storage project and award link directly to GitHub', async ({
