@@ -68,7 +68,7 @@ export default function Publication({ data }: PublicationProps) {
         </p>
       ) : null}
 
-      {data.detailPath || data.url || data.doi || data.presentation ? (
+      {data.detailPath || (data.url && data.linkLabel) || data.presentation ? (
         <div className="resume-actions publication-links">
           {data.detailPath ? (
             <a href={data.detailPath}>Publication page</a>
@@ -84,9 +84,6 @@ export default function Publication({ data }: PublicationProps) {
               triggerLabel={data.presentation.gallery.triggerLabel}
               dialogLabel={data.presentation.gallery.dialogLabel}
             />
-          ) : null}
-          {data.doi ? (
-            <span className="publication-doi">DOI: {data.doi}</span>
           ) : null}
         </div>
       ) : null}
