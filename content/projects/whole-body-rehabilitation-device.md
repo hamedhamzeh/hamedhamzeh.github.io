@@ -8,7 +8,7 @@ replaces: robotics-01
 card:
   title: Whole-Body Rehabilitation Device
   label: Bachelor’s project · Mechanical design
-  description: Mechanical design and analysis for a collaborative rehabilitation device, with design contributions incorporated into a commercial product.
+  description: Mechanical design and analysis of a knee-and-shoulder attachment for a rehabilitation platform. The work contributed to the commercial Zeus Multi-CPM.
 image: /images/projects/whole-body-rehabilitation-device/assembly-card.webp
 tech:
   - SolidWorks

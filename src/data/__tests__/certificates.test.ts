@@ -40,7 +40,7 @@ describe('certificates data', () => {
       issuer: 'Quera',
       issued: '2026-09',
       achievement: 'Completed with a perfect score',
-      projectUrl: 'https://github.com/hamedhamzeh/mlops-bootcamp',
+      projectUrl: '/projects/#mlops',
     });
     expect(bootcamp?.highlights).toHaveLength(3);
     expect(bootcamp?.gallery?.images[0]?.src).toBe(

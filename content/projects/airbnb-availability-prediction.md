@@ -8,7 +8,7 @@ replaces: mlops-01
 card:
   title: Airbnb Availability Prediction Pipeline
   label: MLOps · Quera Minicamp
-  description: Built a pipeline for 10,480 Airbnb listings, tracked experiments in MLflow, and served single and batch predictions through a Dockerized FastAPI API.
+  description: Predicting low calendar availability over 30 days for Airbnb listings, with MLflow experiment tracking and a Dockerized API for single and batch predictions.
 image: /images/projects/mlops/airbnb-pipeline.webp
 tech:
   - PostgreSQL

@@ -18,6 +18,7 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.unstubAllGlobals();
+  window.history.replaceState(null, '', '/');
   Object.defineProperty(window, 'innerWidth', {
     configurable: true,
     value: originalWidth,

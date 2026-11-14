@@ -30,15 +30,14 @@ for (const theme of ['dark', 'light'] as const) {
       .getByRole('button', { name: 'Computer Vision', exact: true })
       .click();
     const slides = page.locator('.project-carousel-slide');
-    await expect(slides).toHaveCount(5);
-    const assignmentSlot = slides.nth(1);
+    const assignmentSlot = slides.nth(2);
     const card = assignmentSlot.locator(`a[href="${projectPath}"]`);
-    // Mobile shows one card at a time: reveal the second slot using its selector.
+    // On narrower screens, reveal the third card before opening it.
     if ((await assignmentSlot.getAttribute('aria-hidden')) === 'true') {
-      await page.getByRole('button', { name: /^Show projects 2 to/ }).click();
+      await page.getByRole('button', { name: /^Show projects 3 to/ }).click();
     }
     await expect(card.getByRole('heading')).toHaveText(
-      'Team & Role Assignment',
+      'Soccer Team & Role Assignment',
     );
     await card.click();
     await expect(page).toHaveURL(new RegExp(`${projectPath}$`));

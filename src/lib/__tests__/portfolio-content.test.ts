@@ -156,14 +156,11 @@ date: '2026-02-31'
 
   it('replaces a placeholder with a real card without duplicating or sending article data', () => {
     const cards = getProjectShowcaseEntries();
-    expect(cards).toHaveLength(14);
-    expect(
-      cards.filter((card) => card.category === 'Computer Vision'),
-    ).toHaveLength(5);
+    expect(cards).toHaveLength(15);
     expect(cards[0]).toMatchObject({
       title: 'Contact-Anchored Ball Mapping',
       label: 'AISoccerCoach · Computer Vision',
-      desc: 'Estimating a 2D ball path from soccer broadcasts using contact detection and player tracking.',
+      desc: 'Estimating a top-down view of the ball’s path from a single broadcast camera using player tracking and detected contacts.',
       link: '/projects/contact-anchored-soccer-ball-mapping/',
     });
     expect(cards[0]).not.toHaveProperty('subtitle');
@@ -178,7 +175,7 @@ date: '2026-02-31'
     expect(cards[0]).not.toHaveProperty('content');
     expect(cards[0]).not.toHaveProperty('media');
     expect(cards[1]).toMatchObject({
-      title: 'Team & Role Assignment',
+      title: 'Soccer Team & Role Assignment',
       label: 'AISoccerCoach · Computer Vision',
       link: '/projects/soccer-team-role-assignment/',
       replaces: 'computer-vision-02',
@@ -186,7 +183,7 @@ date: '2026-02-31'
     const visionCards = cards.filter(
       (card) => card.category === 'Computer Vision',
     );
-    expect(visionCards).toHaveLength(5);
+    expect(visionCards).toHaveLength(6);
   });
 
   it('places the two linked MLOps cards together with Airbnb first', () => {

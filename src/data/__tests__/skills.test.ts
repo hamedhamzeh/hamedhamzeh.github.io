@@ -87,11 +87,10 @@ describe('categories data', () => {
       'ML & DL',
       'MLOps',
       'Optimization',
-      'Programming',
+      'Programming & Tools',
       'Front-end',
       'Robotics',
       'Mechanical Eng',
-      'Tools',
       'Languages',
     ]);
   });

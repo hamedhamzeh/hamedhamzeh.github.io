@@ -15,14 +15,14 @@ describe('Robotics publication project cards', () => {
     expect(robotics.map((entry) => entry.title)).toEqual([
       'Whole-Body Rehabilitation Device',
       'Vision-Controlled Puppet Robot',
-      'Wormlike Surface-Inspection Robot',
+      'Wormlike Robot for Surface Inspection',
     ]);
     expect(
       robotics.every((entry) => 'link' in entry && !('number' in entry)),
     ).toBe(true);
-    expect(entries).toHaveLength(14);
+    expect(entries).toHaveLength(15);
     for (const [category, count] of [
-      ['Computer Vision', 5],
+      ['Computer Vision', 6],
       ['Front-end', 2],
       ['MLOps', 2],
       ['ML Projects', 2],

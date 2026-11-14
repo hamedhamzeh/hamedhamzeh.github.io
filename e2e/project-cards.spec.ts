@@ -1,5 +1,113 @@
 import { expect, test } from './fixtures';
 
+test('the AISoccer Coach resume card opens the Computer Vision filter', async ({
+  page,
+}) => {
+  await page.goto('/resume/#experience');
+  const job = page.locator('#experience article').filter({
+    has: page.getByRole('heading', {
+      name: 'AISoccer Coach - Computer Vision Developer',
+    }),
+  });
+  await expect(job.getByRole('listitem')).toHaveCount(3);
+  await expect(
+    job.getByRole('link', { name: /on the App Store/ }),
+  ).toHaveAttribute('target', '_blank');
+  await job
+    .getByRole('link', { name: 'View computer vision projects' })
+    .click();
+  await expect(page).toHaveURL(/\/projects\/#computer-vision$/);
+
+  const categories = page.getByRole('group', { name: 'Project categories' });
+  const computerVision = categories.getByRole('button', {
+    name: 'Computer Vision',
+    exact: true,
+  });
+  await expect(computerVision).toHaveAttribute('aria-pressed', 'true');
+  const cards = page.locator('.project-carousel-slide .project-card-title');
+  await expect(cards).toHaveCount(6);
+  await expect(cards.first()).toHaveText('Contact-Anchored Ball Mapping');
+
+  await page.reload();
+  await expect(computerVision).toHaveAttribute('aria-pressed', 'true');
+  const all = categories.getByRole('button', { name: 'All', exact: true });
+  await all.click();
+  await expect(all).toHaveAttribute('aria-pressed', 'true');
+  await expect(page).toHaveURL(/\/projects\/$/);
+});
+
+test('orders every project category by date with category-specific leaders', async ({
+  page,
+}) => {
+  await page.goto('/projects/');
+  const cardTitles = page.locator(
+    '.project-carousel-slide .project-card-title',
+  );
+  const categories = page.getByRole('group', { name: 'Project categories' });
+
+  for (const [category, titles] of [
+    [
+      'All',
+      [
+        'Contact-Anchored Ball Mapping',
+        'Semantic Text Search API',
+        'Airbnb Availability Prediction Pipeline',
+        'Player Action & Ball Event Detection',
+        'Smoking & Phone Use Detection',
+        'Wormlike Robot for Surface Inspection',
+        'Virtual Fence & Person Tracking',
+        'Predicting Asphalt Binder Stiffness',
+        'Soccer Team & Role Assignment',
+        'Bone Age Estimation from Hand X-rays',
+        'Vision-Controlled Puppet Robot',
+        'Predicting Hydrogen Storage in MOFs',
+        'Game Hub',
+        'Web Hosting Landing Page',
+        'Whole-Body Rehabilitation Device',
+      ],
+    ],
+    [
+      'Computer Vision',
+      [
+        'Contact-Anchored Ball Mapping',
+        'Player Action & Ball Event Detection',
+        'Soccer Team & Role Assignment',
+        'Smoking & Phone Use Detection',
+        'Virtual Fence & Person Tracking',
+        'Bone Age Estimation from Hand X-rays',
+      ],
+    ],
+    [
+      'Robotics',
+      [
+        'Whole-Body Rehabilitation Device',
+        'Wormlike Robot for Surface Inspection',
+        'Vision-Controlled Puppet Robot',
+      ],
+    ],
+    ['Front-end', ['Game Hub', 'Web Hosting Landing Page']],
+    [
+      'MLOps',
+      ['Semantic Text Search API', 'Airbnb Availability Prediction Pipeline'],
+    ],
+    [
+      'ML Projects',
+      [
+        'Predicting Asphalt Binder Stiffness',
+        'Predicting Hydrogen Storage in MOFs',
+      ],
+    ],
+  ] as const) {
+    await categories
+      .getByRole('button', { name: category, exact: true })
+      .click();
+    await expect(cardTitles).toHaveText([...titles]);
+  }
+
+  await categories.getByRole('button', { name: 'All', exact: true }).click();
+  await expect(cardTitles.first()).toHaveText('Contact-Anchored Ball Mapping');
+});
+
 test('the hydrogen storage project and award link directly to GitHub', async ({
   page,
 }) => {
@@ -9,6 +117,11 @@ test('the hydrogen storage project and award link directly to GitHub', async ({
   await page.getByRole('button', { name: 'ML Projects', exact: true }).click();
   const carousel = page.getByRole('region', { name: 'ML Projects projects' });
   await expect(carousel.locator('.project-carousel-slide')).toHaveCount(2);
+  if (page.viewportSize()!.width < 600) {
+    await carousel
+      .getByRole('button', { name: 'Show projects 2 to 2 of 2' })
+      .click();
+  }
   const card = carousel.getByRole('link', { name: /View on GitHub/ });
   await expect(card.getByRole('heading')).toHaveText(
     'Predicting Hydrogen Storage in MOFs',
@@ -42,13 +155,10 @@ test('the Sasobit cards open the same manuscript preview', async ({ page }) => {
   await page.goto('/projects/');
   await page.getByRole('button', { name: 'ML Projects', exact: true }).click();
   const carousel = page.getByRole('region', { name: 'ML Projects projects' });
-  if (page.viewportSize()!.width < 600) {
-    await carousel.focus();
-    await page.keyboard.press('ArrowRight');
-  }
   const project = carousel.getByRole('link', {
     name: /Predicting Asphalt Binder Stiffness/,
   });
+  await expect(project.locator('time')).toHaveAttribute('datetime', '2025-12');
   await expect(project.getByRole('img')).toHaveAttribute('src', poster);
   await project.click();
   await expect(page).toHaveURL(new RegExp(`${path}$`));
@@ -102,12 +212,12 @@ test('GitHub project cards show their years above the repository action', async 
     .getByRole('button');
   const viewportWidth = await page.evaluate(() => window.innerWidth);
   const cardsPerView = viewportWidth >= 1000 ? 3 : viewportWidth >= 600 ? 2 : 1;
-  const lastSelector = 5 - cardsPerView;
+  const lastSelector = 6 - cardsPerView;
   await expect(selectors).toHaveCount(lastSelector + 1);
 
   for (const [slot, repository, year] of [
-    [2, 'virtual-fence', '2025'],
-    [3, 'xception-bone-age-prediction', '2024'],
+    [4, 'virtual-fence', '2025'],
+    [5, 'xception-bone-age-prediction', '2024'],
   ] as const) {
     await selectors.nth(Math.min(slot, lastSelector)).click();
     const slide = carousel.locator('.project-carousel-slide').nth(slot);

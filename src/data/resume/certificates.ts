@@ -40,7 +40,7 @@ const certificates: Certificate[] = [
         },
       ],
     },
-    projectUrl: 'https://github.com/hamedhamzeh/mlops-bootcamp',
+    projectUrl: '/projects/#mlops',
   },
   {
     title: 'Machine Learning Specialization',

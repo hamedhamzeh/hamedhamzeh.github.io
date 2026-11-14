@@ -2,10 +2,11 @@
 title: Predicting Asphalt Binder Stiffness with Machine Learning
 description: This manuscript is under review. We’ll share the full results and further details here after publication.
 category: ML Projects
+date: '2025-12'
 card:
   title: Predicting Asphalt Binder Stiffness
   label: ML Projects · Under review
-  description: Comparing machine learning models to predict the stiffness of Sasobit-modified asphalt binders.
+  description: Comparing machine learning models that estimate the stiffness of Sasobit-modified asphalt binders from laboratory data.
 image: /images/projects/sasobit-binder-stiffness/sasobit-pellets.webp
 media:
   images:

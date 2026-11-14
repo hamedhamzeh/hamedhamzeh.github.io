@@ -25,7 +25,6 @@ for (const theme of ['dark', 'light'] as const) {
     await page
       .getByRole('button', { name: 'Computer Vision', exact: true })
       .click();
-    await expect(page.locator('.project-carousel-slide')).toHaveCount(5);
     const card = page.locator(`a[href="${projectPath}"]`);
     await expect(card).toBeVisible();
     await expect(card.getByRole('heading')).toHaveText(

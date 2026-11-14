@@ -10,12 +10,12 @@ for (const theme of ['dark', 'light'] as const) {
     );
     const targets = [
       {
-        title: 'Vision-Controlled Puppet Robot',
-        path: '/publications/puppet-robot-pose-detection/',
+        title: 'Wormlike Robot for Surface Inspection',
+        path: '/publications/wormlike-robot-ferromagnetic-surface-inspection/',
       },
       {
-        title: 'Wormlike Surface-Inspection Robot',
-        path: '/publications/wormlike-robot-ferromagnetic-surface-inspection/',
+        title: 'Vision-Controlled Puppet Robot',
+        path: '/publications/puppet-robot-pose-detection/',
       },
     ];
     for (const [index, target] of targets.entries()) {

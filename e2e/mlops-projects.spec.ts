@@ -4,6 +4,13 @@ const repository = 'https://github.com/hamedhamzeh/mlops-bootcamp/tree/main';
 
 const projects = [
   {
+    title: 'Semantic Text Search API',
+    route: '/projects/semantic-text-search-api/',
+    poster: 'semantic-search.webp',
+    figures: 2,
+    folders: ['hw22_deployment/HW3_A', 'hw22_deployment/HW3_B'],
+  },
+  {
     title: 'Airbnb Availability Prediction Pipeline',
     route: '/projects/airbnb-availability-prediction/',
     poster: 'airbnb-pipeline.webp',
@@ -17,16 +24,24 @@ const projects = [
       'hw02_sql-metabase',
     ],
   },
-  {
-    title: 'Semantic Text Search API',
-    route: '/projects/semantic-text-search-api/',
-    poster: 'semantic-search.webp',
-    figures: 2,
-    folders: ['hw22_deployment/HW3_A', 'hw22_deployment/HW3_B'],
-  },
 ] as const;
 
 test.use({ reducedMotion: 'reduce' });
+
+test('the MLOps certificate opens Projects with MLOps selected', async ({
+  page,
+}) => {
+  await page.goto('/resume/#certificates');
+  await page.getByRole('link', { name: 'View MLOps projects' }).click();
+  await expect(page).toHaveURL(/\/projects\/#mlops$/);
+  await expect(
+    page.getByRole('button', { name: 'MLOps', exact: true }),
+  ).toHaveAttribute('aria-pressed', 'true');
+  const carousel = page.getByRole('region', { name: 'MLOps projects' });
+  await expect(carousel.locator('.project-card-title')).toHaveText(
+    projects.map(({ title }) => title),
+  );
+});
 
 for (const theme of ['light', 'dark'] as const) {
   test(`opens both MLOps case studies from their cards in ${theme}`, async ({
@@ -49,7 +64,9 @@ for (const theme of ['light', 'dark'] as const) {
       const slide = slides.nth(index);
 
       if (isNarrow && index === 1) {
-        await carousel.press('ArrowRight');
+        await carousel
+          .getByRole('button', { name: 'Show projects 2 to 2 of 2' })
+          .click();
       }
 
       const card = slide.getByRole('link', { name: /Explore project/ });

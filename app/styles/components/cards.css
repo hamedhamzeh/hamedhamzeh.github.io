@@ -834,12 +834,6 @@
   gap: var(--spacing-2) var(--spacing-4);
 }
 
-.publication-doi {
-  color: var(--color-fg-light);
-  font-size: var(--text-sm);
-  overflow-wrap: anywhere;
-}
-
 /* ========================================
    HONOR AND AWARD CARDS
    ======================================== */

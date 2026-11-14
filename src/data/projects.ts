@@ -51,7 +51,7 @@ export const frontendProjects: ProjectCard[] = [
   {
     id: 'game-hub',
     title: 'Game Hub',
-    desc: 'Search for games, filter by genre or platform, sort the results, and explore individual game pages. Built with React and TypeScript.',
+    desc: 'A game browser with search, sorting, genre and platform filters, and individual game pages. Built with React and TypeScript.',
     category: 'Front-end',
     date: '2023-03-06',
     replaces: 'front-end-01',
@@ -62,8 +62,8 @@ export const frontendProjects: ProjectCard[] = [
   },
   {
     id: 'hosting-landing-page',
-    title: 'Hosting Landing Page',
-    desc: 'Explore a responsive hosting interface built with HTML, CSS, and a little JavaScript.',
+    title: 'Web Hosting Landing Page',
+    desc: 'A responsive web hosting demo with a domain search interface and pricing cards, built with HTML, CSS, and JavaScript.',
     category: 'Front-end',
     date: '2023-02-07',
     replaces: 'front-end-02',
@@ -81,7 +81,7 @@ export const githubProjects: ProjectCard[] = [
   {
     id: 'virtual-fence',
     title: 'Virtual Fence & Person Tracking',
-    desc: 'Detects and tracks people in video using YOLOv8 and SimpleSORT, then counts entries into a defined zone.',
+    desc: 'Uses YOLOv8 and SimpleSORT to track people in video and count when they enter a marked area.',
     category: 'Computer Vision',
     replaces: 'computer-vision-03',
     date: '2025-12-27',
@@ -93,7 +93,7 @@ export const githubProjects: ProjectCard[] = [
   {
     id: 'xception-bone-age-prediction',
     title: 'Bone Age Estimation from Hand X-rays',
-    desc: 'An Xception model trained on the RSNA Pediatric Bone Age dataset to estimate bone age from hand X-rays.',
+    desc: 'Estimates skeletal maturity from pediatric hand X-rays using an Xception model trained on the RSNA Pediatric Bone Age dataset.',
     category: 'Computer Vision',
     replaces: 'computer-vision-04',
     date: '2024-08-24',
@@ -105,7 +105,7 @@ export const githubProjects: ProjectCard[] = [
   {
     id: 'mof-hydrogen-storage',
     title: 'Predicting Hydrogen Storage in MOFs',
-    desc: 'Used machine learning to estimate how much usable hydrogen different metal–organic frameworks could store and help shortlist promising materials.',
+    desc: 'Uses machine learning to estimate usable hydrogen storage by mass and volume in metal–organic frameworks and shortlist promising materials.',
     category: 'ML Projects',
     label: 'ML Projects · Competition winner',
     replaces: 'ml-projects-01',
@@ -122,7 +122,7 @@ export const linkedProjects: ProjectCard[] = [
   {
     id: 'vision-controlled-puppet-robot',
     title: 'Vision-Controlled Puppet Robot',
-    desc: 'A modular puppet robot combining mechanical design, embedded control, and vision-based movement.',
+    desc: 'Uses camera-based pose estimation to make a robotic puppet mimic the movements of a manually operated puppet.',
     category: 'Robotics',
     label: 'Robotics · Research project',
     date: '2024',
@@ -132,8 +132,8 @@ export const linkedProjects: ProjectCard[] = [
   },
   {
     id: 'wormlike-surface-inspection-robot',
-    title: 'Wormlike Surface-Inspection Robot',
-    desc: 'A bio-inspired robotic platform designed for movement on ferromagnetic surfaces.',
+    title: 'Wormlike Robot for Surface Inspection',
+    desc: 'A silkworm-inspired robot that uses passive magnets and flexible joints to move around corners and along curved steel surfaces.',
     category: 'Robotics',
     label: 'Robotics · Research project',
     date: '2026',

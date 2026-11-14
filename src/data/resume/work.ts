@@ -33,15 +33,18 @@ const work: Position[] = [
     position: 'Computer Vision Developer',
     startDate: '2025-08-01',
     highlights: [
-      'Develop computer-vision systems for soccer player identification and action recognition.',
-      'Build triplet-loss feature-extraction pipelines using ResNet and MobileNet architectures.',
-      'Integrated YOLOv8 player detection with a team-classification pipeline that assigned detected players to the correct team with 98% accuracy.',
-      'Fine-tune Vision Transformer models for soccer-player action recognition and use Grad-CAM to interpret their predictions.',
+      'Built a pipeline that groups tracked soccer players by team and identifies goalkeepers and referees. Compared 15 MobileNetV2 and ResNet50 models, with the best reaching 97.31% mean per-video-group clustering accuracy on a development benchmark of 5,581 crops.',
+      'Developed a video pipeline that recognizes 14 player actions and eight ball events using a fine-tuned Perception Encoder and temporal convolutions. The best ball-event model reached 76.2% macro-F1 on 180 labeled development clips.',
+      'Developed a pipeline that estimates a top-down 2D ball path from single-camera soccer footage by combining trajectory analysis, contact classification with a vision-language model, and player tracking.',
     ],
     links: [
       {
         label: 'View AISoccerCoach on the App Store',
         url: 'https://apps.apple.com/us/app/aisoccercoach/id6744994129',
+      },
+      {
+        label: 'View computer vision projects',
+        url: '/projects/#computer-vision',
       },
     ],
   },

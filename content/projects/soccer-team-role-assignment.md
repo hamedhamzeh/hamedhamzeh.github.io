@@ -7,7 +7,7 @@ date: '2025-09-28'
 replaces: computer-vision-02
 card:
   label: AISoccerCoach · Computer Vision
-  title: Team & Role Assignment
+  title: Soccer Team & Role Assignment
   description: Assigning soccer teams and roles from appearance embeddings and tracked player crops.
 image: /videos/aisoccercoach-team-assignment/posters/01_showcase.webp
 tech:
