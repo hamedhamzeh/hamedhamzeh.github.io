@@ -5,6 +5,7 @@ import Navigation from '../../Template/Navigation';
 
 // Mock usePathname to control active state
 const mockPathname = vi.fn();
+const onRouteSelect = vi.fn();
 vi.mock('next/navigation', () => ({
   usePathname: () => mockPathname(),
 }));
@@ -30,13 +31,13 @@ describe('Navigation', () => {
   });
 
   it('renders the logo link to home', () => {
-    render(<Navigation />);
+    render(<Navigation onRouteSelect={onRouteSelect} />);
     const logo = screen.getByRole('link', { name: /hmz/i });
     expect(logo).toHaveAttribute('href', '/');
   });
 
   it('renders navigation links for all non-index routes', () => {
-    render(<Navigation />);
+    render(<Navigation onRouteSelect={onRouteSelect} />);
 
     // Writing and Stats are intentionally hidden until their new content is ready.
     expect(screen.getByRole('link', { name: /about/i })).toBeInTheDocument();
@@ -56,7 +57,7 @@ describe('Navigation', () => {
 
   it('marks home route as active when on homepage', () => {
     mockPathname.mockReturnValue('/');
-    render(<Navigation />);
+    render(<Navigation onRouteSelect={onRouteSelect} />);
 
     // About link should not be active
     const aboutLink = screen.getByRole('link', { name: /about/i });
@@ -65,7 +66,7 @@ describe('Navigation', () => {
 
   it('marks about route as active when on about page', () => {
     mockPathname.mockReturnValue('/about');
-    render(<Navigation />);
+    render(<Navigation onRouteSelect={onRouteSelect} />);
 
     const aboutLink = screen.getByRole('link', { name: /about/i });
     expect(aboutLink).toHaveClass('active');
@@ -74,14 +75,14 @@ describe('Navigation', () => {
 
   it('marks nested routes as active', () => {
     mockPathname.mockReturnValue('/resume/skills');
-    render(<Navigation />);
+    render(<Navigation onRouteSelect={onRouteSelect} />);
 
     const resumeLink = screen.getByRole('link', { name: /resume/i });
     expect(resumeLink).toHaveClass('active');
   });
 
   it('renders theme toggle and hamburger menu', () => {
-    render(<Navigation />);
+    render(<Navigation onRouteSelect={onRouteSelect} />);
 
     // Theme toggle should be present (placeholder initially due to SSR)
     const navActions = document.querySelector('.nav-actions');

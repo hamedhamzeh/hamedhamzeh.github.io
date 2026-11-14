@@ -1,11 +1,10 @@
-import Image from 'next/image';
 import { ExternalLinkIcon } from '@/components/Icons';
-
+import CardPoster from '@/components/Media/CardPoster';
 import type { Publication } from '@/data/resume/publications';
-import { PROJECT_IMAGE } from '@/lib/utils';
 
 interface PublicationCardProps {
   data: Publication;
+  prioritizePoster?: boolean;
 }
 
 /**
@@ -17,7 +16,10 @@ interface PublicationCardProps {
  * stay static and non-interactive. The presentation certificate stays in the
  * Resume's Publications section rather than being duplicated here.
  */
-export default function PublicationCard({ data }: PublicationCardProps) {
+export default function PublicationCard({
+  data,
+  prioritizePoster,
+}: PublicationCardProps) {
   const image = data.image ?? data.presentation?.gallery.images[0]?.src;
   const authors = data.authors
     .map(({ citationName }) => citationName)
@@ -31,15 +33,12 @@ export default function PublicationCard({ data }: PublicationCardProps) {
     >
       <div className="project-card-static">
         {image ? (
-          <div className="project-card-image">
-            <Image
-              src={image}
-              alt={data.title}
-              width={PROJECT_IMAGE.width}
-              height={PROJECT_IMAGE.height}
-              sizes="(max-width: 600px) 100vw, 50vw"
-            />
-          </div>
+          <CardPoster
+            key={image}
+            src={image}
+            alt={data.title}
+            prioritize={prioritizePoster}
+          />
         ) : (
           <div
             className="project-card-image project-card-image--placeholder"

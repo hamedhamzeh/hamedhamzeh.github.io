@@ -5,6 +5,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import Hamburger from '../../Template/Hamburger';
 
+const onRouteSelect = vi.fn();
+
 vi.mock('next/navigation', () => ({ usePathname: vi.fn(() => '/resume/') }));
 vi.mock('next/link', () => ({
   default: ({
@@ -13,7 +15,7 @@ vi.mock('next/link', () => ({
     scroll: _scroll,
     ...props
   }: AnchorHTMLAttributes<HTMLAnchorElement> & {
-    onNavigate?: () => void;
+    onNavigate?: (event: { preventDefault: () => void }) => void;
     prefetch?: boolean;
     scroll?: boolean;
   }) => (
@@ -21,7 +23,7 @@ vi.mock('next/link', () => ({
       {...props}
       onClick={(event) => {
         event.preventDefault();
-        onNavigate?.();
+        onNavigate?.(event);
       }}
     />
   ),
@@ -30,9 +32,10 @@ vi.mock('next/link', () => ({
 describe('Hamburger', () => {
   beforeEach(() => {
     vi.mocked(usePathname).mockReturnValue('/resume/');
+    onRouteSelect.mockClear();
   });
   it('renders the hamburger button', () => {
-    render(<Hamburger />);
+    render(<Hamburger onRouteSelect={onRouteSelect} />);
 
     const button = screen.getByRole('button', {
       name: /open navigation menu/i,
@@ -41,7 +44,7 @@ describe('Hamburger', () => {
   });
 
   it('has correct initial aria attributes', () => {
-    render(<Hamburger />);
+    render(<Hamburger onRouteSelect={onRouteSelect} />);
 
     const button = screen.getByRole('button');
     expect(button).toHaveAttribute('aria-expanded', 'false');
@@ -49,7 +52,7 @@ describe('Hamburger', () => {
   });
 
   it('toggles menu open on click', () => {
-    render(<Hamburger />);
+    render(<Hamburger onRouteSelect={onRouteSelect} />);
 
     const button = screen.getByRole('button');
     fireEvent.click(button);
@@ -59,7 +62,7 @@ describe('Hamburger', () => {
   });
 
   it('toggles menu closed on second click', () => {
-    render(<Hamburger />);
+    render(<Hamburger onRouteSelect={onRouteSelect} />);
 
     const button = screen.getByRole('button');
     fireEvent.click(button); // Open
@@ -70,7 +73,7 @@ describe('Hamburger', () => {
   });
 
   it('shows hamburger icon when closed', () => {
-    render(<Hamburger />);
+    render(<Hamburger onRouteSelect={onRouteSelect} />);
 
     const icon = document.querySelector('.hamburger-icon');
     expect(icon).toBeInTheDocument();
@@ -78,7 +81,7 @@ describe('Hamburger', () => {
   });
 
   it('changes icon to close state when open', () => {
-    render(<Hamburger />);
+    render(<Hamburger onRouteSelect={onRouteSelect} />);
 
     const button = screen.getByRole('button');
     fireEvent.click(button);
@@ -88,7 +91,7 @@ describe('Hamburger', () => {
   });
 
   it('renders navigation links in slide menu', () => {
-    render(<Hamburger />);
+    render(<Hamburger onRouteSelect={onRouteSelect} />);
 
     // Open the menu
     fireEvent.click(screen.getByRole('button'));
@@ -103,8 +106,8 @@ describe('Hamburger', () => {
     expect(screen.getByRole('link', { name: /contact/i })).toBeInTheDocument();
   });
 
-  it('keeps the menu open while a destination is loading and closes on route commit', () => {
-    const { rerender } = render(<Hamburger />);
+  it('closes the menu as soon as a destination is selected', () => {
+    const { rerender } = render(<Hamburger onRouteSelect={onRouteSelect} />);
 
     // Open the menu
     const button = screen.getByRole('button');
@@ -115,17 +118,21 @@ describe('Hamburger', () => {
     const aboutLink = screen.getByRole('link', { name: /about/i });
     fireEvent.click(aboutLink);
 
-    expect(button).toHaveAttribute('aria-expanded', 'true');
+    expect(button).toHaveAttribute('aria-expanded', 'false');
+    expect(onRouteSelect).toHaveBeenCalledWith({
+      label: 'About',
+      path: '/about',
+    });
     vi.mocked(usePathname).mockReturnValue('/about/');
-    rerender(<Hamburger />);
+    rerender(<Hamburger onRouteSelect={onRouteSelect} />);
     expect(button).toHaveAttribute('aria-expanded', 'false');
     vi.mocked(usePathname).mockReturnValue('/resume/');
-    rerender(<Hamburger />);
+    rerender(<Hamburger onRouteSelect={onRouteSelect} />);
     expect(button).toHaveAttribute('aria-expanded', 'false');
   });
 
   it('closes immediately when choosing the current page', () => {
-    render(<Hamburger />);
+    render(<Hamburger onRouteSelect={onRouteSelect} />);
     const button = screen.getByRole('button');
     fireEvent.click(button);
     fireEvent.click(screen.getByRole('link', { name: 'Resume' }));

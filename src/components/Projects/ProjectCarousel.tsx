@@ -11,6 +11,7 @@ import PlaceholderCard from './PlaceholderCard';
 interface ProjectCarouselProps {
   projects: ProjectShowcaseEntry[];
   category: string;
+  prioritizeFirstPoster: boolean;
 }
 
 function cardsPerView(width: number): number {
@@ -22,6 +23,7 @@ function cardsPerView(width: number): number {
 export default function ProjectCarousel({
   projects,
   category,
+  prioritizeFirstPoster,
 }: ProjectCarouselProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -120,7 +122,10 @@ export default function ProjectCarousel({
                 {'number' in project ? (
                   <PlaceholderCard data={project} />
                 ) : (
-                  <Cell data={project} />
+                  <Cell
+                    data={project}
+                    prioritizePoster={prioritizeFirstPoster && index === 0}
+                  />
                 )}
               </div>
             );

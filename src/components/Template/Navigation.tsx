@@ -3,12 +3,16 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import routes from '@/data/routes';
+import routes, { type Route } from '@/data/routes';
 
 import Hamburger from './Hamburger';
 import ThemeToggle from './ThemeToggle';
 
-export default function Navigation() {
+export default function Navigation({
+  onRouteSelect,
+}: {
+  onRouteSelect: (route: Route) => void;
+}) {
   const pathname = usePathname();
 
   const isActive = (path: string) => {
@@ -18,7 +22,15 @@ export default function Navigation() {
 
   return (
     <header className="site-header">
-      <Link href="/" prefetch={false} className="site-logo">
+      <Link
+        href="/"
+        prefetch={false}
+        className="site-logo"
+        onNavigate={(event) => {
+          event.preventDefault();
+          onRouteSelect({ path: '/', label: 'Home' });
+        }}
+      >
         <span className="logo-text">HMZ</span>
       </Link>
 
@@ -32,6 +44,10 @@ export default function Navigation() {
               prefetch={false}
               className={`nav-link ${isActive(l.path) ? 'active' : ''}`}
               aria-current={isActive(l.path) ? 'page' : undefined}
+              onNavigate={(event) => {
+                event.preventDefault();
+                onRouteSelect(l);
+              }}
             >
               {l.label}
             </Link>
@@ -40,7 +56,7 @@ export default function Navigation() {
 
       <div className="nav-actions">
         <ThemeToggle />
-        <Hamburger />
+        <Hamburger onRouteSelect={onRouteSelect} />
       </div>
     </header>
   );

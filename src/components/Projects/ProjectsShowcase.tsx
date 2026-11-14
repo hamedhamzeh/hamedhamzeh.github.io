@@ -38,6 +38,7 @@ export default function ProjectsShowcase({
   projects?: ProjectShowcaseEntry[];
 }) {
   const [activeCategory, setActiveCategory] = useState<ProjectFilter>('All');
+  const [initialView, setInitialView] = useState(true);
   const controlsRef = useRef<HTMLDivElement>(null);
   const leading = leadingProjects[activeCategory] ?? [];
   const visibleProjects = projects.filter(
@@ -56,6 +57,7 @@ export default function ProjectsShowcase({
         (filter) => filterHash(filter) === window.location.hash,
       );
       setActiveCategory(category ?? 'All');
+      if (category && category !== 'All') setInitialView(false);
     };
 
     selectLinkedCategory();
@@ -95,6 +97,7 @@ export default function ProjectsShowcase({
             label={category}
             isActive={activeCategory === category}
             handleClick={() => {
+              if (category !== activeCategory) setInitialView(false);
               setActiveCategory(category);
               const url = new URL(window.location.href);
               url.hash = filterHash(category);
@@ -123,6 +126,7 @@ export default function ProjectsShowcase({
         key={activeCategory}
         projects={visibleProjects}
         category={activeCategory}
+        prioritizeFirstPoster={initialView && activeCategory === 'All'}
       />
     </div>
   );

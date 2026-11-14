@@ -1,8 +1,7 @@
 import dayjs from 'dayjs';
-import Image from 'next/image';
 
+import CardPoster from '@/components/Media/CardPoster';
 import type { Project } from '@/data/projects';
-import { PROJECT_IMAGE } from '@/lib/utils';
 
 export type ProjectCardData = Omit<Project, 'date' | 'image'> & {
   date?: string;
@@ -12,9 +11,10 @@ export type ProjectCardData = Omit<Project, 'date' | 'image'> & {
 
 interface CellProps {
   data: ProjectCardData;
+  prioritizePoster?: boolean;
 }
 
-export default function Cell({ data }: CellProps) {
+export default function Cell({ data, prioritizePoster }: CellProps) {
   const {
     title,
     subtitle,
@@ -33,16 +33,13 @@ export default function Cell({ data }: CellProps) {
   const cardContent = (
     <>
       {image ? (
-        <div className="project-card-image">
-          <Image
-            src={image}
-            alt={title}
-            width={PROJECT_IMAGE.width}
-            height={PROJECT_IMAGE.height}
-            sizes="(max-width: 600px) 100vw, 50vw"
-            draggable={false}
-          />
-        </div>
+        <CardPoster
+          key={image}
+          src={image}
+          alt={title}
+          prioritize={prioritizePoster}
+          draggable={false}
+        />
       ) : (
         <div
           className="project-card-image project-card-image--placeholder"

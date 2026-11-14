@@ -66,14 +66,15 @@ test('opening and dismissing the menu preserves the Skills layout and scroll', a
     .toBe(before.scrollY);
 });
 
-test('switching pages keeps Resume still until the destination appears', async ({
+test('the menu closes without covering the current page before About commits', async ({
   page,
 }) => {
   const before = await visitSkills(page);
   await page.getByRole('button', { name: 'Open navigation menu' }).click();
   // Simulate a slow destination to expose movement before the route commits.
+  const gate = Promise.withResolvers<void>();
   await page.route('**/about/**', async (route) => {
-    await new Promise((resolve) => setTimeout(resolve, 700));
+    await gate.promise;
     await route.continue();
   });
   await page.evaluate(() => {
@@ -88,15 +89,34 @@ test('switching pages keeps Resume still until the destination appears', async (
     };
     sample();
   });
-  await test.step('Choose About and wait for the new page', async () => {
+  try {
     await page
       .getByRole('dialog')
       .getByRole('link', { name: 'About', exact: true })
       .click();
+    await expect(page.getByRole('dialog')).toBeHidden();
     await expect(
-      page.getByRole('heading', { level: 1, name: 'About', exact: true }),
+      page.getByRole('status').filter({ hasText: 'Loading About' }),
+    ).toHaveText('Loading About');
+    await expect(page.locator('.route-skeleton')).toHaveCount(0);
+    await expect(page.locator('#skills h2')).toBeInViewport();
+    await expect(
+      page.getByRole('heading', { name: 'Resume', level: 1 }),
     ).toBeVisible();
+    await expect
+      .poll(() => page.evaluate(() => document.documentElement.style.overflow))
+      .not.toBe('hidden');
+  } finally {
+    gate.resolve();
+  }
+  const heading = page.getByRole('heading', {
+    level: 1,
+    name: 'About',
+    exact: true,
   });
+  await expect(heading).toBeVisible();
+  await expect(heading).toBeFocused();
+  await expect(page.locator('.route-skeleton')).toHaveCount(0);
   const samples = await page.evaluate(
     () =>
       (window as Window & { navigationScrollSamples?: number[] })
@@ -120,6 +140,41 @@ test('switching pages keeps Resume still until the destination appears', async (
   await expect(page.getByRole('dialog')).toBeHidden();
 });
 
+test('desktop navigation opens the latest destination while a route is delayed', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 844 });
+  await page.goto('/');
+  const gate = Promise.withResolvers<void>();
+  await page.route('**/resume/**', async (route) => {
+    await gate.promise;
+    await route.continue().catch(() => undefined);
+  });
+  const header = page.locator('.site-header');
+  try {
+    await header.getByRole('link', { name: 'Resume' }).click();
+    await expect(page.locator('.site-wrapper > [role="status"]')).toHaveText(
+      'Loading Resume',
+    );
+    await expect(page.locator('.route-skeleton')).toHaveCount(0);
+    await header.getByRole('link', { name: 'Projects' }).click();
+    await expect(page).toHaveURL(/\/projects\/$/);
+    await expect(
+      page.getByRole('heading', { level: 1, name: 'Projects' }),
+    ).toBeFocused();
+  } finally {
+    gate.resolve();
+  }
+  await expect(page.locator('.route-skeleton')).toHaveCount(0);
+  await page.goBack();
+  await expect(page).toHaveURL(/\/$/);
+  await page.goForward();
+  await expect(page).toHaveURL(/\/projects\/$/);
+  await expect(page.locator('.route-skeleton')).toHaveCount(0);
+  await header.getByRole('link', { name: 'Projects' }).click();
+  await expect(page.locator('.route-skeleton')).toHaveCount(0);
+});
+
 test('choosing the current page closes the menu without losing Skills', async ({
   page,
 }) => {
@@ -133,4 +188,32 @@ test('choosing the current page closes the menu without losing Skills', async ({
   await expect
     .poll(() => page.evaluate(() => window.scrollY))
     .toBe(before.scrollY);
+});
+
+test('Back clears the loading announcement and restores the previous page', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 844 });
+  await page.goto('/');
+  const header = page.locator('.site-header');
+  await header.getByRole('link', { name: 'About' }).click();
+  await expect(page).toHaveURL(/\/about\/$/);
+
+  const gate = Promise.withResolvers<void>();
+  await page.route('**/contact/**', async (route) => {
+    await gate.promise;
+    await route.continue().catch(() => undefined);
+  });
+  try {
+    await header.getByRole('link', { name: 'Contact' }).click();
+    const status = page.locator('.site-wrapper > [role="status"]');
+    await expect(status).toHaveText('Loading Contact');
+    await expect(page.locator('.route-skeleton')).toHaveCount(0);
+    await page.goBack();
+    await expect(page).toHaveURL(/\/$/);
+    await expect(status).toBeEmpty();
+    await expect(page.locator('main h1')).toBeVisible();
+  } finally {
+    gate.resolve();
+  }
 });
