@@ -55,12 +55,7 @@ export default function Certificate({ data }: CertificateProps) {
             <ExternalLinkIcon />
           </a>
         )}
-        {data.projectUrl && (
-          <a href={data.projectUrl} target="_blank" rel="noopener noreferrer">
-            View project on GitHub
-            <ExternalLinkIcon />
-          </a>
-        )}
+        {data.projectUrl && <a href={data.projectUrl}>View MLOps projects</a>}
       </div>
     </article>
   );

@@ -28,6 +28,21 @@ const projects = [
 
 test.use({ reducedMotion: 'reduce' });
 
+test('the MLOps certificate opens Projects with MLOps selected', async ({
+  page,
+}) => {
+  await page.goto('/resume/#certificates');
+  await page.getByRole('link', { name: 'View MLOps projects' }).click();
+  await expect(page).toHaveURL(/\/projects\/#mlops$/);
+  await expect(
+    page.getByRole('button', { name: 'MLOps', exact: true }),
+  ).toHaveAttribute('aria-pressed', 'true');
+  const carousel = page.getByRole('region', { name: 'MLOps projects' });
+  await expect(carousel.locator('.project-card-title')).toHaveText(
+    projects.map(({ title }) => title),
+  );
+});
+
 for (const theme of ['light', 'dark'] as const) {
   test(`opens both MLOps case studies from their cards in ${theme}`, async ({
     page,

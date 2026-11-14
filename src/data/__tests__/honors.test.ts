@@ -6,6 +6,7 @@ describe('honors data', () => {
   it('contains the confirmed honors in reverse chronological order', () => {
     expect(honors).toHaveLength(3);
     expect(honors.map(({ year }) => year)).toEqual([2025, 2024, 2018]);
+    expect(honors[0].issuer).toBe('USA · University of Connecticut');
   });
 
   it('contains complete display content', () => {

@@ -37,7 +37,7 @@ const mockBootcamp = {
       },
     ],
   },
-  projectUrl: 'https://github.com/example/mlops-project',
+  projectUrl: '/projects/#mlops',
 };
 
 describe('Certificates', () => {
@@ -106,10 +106,9 @@ describe('Certificate', () => {
     ).toBeInTheDocument();
 
     const projectLink = screen.getByRole('link', {
-      name: /view project on github/i,
+      name: 'View MLOps projects',
     });
     expect(projectLink).toHaveAttribute('href', mockBootcamp.projectUrl);
-    expect(projectLink).toHaveAttribute('target', '_blank');
-    expect(projectLink).toHaveAttribute('rel', 'noopener noreferrer');
+    expect(projectLink).not.toHaveAttribute('target');
   });
 });

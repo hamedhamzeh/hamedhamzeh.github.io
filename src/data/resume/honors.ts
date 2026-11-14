@@ -12,7 +12,7 @@ export interface Honor {
 const honors: Honor[] = [
   {
     title: 'Fully Funded PhD Admission',
-    issuer: 'University of Connecticut',
+    issuer: 'USA · University of Connecticut',
     year: 2025,
     description:
       'Admitted to conduct research on data-science applications in manufacturing.',
