@@ -12,6 +12,12 @@ export const metadata: Metadata = createPageMetadata({
   description: SITE_DESCRIPTION,
   path: '/',
   absoluteTitle: true,
+  image: {
+    url: '/images/homepage-share.jpg',
+    width: 1200,
+    height: 630,
+    alt: `Screenshot of ${AUTHOR_NAME}'s portfolio homepage`,
+  },
 });
 
 export default function HomePage() {

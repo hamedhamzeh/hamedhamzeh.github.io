@@ -23,6 +23,17 @@ describe('page metadata', () => {
     expect(homeMetadata.description).toBe(SITE_DESCRIPTION);
   });
 
+  it('uses a wide homepage screenshot for the homepage share preview', () => {
+    expect(homeMetadata.openGraph?.images).toEqual([
+      {
+        url: '/images/homepage-share.jpg',
+        width: 1200,
+        height: 630,
+        alt: `Screenshot of ${AUTHOR_NAME}'s portfolio homepage`,
+      },
+    ]);
+  });
+
   it.each([
     ['about', aboutMetadata, `${SITE_URL}/about/`],
     ['contact', contactMetadata, `${SITE_URL}/contact/`],
